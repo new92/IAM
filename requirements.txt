@@ -1,0 +1,8 @@
+instagrapi == 1.16.17
+instaloader == 4.9.1
+instapy == 0.6.15
+instabot == 0.117.0
+instagram_private_api == 1.6.0.0
+art == 5.6
+keyboard == 0.13.5
+selenium == 4.1.0
