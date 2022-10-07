@@ -104,7 +104,7 @@ Answers:
     ➡️ And finally the error while setting a specific time to execute an action can be resolved by 
 
 
-## Installation
+## Installation 📥
 
 ### Linux 🐧
 
