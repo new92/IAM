@@ -1,5 +1,4 @@
-
-# IAM
+# IAM 🤖
 
 Instagram Account Manager.
 
@@ -56,12 +55,12 @@ Please adhere to this project's `code of conduct`.
 For more info please check the `CODE_OF_CONDUCT.md` file
 
 
-## Feedback
+## Feedback 
 
 If you have any feedback, please reach out to us at new92github@gmail.com
 
 
-## Features
+## Features 🔜
 
 - GUI
 - Option for increasing followers
@@ -135,7 +134,7 @@ Answers:
   python IAM.py
 ```
     
-## License
+## License 📄
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
