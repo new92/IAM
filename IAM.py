@@ -10,8 +10,8 @@ Will be used only for some functions of the program.
 #Imports
 
 try:
-    import platform
     import sys
+    import platform
     from time import sleep
     from os import system
 
@@ -26,12 +26,10 @@ try:
     import requests as re
     import json as js
     import os
-    import art
     import keyboard as kb
 
 
 
-    from art import tprint
     from datetime import datetime
     from selenium import webdriver
     from bs4 import BeautifulSoup
@@ -40,7 +38,7 @@ try:
 
 
 except ImportError as imp:
-    print("[!] WARNING: Not all modules used in this program have been installed !")
+    print("[!] WARNING: Not all packages used in this program have been installed !")
     sleep(2)
     print("[+] Ignoring Warning...")
     sleep(1)
@@ -50,13 +48,20 @@ except ImportError as imp:
     elif sys.platform == 'darwin':
         system("python -m pip install requirements.txt")
         pass
-    elif sys.platform == 'win32':
+    elif platform.system() == 'Windows':
         system("python -m pip install requirements.txt")
         pass
 
 #Displaying Logo
 
-tprint("IAM", font="tarty1")
+print("""
+██╗░█████╗░███╗░░░███╗
+██║██╔══██╗████╗░████║
+██║███████║██╔████╔██║
+██║██╔══██║██║╚██╔╝██║
+██║██║░░██║██║░╚═╝░██║
+╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝
+""")
 
 #Defs
 
@@ -238,9 +243,9 @@ print("[99] Show program info and exit")
 print("\n")
 print("[0] Exit") 
 print("\n")
-option=int(input("[::] Choose an option: "))
+option=int(input("[::] Please enter the number of the option (from above): "))
 while option < 0 or option > 55 and option != 99 or option == None:
-    print("[!] Invalid option !")
+    print("[!] Invalid number !")
     sleep(2)
     option=int(input("[::] Please enter again: "))
 loader=instaloader.Instaloader()
@@ -285,12 +290,12 @@ else:
     pass
 
 if option == 0:
-    print("[+] Exiting...")
-    exit(0)
+    print("[+] Quiting...")
+    quit(0)
 
 elif option == 99:
     ProgInfo()
-    exit(0)
+    quit(0)
 
 elif option == 1:
     try:
