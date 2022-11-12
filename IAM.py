@@ -12,8 +12,8 @@ Will be used only for some functions of the program.
 try:
     import sys
     import platform
-    from time import sleep
     from os import system
+    from time import sleep
 
 
 
@@ -43,13 +43,13 @@ except ImportError as imp:
     print("[+] Ignoring Warning...")
     sleep(1)
     if sys.platform.startswith('linux'):
-        system("sudo pip3 install -r requirements.txt")
+        system("sudo pip install -r requirements.txt")
         pass
     elif sys.platform == 'darwin':
         system("python -m pip install requirements.txt")
         pass
     elif platform.system() == 'Windows':
-        system("python -m pip install requirements.txt")
+        system("pip3 install -r requirements.txt")
         pass
 
 #Displaying Logo
@@ -64,7 +64,6 @@ print("""
 """)
 
 #Defs
-
 def Get_Hpk(link):
     pk = client.highlight_pk_from_url(link)
     return pk
