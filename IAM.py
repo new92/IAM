@@ -284,12 +284,12 @@ if option != 99:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 else:
     pass
 
 if option == 0:
-    print("[+] Quiting...")
+    print("[+] Exiting...")
     quit(0)
 
 elif option == 99:
@@ -303,14 +303,14 @@ elif option == 1:
         print("\n")
         sleep(1)
         print(id)
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 2:
     try:
@@ -319,14 +319,14 @@ elif option == 2:
         print("\n")
         sleep(1)
         print(sec_info)
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 3:
     try:
@@ -335,28 +335,28 @@ elif option == 3:
         print("\n")
         sleep(1)
         print(AccInfo)
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 4:
     try:
         req_sts = api.friendships_pending()
         sleep(1)
         print(req_sts)
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 5:
     prof_id=loader.check_profile_id(username)
@@ -370,14 +370,14 @@ elif option == 5:
         sleep(3)
         print("[!] Request successful !")
         print(followers)
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 6:
     uid=loader.check_profile_id(username)
@@ -391,14 +391,14 @@ elif option == 6:
         sleep(3)
         print("[!] Request successful !")
         print(following)
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 7:
     uid = loader.check_profile_id(username)
@@ -412,14 +412,14 @@ elif option == 7:
         sleep(3)
         print("[+] Highlights have been saved in a file in the current folder with the name --> "+str(username))
         sleep(3)
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 8:
     count=int(input("[+] Number of accounts (to get their stories): "))
@@ -444,14 +444,14 @@ elif option == 8:
         stories=loader.download_stories(IDS)
         sleep(3)
         print("\n [+] A folder in the current folder has been created with the name --> :stories   containing the stories of the given users")
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 9:
     count=int(input("[?] How many of your saved posts do you want to download ?: "))
@@ -462,14 +462,14 @@ elif option == 9:
     try:
         saved_posts=loader.download_saved_posts(count)
         print("\n [+] A folder in the current directory has been created with the name --> :saved   containing "+str(count)+" posts of your saved posts")
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 10:
     count=int(input("[?] How many posts do you want to download ? "))
@@ -480,14 +480,14 @@ elif option == 10:
     try:
         posts=loader.download_feed_posts(count)
         print("[+] Feed Posts have been saved in a file in the current folder with the name --> :feed")
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 11:
     count=int(input("[::] Please enter the number of posts to post: "))
@@ -576,14 +576,14 @@ elif option == 11:
                 client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
                 sleep(2)
                 print("[!] Photo Uploaded Successfully !")
-                exit(0)
+                quit(0)
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
         else:
             print("[OK]")
             pass
@@ -591,50 +591,50 @@ elif option == 11:
             try:
                 client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
                 print("[!] Photo Uploaded Successfully !")
-                exit(0)
+                quit(0)
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
         elif (tags == "yes" or tags == "YES") and (loc == "no" or loc == "NO"):
             try:
                 client.photo_upload(path=path,caption=caption,tags=TaggedUsers)
                 print("[!] Photo Uploaded Successfully !")
-                exit(0)
+                quit(0)
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
         elif (tags == "no" or tags == "NO") and (loc == "yes" or loc == "YES"):
             try:
                 client.photo_upload(path=path,caption=caption,location=LOCATIONS)
                 print("[!] Photo Uploaded Successfully !")
-                exit(0)
+                quit(0)
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
         elif (tags == "no" or tags == "NO" and loc == "no" or loc == "NO"):
             try:
                 client.photo_upload(path=path,caption=caption)
                 print("[!] Photo Uploaded Successfully !")
-                exit(0)
+                quit(0)
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
 
 elif option == 12:
     username=str(input("[::] Please enter your username: "))
@@ -682,14 +682,14 @@ elif option == 12:
                 client.enable_posts_notifications(uid)
                 sleep(3)
                 print("[!] Posts Notifications for user {} Enabled !".format(username))
-                exit(0)
+                quit(0)
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
         elif action == "reels" or action == "REELS":
             username=input("[::] Please enter your username: ")
             while username == None or len(username) > 30:
@@ -706,14 +706,14 @@ elif option == 12:
                 client.enable_reels_notifications(uid)
                 sleep(3)
                 print("[!] Reels Notifications for user {} Enabled !".format(username))
-                exit(0)
+                quit(0)
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
         elif action == "stories" or action == "STORIES":
             username=str(input("[::] Please enter your username: "))
             while username == None or len(username) > 30:
@@ -735,7 +735,7 @@ elif option == 12:
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
         else:
             username=str(input("[::] Please enter the username: "))
             while username == None or len(username) > 30:
@@ -752,14 +752,14 @@ elif option == 12:
                 client.enable_videos_notifications(uid)
                 sleep(3)
                 print("[!] Videos Notifications for user {} Enabled !".format(username))
-                exit(0)
+                quit(0)
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
 
 elif option == 13:
     path=input("[::] Please enter the full path of the folder which contains your new profile pic: ")
@@ -771,14 +771,14 @@ elif option == 13:
         client.account_change_picture(path)
         sleep(3)
         print("[!] Your profile picture changed successfully !")
-        exit(0)
+        quit(0)
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 14:
     path=input("[::] Please enter the path of the file which contains the photo to be uploaded: ")
@@ -912,482 +912,482 @@ elif option == 14:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
         try:
             client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks != None and AddHash != None:
         try:
             client.photo_upload_to_story(path,caption,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks != None and AddHash != None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS,links=LINKS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash != None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks != None and AddHash != None:
         try:
             client.photo_upload_to_story(path,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks != None and AddHash != None:
         try:
             client.photo_upload_to_story(path,caption,links=LINKS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash != None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,mentions=MENTIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,locations=LOCATIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks != None and AddHash == None:
         try:
             client.photo_upload_to_story(path,links=LINKS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
         try:
             client.photo_upload_to_story(path,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=AddLinks)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
         try:
             client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
         try:
             client.photo_upload_to_story(path,caption,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks != None and AddHash == None:
         try:
             client.photo_upload_to_story(path,mentions=MENTIONS,links=LINKS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks == None and AddHash != None:
         try:
             client.photo_upload_to_story(path,caption,locations=LOCATIONS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=LINKS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
         try:
             client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,mentions=MENTIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,locations=LOCATIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks != None and AddHash == None:
         try:
             client.photo_upload_to_story(path,caption,links=LINKS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
         try:
             client.photo_upload_to_story(path,caption,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
         try:
             client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks != None and AddHash == None:
         try:
             client.photo_upload_to_story(path,mentions=MENTIONS,links=LINKS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks == None and AddHash != None:
         try:
             client.photo_upload_to_story(path,mentions=MENTIONS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks != None and AddHash == None:
         try:
             client.photo_upload_to_story(path,locations=LOCATIONS,links=LINKS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks == None and AddHash != None:
         try:
             client.photo_upload_to_story(path,locations=LOCATIONS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks != None and AddHash != None:
         try:
             client.photo_upload_to_story(path,links=LINKS,hashtags=HASHTAGS)
             sleep(5)
             print("[!] Story uploaded successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 15:
     caption = None
@@ -1466,14 +1466,14 @@ elif option == 15:
         client.video_upload(path,caption,usertags=HASHVID,location=location)
         sleep(5)
         print("[!] Video uploaded successfully !")
-        exit(0)
+        quit(0)
     except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 16:
     count=int(input("[?] How many accounts do you want to follow ? "))
@@ -1505,7 +1505,7 @@ elif option == 16:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     else:
         for i in range(1,count+1):
             username=str(input("[::] Please enter the username No{} :".format(i)))
@@ -1558,7 +1558,7 @@ elif option == 17:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     else:
         for i in range(count):
             username=str(input("[::] Please enter the username: "))
@@ -1592,7 +1592,7 @@ elif option == 18:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 19:
     count=int(input("[::] Please enter the number of the follow requests to remove: "))
@@ -1610,7 +1610,7 @@ elif option == 19:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 20:
     count=int(input("[::] Please enter the amount of users to follow:  "))
@@ -1640,7 +1640,7 @@ elif option == 20:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 21:
     count=int(input("[::] Please enter the amount of users to follow: "))
@@ -1674,7 +1674,7 @@ elif option == 21:
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
 
 elif option == 22:
     count=int(input("[?] How many messages do you want to send ? "))
@@ -1716,7 +1716,7 @@ elif option == 22:
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
 
 elif option == 23:
     path=str(input("[::] Please enter the path of the folder which contains the file: "))
@@ -1752,7 +1752,7 @@ elif option == 23:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 24:
     path=input("[::] Please enter the path of the folder which contains the photo: ")
@@ -1788,7 +1788,7 @@ elif option == 24:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 25:
     path=input("[::] Please enter the path of the folder which contains the video: ")
@@ -1824,7 +1824,7 @@ elif option == 25:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 26:
     count=int(input("[::] Please enter the number of hashtags to like their posts: "))
@@ -1864,7 +1864,7 @@ elif option == 26:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 27:
     countu=int(input("[::] Please enter the number of accounts to like their posts: "))
@@ -1894,7 +1894,7 @@ elif option == 27:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     else:
         for i in range(1,countu+1):
             username=str(input("[::] Please enter the username No{} : ".format(i)))
@@ -1913,7 +1913,7 @@ elif option == 27:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 28:
     rand=str(input("[?] Do you want to like the posts with random order ? [yes/no] "))
@@ -1957,7 +1957,7 @@ elif option == 28:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 29:
     print("Getting in option 29")
@@ -1990,7 +1990,7 @@ elif option == 29:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     else:
         rand=str(input("[?] Do you want to like them with random order ? [yes/no] "))
         while (rand != "yes" and rand != "YES" and rand != "no" and rand != "NO") or (rand == None):
@@ -2016,7 +2016,7 @@ elif option == 29:
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
 
 elif option == 30:
     amo=int(input("[::] Please enter the amount of posts to like: "))
@@ -2059,7 +2059,7 @@ elif option == 31:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 32:
     com=str(input("[::] Please enter your comment: "))
@@ -2096,7 +2096,7 @@ elif option == 32:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 33:
     count=int(input("[::] Please enter the number of users to block: "))
@@ -2127,7 +2127,7 @@ elif option == 33:
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
     else:
         for i in range(1,count+1):
             username=str(input("[::] Please enter the username No"+str(i)+" : "))
@@ -2152,7 +2152,7 @@ elif option == 33:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 34:
     id=int(input("[::] Please enter the ID of the user: "))
@@ -2168,7 +2168,7 @@ elif option == 34:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 35:
     try:
@@ -2182,7 +2182,7 @@ elif option == 35:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 36:
     counti=int(input("[::] How many highlights do you want to create ? "))
@@ -2218,7 +2218,7 @@ elif option == 36:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     else:
         for i in range(counti):
             title=str(input("[::] Please enter the title of the highlight: "))
@@ -2248,7 +2248,7 @@ elif option == 36:
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
 
 elif option == 37:
     count=int(input("[::] How many highlights do you want to delete ? "))
@@ -2272,7 +2272,7 @@ elif option == 37:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     else:
         for i in range(count):
             hid=int(input("[::] Please enter the highlight ID: "))
@@ -2290,7 +2290,7 @@ elif option == 37:
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
 
 elif option == 38:
     count=int(input("[::] How many covers of highlights do you want to change ? "))
@@ -2327,7 +2327,7 @@ elif option == 38:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     else:
         for i in range(count):
             url=input("[::] Please enter the url for the highlight: ")
@@ -2358,7 +2358,7 @@ elif option == 38:
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
 
 elif option == 39:
     countu=int(input("[::] From how many users you want to display their highlights ? "))
@@ -2391,7 +2391,7 @@ elif option == 39:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     else:
         for i in range(countu):
             username=str(input("[::] Please enter the username: "))
@@ -2418,7 +2418,7 @@ elif option == 39:
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
 
 elif option == 40:
     counti=int(input("[::] From how many highlights do you want to retrieve information ? "))
@@ -2448,7 +2448,7 @@ elif option == 40:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
     else:
         for i in range(counti):
             url=input("[::] Please enter the url for the highlight: ")
@@ -2472,7 +2472,7 @@ elif option == 40:
                 print(ex)
                 sleep(2)
                 print("[+] Exiting...")
-                exit(0)
+                quit(0)
 
 elif option == 41:
     url=input("[::] Please enter the url of the story: ")
@@ -2496,7 +2496,7 @@ elif option == 41:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 42:
     url=input("[::] Please enter the url of the story: ")
@@ -2523,7 +2523,7 @@ elif option == 42:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 43:
     count=int(input("[::] Please specify the number of hashtags: "))
@@ -2548,7 +2548,7 @@ elif option == 43:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 44:
     count=int(input("[::] Please specify the number of users: "))
@@ -2579,7 +2579,7 @@ elif option == 44:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 45:
     url=input("[::] Please enter the url of the story: ")
@@ -2603,7 +2603,7 @@ elif option == 45:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 46:
     print("[+] Countries example: US, BR, CZ")
@@ -2630,7 +2630,7 @@ elif option == 46:
            print(ex)
            sleep(2)
            print("[+] Exiting...")
-           exit(0)
+           quit(0)
     else:
         country_name=str(input("[::] Please enter the country: "))
         while country_name == None:
@@ -2647,7 +2647,7 @@ elif option == 46:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 47:
     bio=str(input("[::] Please enter the bio to set: "))
@@ -2665,7 +2665,7 @@ elif option == 47:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 48:
     username=str(input("[::] Please enter your username: "))
@@ -2685,7 +2685,7 @@ elif option == 48:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 49:
     username=str(input("[::] Please enter the username: "))
@@ -2711,7 +2711,7 @@ elif option == 49:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 50:
     username=str(input("[::] Please enter your username: "))
@@ -2729,7 +2729,7 @@ elif option == 50:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 51:
     set_first_name=str(input("[?] Do you want to set a first name ? [yes/no] "))
@@ -2820,7 +2820,7 @@ elif option == 51:
         print(ex)
         sleep(2)
         print("[+] Exiting...")
-        exit(0)
+        quit(0)
 
 elif option == 52:
     count=int(input("[::] How many posts do you want to like/unlike ? "))
@@ -2846,7 +2846,7 @@ elif option == 52:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 53:
     count=int(input("[::] Please enter the number of deletes to make: "))
@@ -2875,7 +2875,7 @@ elif option == 53:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 54:
     count=int(input("[::] Please enter the number of the posts to save: "))
@@ -2902,7 +2902,7 @@ elif option == 54:
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
 elif option == 55:
     __time__=str(input("[::] Please enter the time (example: 15:06:10): "))
@@ -3007,14 +3007,14 @@ elif option == 55:
                         client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
                         sleep(2)
                         print("[!] Photo Uploaded Successfully !")
-                        exit(0)
+                        quit(0)
                     except Exception as ex:
                         print("[!] Error !")
                         sleep(1)
                         print(ex)
                         sleep(2)
                         print("[+] Exiting...")
-                        exit(0)
+                        quit(0)
                 else:
                     print("[+] Current time: "+str(current_time))
                     sleep(1)
@@ -3028,14 +3028,14 @@ elif option == 55:
                     try:
                         client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
                         print("[!] Photo Uploaded Successfully !")
-                        exit(0)
+                        quit(0)
                     except Exception as ex:
                         print("[!] Error !")
                         sleep(1)
                         print(ex)
                         sleep(2)
                         print("[+] Exiting...")
-                        exit(0)
+                        quit(0)
                 else:
                     print("[+] Current time: "+str(current_time))
                     sleep(1)
@@ -3046,14 +3046,14 @@ elif option == 55:
                     try:
                         client.photo_upload(path=path,caption=caption,tags=TaggedUsers)
                         print("[!] Photo Uploaded Successfully !")
-                        exit(0)
+                        quit(0)
                     except Exception as ex:
                         print("[!] Error !")
                         sleep(1)
                         print(ex)
                         sleep(2)
                         print("[+] Exiting...")
-                        exit(0)
+                        quit(0)
                 else:
                     print("[+] Current time: "+str(current_time))
                     sleep(1)
@@ -3064,14 +3064,14 @@ elif option == 55:
                     try:
                         client.photo_upload(path=path,caption=caption,location=LOCATIONS)
                         print("[!] Photo Uploaded Successfully !")
-                        exit(0)
+                        quit(0)
                     except Exception as ex:
                         print("[!] Error !")
                         sleep(1)
                         print(ex)
                         sleep(2)
                         print("[+] Exiting...")
-                        exit(0)
+                        quit(0)
                 else:
                     print("[+] Current time: "+str(current_time))
                     sleep(1)
@@ -3082,14 +3082,14 @@ elif option == 55:
                     try:
                         client.photo_upload(path=path,caption=caption)
                         print("[!] Photo Uploaded Successfully !")
-                        exit(0)
+                        quit(0)
                     except Exception as ex:
                         print("[!] Error !")
                         sleep(1)
                         print(ex)
                         sleep(2)
                         print("[+] Exiting...")
-                        exit(0)
+                        quit(0)
                 else:
                     print("[+] Current time: "+str(current_time))
                     sleep(1)
@@ -3106,14 +3106,14 @@ elif option == 55:
             client.account_change_picture(path)
             sleep(3)
             print("[!] Your profile picture changed successfully !")
-            exit(0)
+            quit(0)
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
             print(ex)
             sleep(2)
             print("[+] Exiting...")
-            exit(0)
+            quit(0)
 
     elif action == 3:
         path=input("[::] Please enter the path of the file which contains the photo to be uploaded: ")
@@ -3248,14 +3248,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3267,14 +3267,14 @@ elif option == 55:
                     client.photo_upload_to_story(path)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3286,14 +3286,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3305,14 +3305,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3324,14 +3324,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS,links=LINKS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3343,14 +3343,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3362,14 +3362,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3381,14 +3381,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3400,14 +3400,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,links=LINKS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3419,14 +3419,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3438,14 +3438,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3457,14 +3457,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3476,14 +3476,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,mentions=MENTIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3495,14 +3495,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,locations=LOCATIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3514,14 +3514,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,links=LINKS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3533,14 +3533,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3552,14 +3552,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3571,14 +3571,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3590,14 +3590,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=AddLinks)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3609,14 +3609,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3628,14 +3628,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3647,14 +3647,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,mentions=MENTIONS,links=LINKS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3666,14 +3666,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,locations=LOCATIONS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3685,14 +3685,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3704,14 +3704,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3723,14 +3723,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=LINKS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3742,14 +3742,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3761,14 +3761,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,mentions=MENTIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3780,14 +3780,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,locations=LOCATIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3799,14 +3799,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,links=LINKS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3818,14 +3818,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,caption,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3837,14 +3837,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3856,14 +3856,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,mentions=MENTIONS,links=LINKS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3875,14 +3875,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,mentions=MENTIONS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3894,14 +3894,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,locations=LOCATIONS,links=LINKS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3913,14 +3913,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,locations=LOCATIONS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -3932,14 +3932,14 @@ elif option == 55:
                     client.photo_upload_to_story(path,links=LINKS,hashtags=HASHTAGS)
                     sleep(5)
                     print("[!] Story uploaded successfully !")
-                    exit(0)
+                    quit(0)
                 except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -4024,14 +4024,14 @@ elif option == 55:
                 client.video_upload(path,caption,usertags=HASHVID,location=location)
                 sleep(5)
                 print("[!] Video uploaded successfully !")
-                exit(0)
+                quit(0)
             except Exception as ex:
                     print("[!] Error !")
                     sleep(1)
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
         else:
             print("[+] Current time: "+str(current_time))
             sleep(1)
@@ -4069,7 +4069,7 @@ elif option == 55:
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 print("[+] Current time: "+str(current_time))
                 sleep(1)
@@ -4135,7 +4135,7 @@ elif option == 55:
                     print(ex)
                     sleep(2)
                     print("[+] Exiting...")
-                    exit(0)
+                    quit(0)
             else:
                 for i in range(count):
                     username=str(input("[::] Please enter the username: "))
