@@ -42,7 +42,7 @@ except ImportError as imp:
     sleep(2)
     print("[+] Ignoring Warning...")
     sleep(1)
-    if sys.platform.startswith('linux'):
+    if sys.platform.startswith('linux') == True:
         system("sudo pip install -r requirements.txt")
         pass
     elif sys.platform == 'darwin':
@@ -65,12 +65,10 @@ print("""
 
 #Defs
 def Get_Hpk(link):
-    pk = client.highlight_pk_from_url(link)
-    return pk
+    return client.highlight_pk_from_url(link)
 
 def Get_Spk(link):
-    pk = client.story_pk_from_url(link)
-    return pk
+    return client.story_pk_from_url(link)
 
 def Av_Acts():
     actions = """
@@ -119,7 +117,19 @@ def ProgInfo():
     print("[+] Programmed with ==> "+str(__programmedwith__))
     print("[+] Language ==> "+str(__language__))
 
+def checkUser(username):
+    return username == None or len(username) > 30
+
+def GetID(username):
+    return loader.check_profile_id(username)
+
+def checkID(id):
+    return id == None or len(id) < 3
+
 #Lists
+
+ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES"]
+NANS = ["no","NO","No","n","N","nO"]
 
 TaggedUsers=[]
 Location=[]
@@ -161,7 +171,7 @@ random = None
 sktp = None
 count = 0
 
-#Main Program
+#Main program
 
 print("\n")
 print("[+] IAM: Instagram Account Manager")
@@ -238,24 +248,26 @@ print("[54] Save/Unsave (post(s), reel(s), igtv(s) etc.)")
 print("\n")
 print("[55] Set a specific time (from the current day) to execute an action")
 print("\n")
+print("[56] Hide your stories from a specific user")
+print("\n")
 print("[99] Show program info and exit")
 print("\n")
 print("[0] Exit") 
 print("\n")
 option=int(input("[::] Please enter the number of the option (from above): "))
-while option < 0 or option > 55 and option != 99 or option == None:
+while option < 0 or option > 56 and option != 99 or option == None:
     print("[!] Invalid number !")
     sleep(2)
     option=int(input("[::] Please enter again: "))
 loader=instaloader.Instaloader()
 client=instagrapi.Client()
-bot = instabot.Bot()
+bot=instabot.Bot()
 if option != 99:
     print("\n")
     print("|--------------------|LOGIN|--------------------|")
     print("\n")
     username=str(input("[::] Please enter your username: "))
-    while username == None or len(username) > 30:
+    while checkUser(username):
         print("[!] Sorry invalid username !")
         sleep(2)
         username=str(input("[::] Please enter again your username: "))
@@ -279,7 +291,7 @@ if option != 99:
         logini = instapy.InstaPy(username,password)
         api = instagram_private_api.Client(username,password)
     except Exception as ex:
-        print("[!] Error !")
+        print("[!] Login Error !")
         sleep(1)
         print(ex)
         sleep(2)
@@ -299,10 +311,7 @@ elif option == 99:
 elif option == 1:
     try:
         id=loader.check_profile_id(username)
-        print("[+] Your ID: ")
-        print("\n")
-        sleep(1)
-        print(id)
+        print("[+] Your ID: "+str(id))
         quit(0)
     except Exception as ex:
         print("[!] Error !")
@@ -315,10 +324,7 @@ elif option == 1:
 elif option == 2:
     try:
         sec_info=client.account_security_info()
-        print("[+] Your security information: ")
-        print("\n")
-        sleep(1)
-        print(sec_info)
+        print("[+] Your security information: "+str(sec_info))
         quit(0)
     except Exception as ex:
         print("[!] Error !")
@@ -331,10 +337,7 @@ elif option == 2:
 elif option == 3:
     try:
         AccInfo=client.account_info()
-        print("[+] Your account information: ")
-        print("\n")
-        sleep(1)
-        print(AccInfo)
+        print("[+] Your account information: "+str(AccInfo))
         quit(0)
     except Exception as ex:
         print("[!] Error !")
@@ -361,7 +364,7 @@ elif option == 4:
 elif option == 5:
     prof_id=loader.check_profile_id(username)
     id=int(input("[::] Please enter your id as shown above: "))
-    while id == None:
+    while checkID(id) == None:
         print("[!] Invalid ID !")
         sleep(1)
         id=int(input("[::] Please enter again your ID as shown above: "))
@@ -382,7 +385,7 @@ elif option == 5:
 elif option == 6:
     uid=loader.check_profile_id(username)
     id=int(input("[::] Please enter your id (as shown above): "))
-    while id == None or len(id) < 3:
+    while checkID(id):
         print("[!] Invalid ID !")
         sleep(1)
         id1=input("[::] Please enter again your id (as shown above): ")
@@ -401,9 +404,9 @@ elif option == 6:
         quit(0)
 
 elif option == 7:
-    uid = loader.check_profile_id(username)
+    print(GetID(username))
     id=int(input("[::] Please enter your id as shown above: "))
-    while id == None or len(id) < 3:
+    while checkID(id):
         print("[!] Invalid ID !")
         sleep(1)
         id=int(input("[::] Please enter again your id as shown above: "))
@@ -424,26 +427,26 @@ elif option == 7:
 elif option == 8:
     count=int(input("[+] Number of accounts (to get their stories): "))
     while count == None or count <= 0:
-        print("[!] Invalid Number !")
+        print("[!] Invalid number !")
         sleep(1)
-        count=int(input("[::] Please enter the number of accounts (to get their stories): "))
+        count=int(input("[::] Please enter again the number of accounts (to get their stories): "))
     for i in range(count):
         username=str(input("[::] Please enter the username: "))
-        while username == None or len(username) > 30:
-            print("[!] Invalid Username !")
+        while checkUser(username):
+            print("[!] Invalid username !")
             sleep(1)
             username=input("[::] Please enter again the username: ")
-        user_id=loader.check_profile_id(username)
+        print(GetID(username))
         id=int(input("[::] Please enter the ID as shown above: "))
-        while id == None or len(id) < 3:
+        while checkID(id):
             print("[!] Invalid ID !")
             sleep(1)
-            usid=int(input("[::] Please enter again the ID as shown above: "))
-        IDS.append(user_id)
+            id=int(input("[::] Please enter again the ID as shown above: "))
+        IDS.append(id)
     try:
         stories=loader.download_stories(IDS)
-        sleep(3)
-        print("\n [+] A folder in the current folder has been created with the name --> :stories   containing the stories of the given users")
+        sleep(2)
+        print("\n[+] A folder in the current folder has been created with the name --> :stories   containing the stories of the given users")
         quit(0)
     except Exception as ex:
         print("[!] Error !")
@@ -454,14 +457,14 @@ elif option == 8:
         quit(0)
 
 elif option == 9:
-    count=int(input("[?] How many of your saved posts do you want to download ?: "))
+    count=int(input("[?] How many of your saved posts do you want to download ? (enter a number) "))
     while count <= 0 or count == None:
-        print("[!] Invalid Number !")
+        print("[!] Invalid number !")
         sleep(1)
-        count=int(input("[?] How many of your saved posts do you want to download ?: "))
+        count=int(input("[?] How many of your saved posts do you want to download ? (enter a number) "))
     try:
         saved_posts=loader.download_saved_posts(count)
-        print("\n [+] A folder in the current directory has been created with the name --> :saved   containing "+str(count)+" posts of your saved posts")
+        print("\n[+] A folder in the current directory has been created with the name --> :saved   containing "+str(count)+" posts of your saved posts")
         quit(0)
     except Exception as ex:
         print("[!] Error !")
@@ -472,14 +475,14 @@ elif option == 9:
         quit(0)
 
 elif option == 10:
-    count=int(input("[?] How many posts do you want to download ? "))
+    count=int(input("[?] How many posts do you want to download ? (enter a number) "))
     while count <= 0 or count == None:
-        print("[!] Invalid Number !")
+        print("[!] Invalid number !")
         sleep(1)
         count=int(input("[?] How many posts do you want to download ? "))
     try:
         posts=loader.download_feed_posts(count)
-        print("[+] Feed Posts have been saved in a file in the current folder with the name --> :feed")
+        print("[+] Feed posts have been saved in a file in the current folder with the name --> :feed")
         quit(0)
     except Exception as ex:
         print("[!] Error !")
@@ -496,58 +499,57 @@ elif option == 11:
         sleep(1)
         count=int(input("[::] Please enter again the number of posts to post: "))
     for i in range(count):
-        path=input("[::] Please enter the path of the file which contains the photo to be uploaded: ")
-        while (path == None) or ("/" not in path):
-            print("[!] Invalid Path !")
+        path=str(input("[::] Please enter the path to the photo to be uploaded: "))
+        while path == None or "/" not in path or "\\" not in path:
+            print("[!] Invalid path !")
             sleep(1)
-            path=input("[::] Please enter again the path of the file which contains the photo to be uploaded: ")
+            path=str(input("[::] Please enter again the path to the photo to be uploaded: "))
         sleep(2)
         print(">>>CAPTION<<<")
         sleep(1)
         print("[+] Default: Check out my new post !")
         sleep(2)
-        print("[+] Hit <Enter> for the default option to be applied")
+        print("[+] Hit <Tab> and <Enter> for the default option to be applied")
         sleep(2)
         caption=str(input("[::] Please enter the caption: "))
-        if caption == None:
-            caption = "New Post !"
+        if caption == "\t":
+            caption = "Check out my new post !"
         print(">>>TAGS<<<")
         sleep(2)
         print("[+] Default: [no]")
         sleep(2)
-        print("[+] Hit <Space> and <Enter> to Apply the Default Option")
+        print("[+] Hit <Tab> and <Enter> to apply the default option")
         sleep(2)
         tags=input("[?] Do you want to include other users to your post by tagging them ? [yes/no] ")
-        while (tags != "yes" and tags != "YES" and tags != "no" and tags != "NO") or (tags == None):
-            print("[!] Invalid Input !")
+        while tags not in ANS and tags not in NANS or tags == None:
+            print("[!] Invalid input !")
             sleep(1)
             tags=input("[?] Do you want to include other users to your post by tagging them ? [yes/no] ")
-        if tags == "yes" or tags == "YES":
+        if tags in ANS:
             print("[+] Default: 1")
             sleep(2)
-            print("[+] Hit <Space> and <Enter> to Apply the Default Option")
-            count=int(input("[?] How many users do you want to include ? "))
+            print("[+] Hit <Tab> and <Enter> to Apply the Default Option")
+            count=input("[?] How many users do you want to include ? ")
+            if count == "\t":
+                username=str(input("[::] Please enter the username: "))
+                while checkUser(username):
+                    print("[!] Invalid username !")
+                    sleep(2)
+                    username=str(input("[::] Please enter again the username: "))
             while count <= 0 or count == None:
                 print("[!] Invalid Number !")
                 sleep(1)
                 count=int(input("[?] How many users do you want to tag ? "))
-            utag=input("[::] Please enter the username: ")
-            while utag == None or len(utag) > 30:
-                print("[!] Invalid username !")
-                sleep(1)
-                utag=input("[::] Please enter again the username: ")
-            utag = utag.strip()
-            utag = utag.lower()
-            TaggedUsers.append(utag)
-            for i in range(1,count+1):
-                utag=input("[::] Please enter the username No{}: ".format(i))
-                while utag == None or len(utag) > 30:
-                    print("[!] Invalid username !")
-                    sleep(1)
-                    utag=input("[::] Please enter again the username No{}: ".format(i))
-                utag = utag.strip()
-                utag = utag.lower()
-                TaggedUsers.append(utag)
+            else:
+                for i in range(1,count+1):
+                    utag=input("[::] Please enter the username No{}: ".format(i))
+                    while utag == None or len(utag) > 30:
+                        print("[!] Invalid username !")
+                        sleep(1)
+                        utag=input("[::] Please enter again the username No{}: ".format(i))
+                    utag = utag.strip()
+                    utag = utag.lower()
+                    TaggedUsers.append(utag)
         else:
             print("[OK]")
             pass
@@ -555,27 +557,27 @@ elif option == 11:
         sleep(2)
         print("[+] Default: [no]")
         sleep(1)
-        print("[+] Hit <Enter> to Apply the Default Option")
+        print("[+] Hit <Tab> and <Enter> to Apply the Default Option")
         sleep(2)
-        loc=input("[?] Do you want to include location(s) ? [yes/no] ")
-        while (loc != "yes" and loc != "YES" and loc != "no" and loc != "NO") or (loc == None):
-            print("[!] Invalid Input !")
+        loc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
+        while loc not in ANS and loc not in NANS or loc == None:
+            print("[!] Invalid input !")
             sleep(1)
-            loc=input("[?] Do you want to include location(s) ? [yes/no] ")
-        if loc == "Y" or loc == "y":
-            count=int(input("[?] How many ? "))
+            loc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
+        if loc in ANS:
+            count=int(input("[?] How many ? (enter a number) "))
             while count <= 0 or count == None:
-                print("[!] Invalid Number !")
+                print("[!] Invalid number !")
                 sleep(1)
-                count=int(input("[?] How many locations do you want to include ? "))
-            for i in range(1,count+1):
-               location1=input("[::] Please enter location No"+str(i)+": ")
-               LOCATIONS.append(location1)
-               print("[!] Location Added Successfully !")
+                count=int(input("[?] How many locations do you want to include ? (enter a number) "))
+            for i in range(count):
+               location=str(input("[::] Please enter location No"+str(i+1)+": "))
+               LOCATIONS.append(location)
+               print("[!] Location added successfully !")
             try:
                 client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
                 sleep(2)
-                print("[!] Photo Uploaded Successfully !")
+                print("[!] Photo uploaded successfully !")
                 quit(0)
             except Exception as ex:
                 print("[!] Error !")
@@ -587,10 +589,10 @@ elif option == 11:
         else:
             print("[OK]")
             pass
-        if (tags == "yes" or tags == "YES") and (loc == "yes" or loc == "YES"):
+        if tags in ANS and loc in ANS:
             try:
                 client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
-                print("[!] Photo Uploaded Successfully !")
+                print("[!] Photo uploaded successfully !")
                 quit(0)
             except Exception as ex:
                 print("[!] Error !")
@@ -599,10 +601,10 @@ elif option == 11:
                 sleep(2)
                 print("[+] Exiting...")
                 quit(0)
-        elif (tags == "yes" or tags == "YES") and (loc == "no" or loc == "NO"):
+        elif tags in ANS and loc in NANS:
             try:
                 client.photo_upload(path=path,caption=caption,tags=TaggedUsers)
-                print("[!] Photo Uploaded Successfully !")
+                print("[!] Photo uploaded successfully !")
                 quit(0)
             except Exception as ex:
                 print("[!] Error !")
@@ -611,10 +613,10 @@ elif option == 11:
                 sleep(2)
                 print("[+] Exiting...")
                 quit(0)
-        elif (tags == "no" or tags == "NO") and (loc == "yes" or loc == "YES"):
+        elif tags in NANS and loc in ANS:
             try:
                 client.photo_upload(path=path,caption=caption,location=LOCATIONS)
-                print("[!] Photo Uploaded Successfully !")
+                print("[!] Photo uploaded successfully !")
                 quit(0)
             except Exception as ex:
                 print("[!] Error !")
@@ -623,10 +625,10 @@ elif option == 11:
                 sleep(2)
                 print("[+] Exiting...")
                 quit(0)
-        elif (tags == "no" or tags == "NO" and loc == "no" or loc == "NO"):
+        elif tags in NANS and loc in NANS:
             try:
                 client.photo_upload(path=path,caption=caption)
-                print("[!] Photo Uploaded Successfully !")
+                print("[!] Photo uploaded successfully !")
                 quit(0)
             except Exception as ex:
                 print("[!] Error !")
@@ -638,20 +640,20 @@ elif option == 11:
 
 elif option == 12:
     username=str(input("[::] Please enter your username: "))
-    while username == None or len(username) > 30:
+    while checkUser(username):
         print("[!] Invalid username !")
         sleep(2)
-        username=str(input("[::] Please enter again the username: "))
+        username=str(input("[::] Please enter again your username: "))
         username=username.lower()
         username=username.strip()
-    endis=input("[?] Do you want to enable or disable your notifications ? [enable/disable] ")
-    while (endis != "enable" and endis != "ENABLE" and endis != "disable" and endis != "DISABLE") or (endis == None):
+    endis=str(input("[?] Do you want to enable or disable your notifications ? [enable/disable] "))
+    while endis != "enable" and endis != "ENABLE" and endis != "disable" and endis != "DISABLE" or endis == None:
         print("[!] Invalid option !")
         sleep(1)
         endis=input("[?] Do you want to enable or disable your notifications ? [enable/disable] ")
     if endis == "enable" or endis == "ENABLE":
         username=str(input("[::] Please enter your username: "))
-        while username == None or len(username) > 30:
+        while checkUser(username):
             print("[!] Invalid username !")
             sleep(1)
             username=str(input("[::] Please enter again your username: "))
@@ -661,27 +663,27 @@ elif option == 12:
         sleep(2)
         action=input("[?] Which notifications do you want to enable ?")
         while (action != "posts" and action != "POSTS" and action != "reels" and action != "REELS" and action != "stories" and action != "STORIES" and action != "videos" and action != "VIDEOS") or (action == None):
-            print("[!] Invalid Notification !")
+            print("[!] Invalid notification !")
             sleep(1)
             print("[+] Notifications available for: [posts/reels/stories/videos]")
             sleep(2)
             action=input("[?] Please enter again the notifications to enable: ")
         if action == "posts" or action == "POSTS":
-            username=input("[::] Please enter your username: ")
-            while username == None or len(username) > 30:
-                print("[!] Invalid Username !")
+            username=str(input("[::] Please enter your username: "))
+            while checkUser(username):
+                print("[!] Invalid username !")
                 sleep(1)
-                username=input("[::] Please enter again your username: ")
-            username_id = loader.check_profile_id(user)
+                username=str(input("[::] Please enter again your username: "))
+            print(GetID(username))
             uid=int(input("[::] Please enter the ID as shown above: "))
-            while uid == None or uid <= 0:
+            while checkID(uid):
                 print("[!] Invalid ID !")
                 sleep(1)
                 uid=int(input("[::] Please enter again the ID as shown above: "))
             try:
                 client.enable_posts_notifications(uid)
                 sleep(3)
-                print("[!] Posts Notifications for user {} Enabled !".format(username))
+                print("[!] Posts notifications enabled !")
                 quit(0)
             except Exception as ex:
                 print("[!] Error !")
@@ -692,20 +694,20 @@ elif option == 12:
                 quit(0)
         elif action == "reels" or action == "REELS":
             username=input("[::] Please enter your username: ")
-            while username == None or len(username) > 30:
-                    print("[!] Invalid Username !")
+            while checkUser(username):
+                    print("[!] Invalid username !")
                     sleep(1)
                     username=input("[::] Please enter again your username: ")
-            username_id = loader.check_profile_id(username)
-            uid=int(input("[::] Please enter the ID as shown above: "))
-            while uid == None or uid <= 0:
+            print(GetID(username))
+            uid=int(input("[::] Please enter your ID as shown above: "))
+            while checkID(uid):
                 print("[!] Invalid ID !")
                 sleep(1)
-                uid=int(input("[::] Please enter again the ID as shown above: "))
+                uid=int(input("[::] Please enter again your ID as shown above: "))
             try:
                 client.enable_reels_notifications(uid)
                 sleep(3)
-                print("[!] Reels Notifications for user {} Enabled !".format(username))
+                print("[!] Reels notifications enabled !")
                 quit(0)
             except Exception as ex:
                 print("[!] Error !")
@@ -716,19 +718,19 @@ elif option == 12:
                 quit(0)
         elif action == "stories" or action == "STORIES":
             username=str(input("[::] Please enter your username: "))
-            while username == None or len(username) > 30:
-                print("[!] Invalid Username !")
+            while checkUser(username):
+                print("[!] Invalid username !")
                 sleep(1)
                 username=str(input("[::] Please enter again your username: "))
-            username_id = loader.check_profile_id(username)
+            print(GetID(username))
             uid=int(input("[::] Please enter the ID as shown above: "))
-            while uid == None:
+            while checkID(uid):
                     print("[!] Invalid ID !")
                     sleep(1)
                     uid=int(input("[::] Please enter again the ID as shown above: "))
             try:
                 client.enable_stories_notifications(uid)
-                print("[!] Stories Notifications for user {} Enabled !".format(username))
+                print("[!] Stories notifications enabled !")
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
@@ -737,21 +739,21 @@ elif option == 12:
                 print("[+] Exiting...")
                 quit(0)
         else:
-            username=str(input("[::] Please enter the username: "))
-            while username == None or len(username) > 30:
-                print("[!] Invalid Username !")
+            username=str(input("[::] Please enter your username: "))
+            while checkUser(username):
+                print("[!] Invalid username !")
                 sleep(1)
-                username=str(input("[::] Please enter again the username: "))
-            username_id = loader.check_profile_id(username)
-            uid0=int(input("[::] Please enter the ID as shown above: "))
-            while uid == None or uid <= 0:
+                username=str(input("[::] Please enter again your username: "))
+            print(GetID(username))
+            uid=int(input("[::] Please enter your ID as shown above: "))
+            while checkID(uid):
                 print("[!] Invalid ID !")
                 sleep(1)
-                uid=int(input("[::] Please enter again the ID as shown above: "))
+                uid=int(input("[::] Please enter again your ID as shown above: "))
             try:
                 client.enable_videos_notifications(uid)
                 sleep(3)
-                print("[!] Videos Notifications for user {} Enabled !".format(username))
+                print("[!] Video notifications enabled !")
                 quit(0)
             except Exception as ex:
                 print("[!] Error !")
@@ -762,11 +764,11 @@ elif option == 12:
                 quit(0)
 
 elif option == 13:
-    path=input("[::] Please enter the full path of the folder which contains your new profile pic: ")
-    while (path == None) or ("/" not in path):
-        print("[!] Invalid Path !")
+    path=str(input("[::] Please enter the path of the photo for your new profile picture: "))
+    while path == None or "/" not in path or "\\" not in path:
+        print("[!] Invalid path !")
         sleep(1)
-        path=input("[::] Please enter again the full path of the folder which contains your new profile pic: ")
+        path=str(input("[::] Please enter again the path of the photo for your new profile picture: "))
     try:
         client.account_change_picture(path)
         sleep(3)
@@ -781,53 +783,50 @@ elif option == 13:
         quit(0)
 
 elif option == 14:
-    path=input("[::] Please enter the path of the file which contains the photo to be uploaded: ")
-    while (path == None) or ("/" not in path):
-        print("[!] Invalid Path !")
+    path=str(input("[::] Please enter the path to the photo to be uploaded: "))
+    while path == None or "/" not in path or "\\" not in path:
+        print("[!] Invalid path !")
         sleep(1)
-        path=input("[::] Please enter again the path of the file which contains the photo to be uploaded: ")
+        path=str(input("[::] Please enter again the path to the photo to be uploaded: "))
     AddCaption=str(input("[?] Do you want to add caption ? [yes/no] "))
-    while (AddCaption != "yes" and AddCaption != "YES" and AddCaption != "no" and AddCaption != "NO") or (AddCaption == None):
-        print("[!] Invalid Input !")
+    while AddCaption not in ANS and AddCaption not in NANS or AddCaption == None:
+        print("[!] Invalid input !")
         sleep(1)
         AddCaption=str(input("[?] Do you want to add caption ? [yes/no] "))
-    if AddCaption == "yes" or AddCaption =="YES":
+    if AddCaption in ANS:
         print("[+] Default: Check out my new story !")
         sleep(2)
-        print("[+] Hit <Enter> for the default option to be applied")
+        print("[+] Hit <Tab> and <Enter> for the default option to be applied")
         sleep(2)
         caption=str(input("[::] Please enter the caption: "))
-        if caption == None:
+        if caption == "\t":
             caption = "Check out my new story !"
-            pass
         else:
-            caption=str(input("[::] Please enter a caption to include to the story: "))
+            caption=str(input("[::] Please enter a caption to include to your story: "))
             while caption == None:
-                print("[!] Invalid Caption !")
+                print("[!] Invalid caption !")
                 sleep(1)
-                caption=str(input("[::] Please enter again a caption to include to the story: "))
+                caption=str(input("[::] Please enter again a caption to include to your story: "))
     else:
         print("[OK]")
-        sleep(1)
-        pass
     AddMention=str(input("[?] Do you want to add mention ? [yes/no] "))
-    while (AddMention != "yes" and AddMention != "YES" and AddMention != "no" and AddMention != "NO") or (AddMention == None):
-        print("[!] Invalid Mention !")
+    while AddMention not in ANS and AddMention not in NANS or AddMention == None:
+        print("[!] Invalid input !")
         sleep(1)
-        mention=str(input("[?] Do you want to mention user(s) ? [yes/no] "))
-    if AddMention == "yes" or AddMention == "YES":
+        mention=str(input("[?] Do you want to mention other user(s) ? [yes/no] "))
+    if AddMention in ANS:
         MENTIONS = []
-        count=int(input("[?] How many ? "))
+        count=int(input("[?] How many ? (enter a number) "))
         while count <= 0 or count == None:
-            print("[!] Invalid Input !")
+            print("[!] Invalid number !")
             sleep(1)
-            count=int(input("[?] How many ? "))
-        for i in range(1,count+1):
-            mention=str(input("[::] Please enter the username No{}: ".format(i)))
-            while mention == None or len(mention) > 30:
-                print("[!] Invalid Username !")
+            count=int(input("[?] How many ? (enter a number) "))
+        for i in range(count):
+            mention=str(input(f"[::] Please enter the username No{i+1}: "))
+            while checkUser(mention):
+                print("[!] Invalid username !")
                 sleep(1)
-                mention=str(input("[::] Please enter again the username No{}: ".format(i)))
+                mention=str(input(f"[::] Please enter again the username No{i+1}: "))
             MENTIONS.append(mention)
             sleep(1)
             print("[!] Mention added successfully !")
@@ -836,22 +835,22 @@ elif option == 14:
         sleep(1)
         pass
     AddLoc=str(input("[?] Do you want to add location ? [yes/no] "))
-    while (AddLoc != "yes" and AddLoc != "YES" and AddLoc != "no" and AddLoc != "NO") or (AddLoc == None):
-        print("[!] Invalid Input !")
+    while AddLoc not in ANS and AddLoc not in NANS or AddLoc == None:
+        print("[!] Invalid input !")
         sleep(1)
         AddLoc=str(input("[?] Do you want to add location ? [yes/no] "))
-    if AddLoc == "yes" or AddLoc == "YES":
-        count=int(input("[?] How many locations do you want to add ? "))
-        while count <= 0 or count == None :
-            print("[!] Invalid Number !")
+    if AddLoc in ANS:
+        count=int(input("[?] How many locations do you want to add ? (enter a number) "))
+        while count <= 0 or count == None:
+            print("[!] Invalid number !")
             sleep(1)
-            count=int(input("[?] How many locations do you want to add ? "))
-        for i in range(1,count+1):
-            loc=str(input("[::] Please enter location No{}: ".format(i)))
+            count=int(input("[?] How many locations do you want to add ? (enter a number) "))
+        for i in range(count):
+            loc=str(input(f"[::] Please enter location No{i+1}: "))
             while loc == None:
-                print("[!] Invalid Location !")
+                print("[!] Invalid location !")
                 sleep(1)
-                loc=str(input("[::] Please enter again location No{}: ".format(i)))
+                loc=str(input(f"[::] Please enter again location No{i+1}: "))
             LOCATIONS.append(loc)
             sleep(1)
             print("[!] Location added successfully !")
@@ -860,22 +859,22 @@ elif option == 14:
         sleep(1)
         pass
     AddLinks=str(input("[?] Do you want to include links ? [yes/no] "))
-    while (AddLinks != "yes" and AddLinks != "YES" and AddLinks != "no" and AddLinks != "NO") or (AddLinks == None):
-        print("[!] Invalid Input !")
+    while AddLinks not in ANS and AddLinks not in NANS or AddLinks == None:
+        print("[!] Invalid input !")
         sleep(1)
         AddLinks=str(input("[?] Do you want to include links ? [yes/no] "))
-    if AddLinks == "yes" or AddLinks == "YES":
-        count=int(input("[?] How many ? "))
+    if AddLinks in ANS:
+        count=int(input("[?] How many ? (enter a number) "))
         while count <= 0 or count == None:
-            print("[!] Invalid Number !")
+            print("[!] Invalid number !")
             sleep(1)
-            count=int(input("[?] How many links do you want to include ? "))
-        for i in range(1,count+1):
-            link=str(input("[::] Please enter the link No{}: ".format(i)))
-            while (link == None) or ("//" not in link):
-                print("[!] Invalid Link !")
+            count=int(input("[?] How many links do you want to include ? (enter a number) "))
+        for i in range(count):
+            link=str(input(f"[::] Please enter the link No{i+1}: "))
+            while link == None or "\\" not in link or "/" not in link or "https" not in link:
+                print("[!] Invalid link !")
                 sleep(1)
-                link=str(input("[::] Please enter again the link No{}: ".format(i)))
+                link=str(input(f"[::] Please enter again the link No{i+1}: "))
             LINKS.append(link)
             sleep(1)
             print("[!] Link added successfully !")
@@ -884,22 +883,22 @@ elif option == 14:
         sleep(1)
         pass
     AddHash=str(input("[?] Do you want to include hashtags ? [yes/no] "))
-    while (AddHash != "yes" and AddHash != "YES" and AddHash != "no" and AddHash != "NO") or (AddHash == None):
-        print("[!] Invalid Input !")
+    while AddHash not in ANS and AddHash not in NANS or AddHash == None:
+        print("[!] Invalid input !")
         sleep(1)
         AddHash=str(input("[?] Do you want to include hashtags ? [yes/no] "))
-    if AddHash == "yes" or AddHash == "YES":
-        count=int(input("[?] How many ? "))
+    if AddHash in ANS:
+        count=int(input("[?] How many ? (enter a number) "))
         while  count <= 0 or count == None :
-            print("[!] Invalid Number !")
+            print("[!] Invalid number !")
             sleep(1)
             count=int(input("[?] How many hashtags do you want to include ? "))
-        for i in range(1,count+1):
-            hashtag=str(input("[::] Please enter the hashtag No{}: ".format(i)))
-            while (hashtag == None) or ("#" not in hashtag):
-                print("[!] Invalid Hashtag !")
+        for i in range(count):
+            hashtag=str(input(f"[::] Please enter the hashtag No{i+1}: "))
+            while hashtag == None or "#" not in hashtag:
+                print("[!] Invalid hashtag !")
                 sleep(1)
-                hashtag=str(input("[::] Please enter again the hashtag No{}: ".format(i)))
+                hashtag=str(input(f"[::] Please enter again the hashtag No{i+1}: "))
             HASHTAGS.append(hashtag)
             sleep(1)
             print("[!] Hashtag added successfully !")
@@ -1393,47 +1392,44 @@ elif option == 15:
     caption = None
     hashtag = None
     location = None
-    path=input("[::] Please enter the path of the folder which contains the video: ")
-    while (path == None) or ("/" not in path):
-        print("[!] Invalid Path !")
+    path=str(input("[::] Please enter the path to the video: "))
+    while path == None or "/" not in path or "\\" not in path:
+        print("[!] Invalid path !")
         sleep(1)
-        path=input("[::] Please enter again the path of the folder which contains the video: ")
+        path=str(input("[::] Please enter again the to the video: "))
     incap=str(input("[?] Do you want to include caption ? [yes/no] "))
-    while (incap != "yes" and incap != "YES" and incap != "no" and incap != "NO") or (incap == None):
-        print("[!] Invalid Input !")
+    while incap not in ANS and incap not in NANS or incap == None:
+        print("[!] Invalid input !")
         sleep(1)
         incap=str(input("[?] Do you want to include caption ? [yes/no] "))
-    if incap == "yes" or incap == "YES":
+    if incap in ANS:
         sleep(1)
-        print("[+] Default Caption: Check out my new video !")
+        print("[+] Default: Check out my new video !")
         sleep(2)
-        print("[+] To apply the default caption hit: <Enter>")
+        print("[+] Hit <Tab> and <Enter> to apply the default option")
         sleep(2)
         caption=str(input("[::] Please enter the caption: "))
-        if caption == None:
+        if caption == "\t":
             caption = "Check out my new video !"
-            pass
-        else:
-            pass
     intag=str(input("[?] Do you want to include hashtag(s) ? [yes/no] "))
-    while (intag != "yes" and intag != "YES" and intag != "no" and intag != "NO") or (intag == None):
-        print("[!] Invalid Input !")
+    while intag not in ANS and intag not in NANS or intag == None:
+        print("[!] Invalid input !")
         sleep(1)
         intag=str(input("[?] Do you want to include hashtag(s) ? [yes/no] "))
-    if intag == "yes" or intag == "YES":
-        count=int(input("[?] How many ? "))
+    if intag in ANS:
+        count=int(input("[?] How many ? (enter a number) "))
         while count <= 0 or count == None:
-            print("[!] Invalid Number !")
+            print("[!] Invalid number !")
             sleep(1)
-            count=int(input("[?] How many hashtags to include ? "))
-        for i in range(1,count+1):
-            hashtag=str(input("[::] Please enter the hashtag No{} : ".format(i)))
-            while (hashtag == None) or ("#" not in hashtag):
-                print("[!] Invalid Hashtag !")
+            count=int(input("[?] How many hashtags to include ? (enter a number) "))
+        for i in range(count):
+            hashtag=str(input(f"[::] Please enter the hashtag No{i+1}: "))
+            while hashtag == None or "#" not in hashtag:
+                print("[!] Invalid hashtag !")
                 sleep(2)
-                print("[+] You have to include #")
+                print("[+] Please include the    #    sign")
                 sleep(2)
-                hashtag=str(input("[::] Please enter again hashtag No{} : ".format(i)))
+                hashtag=str(input(f"[::] Please enter again hashtag No{i+1}: "))
             HASHVID.append(hashtag)
             sleep(1)
             print("[!] Hashtag added successfully !")
@@ -1442,25 +1438,24 @@ elif option == 15:
         sleep(1)
         pass
     inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-    while (incloc != "yes" and inloc != "YES" and inloc != "no" and inloc != "NO") or (inloc == None):
-        print("[!] Invalid Location !")
+    while incloc not in ANS and inloc not in NANS or inloc == None:
+        print("[!] Invalid location !")
         sleep(1)
         inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-    if inloc == "yes" or inloc == "YES":
-        count=int(input("[?] How many ? "))
+    if inloc in ANS:
+        count=int(input("[?] How many ? (enter a number) "))
         while count <= 0 or count == None:
             print("[!] Invalid Number !")
             sleep(1)
-            count=int(input("[?] How many locations to include ? "))
-        for i in range(1,count+1):
-            location=str(input("[::] Please enter location No{} : ".format(i)))
+            count=int(input("[?] How many locations to include ? (enter a number) "))
+        for i in range(count):
+            location=str(input(f"[::] Please enter location No{i+1} : "))
             while location == None:
-                print("[!] Invalid Location !")
+                print("[!] Invalid location !")
                 sleep(1)
-                location=str(input("[::] Please enter again location No{} : ".format(i)))
+                location=str(input(f"[::] Please enter again location No{i+1} : "))
     else:
         print("[OK]")
-        sleep(1)
         pass
     try:
         client.video_upload(path,caption,usertags=HASHVID,location=location)
@@ -1476,82 +1471,29 @@ elif option == 15:
             quit(0)
 
 elif option == 16:
-    count=int(input("[?] How many accounts do you want to follow ? "))
+    count=int(input("[?] How many accounts do you want to follow ? (enter a number) "))
     while count <= 0 or count == None:
-        print("[!] Invalid Number !")
+        print("[!] Invalid number !")
         sleep(1)
-        count=int(input("[?] How many accounts do you want to follow ? "))
+        count=int(input("[?] How many accounts do you want to follow ? (enter a number) "))
     if count == 1:
         username=str(input("[::] Please enter the username: "))
-        while username == None or len(username) > 30:
-            print("[!] Invalid Username !")
+        while checkUser(username):
+            print("[!] Invalid username !")
             sleep(1)
             username=str(input("[::] Please enter again the username: "))
         username.lower()
         username.strip()
-        user_id = loader.check_profile_id(username)
+        print(GetID(username))
         uid=int(input("[::] Please enter the user's ID as shown above: "))
-        while uid == None or uid <= 0:
-            print("[!] Invalid ID")
+        while checkID(uid):
+            print("[!] Invalid ID !")
             sleep(1)
             uid=int(input("[::] Please enter again the user's ID as shown above: "))
         try:
             client.user_follow(uid)
             sleep(3)
-            print("[!] Successfully followed {} !".format(username))
-        except Exception as ex:
-            print("[!] Error !")
-            sleep(1)
-            print(ex)
-            sleep(2)
-            print("[+] Exiting...")
-            quit(0)
-    else:
-        for i in range(1,count+1):
-            username=str(input("[::] Please enter the username No{} :".format(i)))
-            while username == None or len(username) > 30:
-                print("[!] Invalid Username !")
-                sleep(1)
-                username=str(input("[::] Please enter again username No{} : ".format(i)))
-            username.lower()
-            username.strip()
-            uid=loader.check_profile_id(username)
-            id=int(input("[::] Please enter the user's ID as shown above: "))
-            while id == None or len(id) < 3:
-                print("[!] Invalid ID !")
-                sleep(1)
-                uid=int(input("[::] Please enter again the user's ID as shown above: "))
-            try:
-                client.user_follow(id)
-                sleep(3)
-                print("[!] Successfully followed {} !".format(username))
-            except Exception as ex:
-                print("[!] Can't follow {} !".format(username))
-
-elif option == 17:
-    count=int(input("[?] How many accounts do you want to unfollow ? "))
-    while count <= 0 or count == None:
-        print("[!] Invalid Number !")
-        sleep(1)
-        count=int(input("[?] How many accounts do you want to unfollow ? "))
-    if count == 1: 
-        username=str(input("[::] Please enter the username: "))
-        while username == None or len(username) > 30:
-            print("[!] Invalid Username !")
-            sleep(1)
-            username=str(input("[::] Please enter again the username: "))
-        username.lower()
-        username.strip()
-        user_id = loader.check_profile_id(username)
-        uid=int(input("[::] Please enter the user's ID as shown above: "))
-        while uid == None or uid <= None:
-            print("[!] Invalid ID !")
-            sleep(1)
-            uid=int(input("[::] Please enter again the user's ID as shown above: "))
-        try:
-            client.user_unfollow(uid)
-            sleep(3)
-            print("[!] Successfully unfollowed {} !".format(username))
+            print(f"[!] Successfully followed {username} !")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
@@ -1561,9 +1503,64 @@ elif option == 17:
             quit(0)
     else:
         for i in range(count):
-            username=str(input("[::] Please enter the username: "))
-            while username == None or len(username) > 30:
-                print("[!] Invalid Username !")
+            username=str(input(f"[::] Please enter the username No{i+1} :"))
+            while checkUser(username):
+                print("[!] Invalid username !")
+                sleep(1)
+                username=str(input(f"[::] Please enter again username No{i+1} : "))
+            username.lower()
+            username.strip()
+            print(GetID(username))
+            id=int(input("[::] Please enter the user's ID as shown above: "))
+            while checkID(id):
+                print("[!] Invalid ID !")
+                sleep(1)
+                uid=int(input("[::] Please enter again the user's ID as shown above: "))
+            try:
+                client.user_follow(id)
+                sleep(3)
+                print(f"[!] Successfully followed {username} !")
+            except Exception as ex:
+                print(f"[!] Unable to follow {username} !")
+                sleep(2)
+                print("[+] Error: "+str(ex))
+
+elif option == 17:
+    count=int(input("[?] How many accounts do you want to unfollow ? (enter a number) "))
+    while count <= 0 or count == None:
+        print("[!] Invalid number !")
+        sleep(1)
+        count=int(input("[?] How many accounts do you want to unfollow ? (enter a number) "))
+    if count == 1: 
+        username=str(input("[::] Please enter the username: "))
+        while checkUser(username):
+            print("[!] Invalid username !")
+            sleep(1)
+            username=str(input("[::] Please enter again the username: "))
+        username.lower()
+        username.strip()
+        print(GetID(username))
+        uid=int(input("[::] Please enter the user's ID as shown above: "))
+        while checkID(uid):
+            print("[!] Invalid ID !")
+            sleep(1)
+            uid=int(input("[::] Please enter again the user's ID as shown above: "))
+        try:
+            client.user_unfollow(uid)
+            sleep(3)
+            print(f"[!] Successfully unfollowed {username} !")
+        except Exception as ex:
+            print("[!] Error !")
+            sleep(1)
+            print(ex)
+            sleep(2)
+            print("[+] Exiting...")
+            quit(0)
+    else:
+        for i in range(count):
+            username=str(input(f"[::] Please enter username No{i+1}: "))
+            while checkUser(username):
+                print("[!] Invalid username !")
                 sleep(1)
                 username=str(input("[::] Please enter again the username: "))
             username.lower()
@@ -1571,21 +1568,20 @@ elif option == 17:
             try:
                 client.user_unfollow(uid)
                 sleep(3)
-                print("[!] Successfully unfollowed {} !".format(username))
+                print(f"[!] Successfully unfollowed {username} !")
             except Exception as e:
-                print("[!] Can't unfollow {} !".format(username))
+                print(f"[!] Can't unfollow {username} !")
                 pass
 
 elif option == 18:
     count=int(input("[::] Please enter the number of the follow requests to accept: "))
     while count == None or count <= 0:
-        print("[!] Invalid Number !")
+        print("[!] Invalid number !")
         sleep(1)
         count=int(input("[::] Please enter again the number of the follow requests to accept: "))
     try:
         logini.accept_follow_requests(count,3)
-        sleep(7)
-        print("[!] Follow Requests Accepted !")
+        print("[!] Follow requests accepted !")
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
@@ -1597,13 +1593,12 @@ elif option == 18:
 elif option == 19:
     count=int(input("[::] Please enter the number of the follow requests to remove: "))
     while count == None or count <= 0:
-        print("[!] Invalid Number !")
+        print("[!] Invalid number !")
         sleep(1)
         count=int(input("[::] Please enter again the number of the follow requests to remove: "))
     try:
         logini.remove_follow_requests(count,3)
-        sleep(7)
-        print("[!] Follow Requests Removed !")
+        print("[!] Follow requests removed !")
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
@@ -1613,27 +1608,26 @@ elif option == 19:
         quit(0)
 
 elif option == 20:
-    count=int(input("[::] Please enter the amount of users to follow:  "))
-    while count == None:
-        print("[!] Invalid Number !")
+    count=int(input("[::] Please enter the number of users to follow:  "))
+    while count == None or count <= 0:
+        print("[!] Invalid number !")
         sleep(2)
-        count=int(input("[::] Please enter again the amount of users to follow: "))
-    countu=int(input("[?] From how many users do you want to follow their followers ? "))
+        count=int(input("[::] Please enter again the number of users to follow: "))
+    countu=int(input("[?] From how many users do you want to follow their followers ? (enter a number) "))
     while countu <= 0 or countu == None:
-        print("[!] Invalid Number !")
+        print("[!] Invalid number !")
         sleep(1)
         countu=int(input("[?] From how many users do you want to follow their followers ? "))
     for i in range(countu):
         username=str(input("[::] Please enter the username of the user (to follow their followers): "))
-        while username == None or len(username) > 30:
-            print("[!] Invalid Username !")
+        while checkUser(username):
+            print("[!] Invalid username !")
             sleep(1)
             username=str(input("[::] Please enter again the username: "))
         FUFERS.append(username)
     try:
         logini.follow_user_followers(FUFERS,count)
-        sleep(7)
-        print("[!] Successfully Followed Users !")
+        print("[!] Successfully followed users !")
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
@@ -1643,31 +1637,31 @@ elif option == 20:
         quit(0)
 
 elif option == 21:
-    count=int(input("[::] Please enter the amount of users to follow: "))
-    while count == None:
-        print("[!] Invalid Number !")
+    count=int(input("[::] Please enter the number of users to follow: "))
+    while count == None or count <= 0:
+        print("[!] Invalid number !")
         sleep(2)
-        count=int(input("[::] Please enter again the amount of users to follow: "))
-    countu=int(input("[?] From how many users do you want to follow their followings ? "))
-    while countu <= 0 or countu == None:
-        print("[!] Invalid Number !")
+        count=int(input("[::] Please enter again the number of users to follow: "))
+    countu=int(input("[?] From how many users do you want to follow their followings ? (enter a number) "))
+    while countu == None or countu <= 0:
+        print("[!] Invalid number !")
         sleep(1)
-        countu=int(input("[?] From how many users do you want to follow their followings ? "))
+        countu=int(input("[?] From how many users do you want to follow their followings ? (enter a number) "))
     for i in range(countu):
-        username=str(input("[::] Please enter the username of the user: "))
-        while username == None or len(username) > 30:
-            print("[!] Invalid Username !")
+        username=str(input("[::] Please enter the username: "))
+        while checkUser(username):
+            print("[!] Invalid username !")
             sleep(1)
             username=str(input("[::] Please enter again the username: "))
         FUFING.append(username)
     browser = webdriver.Firefox()
     for i in range(len(FUFING)):
-        browser.get("https://www.instagram.com/{}/following/".format(username))
+        browser.get(f"https://www.instagram.com/{username}/following/")
         for j in range(count):
             try:
                 follow = browser.find_element_by_class_name("_acan _acap _acas")
                 follow.click()
-                print("[+] User followed !")
+                print(f"[+] User >>> {username} -> followed !")
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
@@ -1677,31 +1671,31 @@ elif option == 21:
                 quit(0)
 
 elif option == 22:
-    count=int(input("[?] How many messages do you want to send ? "))
-    while count <= 0 or count == None:
-        print("[!] Invalid Number !")
+    count=int(input("[?] How many messages do you want to send ? (enter a number) "))
+    while count == None or count <= 0:
+        print("[!] Invalid number !")
         sleep(1)
-        count=int(input("[?] How many messages do you want to send ? "))
+        count=int(input("[?] How many messages do you want to send ? (enter a number) "))
     for i in range(1,count+1):
-        text=str(input("[::] Please enter the text to send: "))
+        text=str(input("[::] Please enter the message to send >>>  "))
         while text == None:
-            print("[!] Invalid Text !")
+            print("[!] Invalid message !")
             sleep(1)
-            text=str(input("[::] Please enter again the text to send: "))
-        count=int(input("[?] In how many users do you want to send it ? "))
-        while count <= 0 or count == None:
-            print("[!] Invalid Number !")
+            text=str(input("[::] Please enter again the text to send >>>  "))
+        count=int(input("[?] In how many users do you want to send it ? (enter a number) "))
+        while count == None or count <= 0:
+            print("[!] Invalid number !")
             sleep(1)
-            count=int(input("[?] In how many users do you want to send it ? "))
-        for i in range(1,count+1):
-            username=str(input("[::] Please enter the username No{} : ".format(i)))
-            while username == None or len(username) > 30:
-                print("[!] Invalid Username !")
+            count=int(input("[?] In how many users do you want to send it ? (enter a number) "))
+        for i in range(count):
+            username=str(input(f"[::] Please enter the username No{i+1} : "))
+            while checkUser(username):
+                print("[!] Invalid username !")
                 sleep(1)
-                username=str(input("[::] Please enter again the username No{} : ".format(i)))
-            loader.check_profile_id(username)
+                username=str(input(f"[::] Please enter again the username No{i+1} : "))
+            print(GetID(username))
             id=int(input("[::] Please enter the ID of the user as shown above: "))
-            while id == None or len(id) < 3:
+            while checkID(id):
                 print("[!] Invalid ID !")
                 sleep(1)
                 id=int(input("[::] Please enter again the ID of the user as shown above: "))
@@ -1709,7 +1703,7 @@ elif option == 22:
             try:
                 client.direct_send(text,MSGIDS)
                 sleep(1)
-                print("[!] Message Sent Successfully !")
+                print("[!] Message sent successfully !")
             except Exception as ex:
                 print("[!] Error !")
                 sleep(1)
@@ -1719,25 +1713,25 @@ elif option == 22:
                 quit(0)
 
 elif option == 23:
-    path=str(input("[::] Please enter the path of the folder which contains the file: "))
-    while (path == None) or ("/" not in path):
-        print("[!] Invalid Path !")
+    path=str(input("[::] Please enter the path to the file: "))
+    while path == None or "/" not in path or "\\" not in path:
+        print("[!] Invalid path !")
         sleep(1)
-        path=str(input("[::] Please enter again the path of the folder which contains the file: "))
-    count=int(input("[?] In how many users do you want to send it ? "))
-    while count <= 0 or count == None:
-        print("[!] Invalid Number !")
+        path=str(input("[::] Please enter again the path to the file: "))
+    count=int(input("[?] In how many users do you want to send it ? (enter a number) "))
+    while count == None or count <= 0:
+        print("[!] Invalid number !")
         sleep(1)
-        count=int(input("[?] In how many users do you want to send it ? "))
-    for i in range(1,count+1):
-        username=str(input("[::] Please enter the username No{} : ".format(i)))
-        while username == None or len(username) > 30:
-            print("[!] Invalid Username !")
+        count=int(input("[?] In how many users do you want to send it ? (enter a number) "))
+    for i in range(count):
+        username=str(input(f"[::] Please enter the username No{i+1}: "))
+        while checkUser(username):
+            print("[!] Invalid username !")
             sleep(1)
-            username=str(input("[::] Please enter again the username No{} : ".format(i)))
-        loader.check_profile_id(username)
+            username=str(input(f"[::] Please enter again the username No{i+1} : "))
+        print(GetID(username))
         id=int(input("[::] Please enter the ID of the user as shown above: "))
-        while id == None or len(id) < 3:
+        while checkID(id):
             print("[!] Invalid ID !")
             sleep(1)
             id=int(input("[::] Please enter again the ID of the user as shown above: "))
@@ -1745,7 +1739,7 @@ elif option == 23:
         try:
             client.direct_send_file(path,FILEIDS)
             sleep(2)
-            print("[!] File Sent Successfully !")
+            print("[!] File sent successfully !")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
@@ -1755,25 +1749,25 @@ elif option == 23:
             quit(0)
 
 elif option == 24:
-    path=input("[::] Please enter the path of the folder which contains the photo: ")
-    while (path == None) or ("/" not in path):
-        print("[!] Invalid Path !")
+    path=str(input("[::] Please enter the path to the photo: "))
+    while path == None or "/" not in path or "\\" not in path:
+        print("[!] Invalid path !")
         sleep(1)
-        path=input("[::] Please enter again the path of the folder which contains the photo: ")
-    count=int(input("[?] In how many users do you want to send it ? "))
-    while count <= 0 or count == None:
-        print("[!] Invalid Number !")
+        path=str(input("[::] Please enter again the path to the photo: "))
+    count=int(input("[?] In how many users do you want to send it ? (enter a number) "))
+    while count == None or count <= 0:
+        print("[!] Invalid number !")
         sleep(1)
-        count=int(input("[?] In how many users do you want to send it ? "))
-    for i in range(1,count+1):
-        username=str(input("[::] Please enter the username No{} : ".format(i)))
-        while username == None or len(username) > 30:
+        count=int(input("[?] In how many users do you want to send it ? (enter a number) "))
+    for i in range(count):
+        username=str(input(f"[::] Please enter the username No{i+1} : "))
+        while checkUser(username):
             print("[!] Invalid Username !")
             sleep(1)
-            username=str(input("[::] Please enter again the username No{} : ".format(i)))
-        loader.check_profile_id(username)
+            username=str(input(f"[::] Please enter again the username No{i+1} : "))
+        print(GetID(username))
         id=int(input("[::] Please enter the ID of the user as shown above: "))
-        while id == None or len(id) < 3:
+        while checkID(id):
             print("[!] Invalid ID !")
             sleep(1)
             id=int(input("[::] Please enter again the ID of the user as shown above: "))
@@ -1781,7 +1775,7 @@ elif option == 24:
         try:
             client.direct_send_photo(path,PHOTOIDS)
             sleep(2)
-            print("[!] Photo Sent Successfully !")
+            print("[!] Photo sent successfully !")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
@@ -1791,25 +1785,25 @@ elif option == 24:
             quit(0)
 
 elif option == 25:
-    path=input("[::] Please enter the path of the folder which contains the video: ")
-    while (path == None) or ("/" not in path):
-        print("[!] Invalid Path !")
+    path=str(input("[::] Please enter the path to the video: "))
+    while path == None or "/" not in path or "\\" not in path:
+        print("[!] Invalid path !")
         sleep(1)
-        path=input("[::] Please enter again the path of the folder which contains the video: ")
-    count=int(input("[?] In how many users do you want to send it ? "))
+        path=str(input("[::] Please enter again the path to the video: "))
+    count=int(input("[?] In how many users do you want to send it ? (enter a number) "))
     while count == None or count <= 0:
-        print("[!] Invalid Number !")
+        print("[!] Invalid number !")
         sleep(1)
-        count=int(input("[?] In how many users do you want to send it ? "))
-    for i in range(1,count+1):
-        username=str(input("[::] Please enter the username No{} : ".format(i)))
-        while username == None:
-            print("[!] Invalid Username !")
+        count=int(input("[?] In how many users do you want to send it ? (enter a number) "))
+    for i in range(count):
+        username=str(input(f"[::] Please enter the username No{i+1} : "))
+        while checkUser(username):
+            print("[!] Invalid username !")
             sleep(1)
-            username=str(input("[::] Please enter again the username No{} : ".format(i)))
-        loader.check_profile_id(username)
+            username=str(input(f"[::] Please enter again the username No{i+1} : "))
+        print(GetID(username))
         id=int(input("[::] Please enter the ID of the user as shown above: "))
-        while id == None or len(id) < 3:
+        while checkID(id):
             print("[!] Invalid ID !")
             sleep(1)
             id=int(input("[::] Please enter again the ID of the user as shown above: "))
@@ -1817,7 +1811,7 @@ elif option == 25:
         try:
             client.direct_send_video(path,VIDEOIDS)
             sleep(2)
-            print("[!] Video Sent Successfully !")
+            print("[!] Video sent successfully !")
         except Exception as ex:
             print("[!] Error !")
             sleep(1)
@@ -1827,37 +1821,37 @@ elif option == 25:
             quit(0)
 
 elif option == 26:
-    count=int(input("[::] Please enter the number of hashtags to like their posts: "))
-    while count <= 0 or count == None:
-        print("[!] Invalid Number !")
+    count=int(input("[::] Please enter the number of hashtags: "))
+    while count == None or count <= 0:
+        print("[!] Invalid number !")
         sleep(1)
-        count=int(input("[::] Please enter again the number of hashtags to like their posts: "))
+        count=int(input("[::] Please enter again the number of hashtags: "))
     nump=int(input("[::] Please enter the number of the posts to like: "))
-    while nump <= 0 or nump == None:
-        print("[!] Invalid Number !")
+    while nump == None or nump <= 0:
+        print("[!] Invalid number !")
         sleep(1)
         nump=int(input("[::] Please enter again the number of the posts to like: "))
-    for i in range(1,count+1):
-        hashtag=str(input("[::] Please enter the hashtag No{} : ".format(i)))
+    for i in range(count):
+        hashtag=str(input(f"[::] Please enter the hashtag No{i+1} : "))
         while (hashtag == None) or ("#" not in hashtag):
             print("[!] Invalid Hashtag !")
             sleep(1)
-            hashtag=str(input("[::] Please enter again the hashtag No{} : ".format(i)))
+            hashtag=str(input(f"[::] Please enter again the hashtag No{i+1} : "))
         LTAGS.append(hashtag)
-        print("[!] Hashtag Added Successfully !")
+        print("[!] Hashtag added successfully !")
     rtags=str(input("[?] Do you want to like random tags ? [yes/no] "))
-    while (rtags != "yes" and rtags != "YES" and rtags != "no" and rtags != "NO") or (rtags == None):
-        print("[!] Invalid Input !")
+    while rtags not in ANS and rtags not in NANS or rtags == None:
+        print("[!] Invalid input !")
         sleep(1)
         rtags=input("[?] Do you want to like random hashtags ? [yes/no] ")
-    if rtags == "yes" or rtags == "YES":
+    if rtags in ANS:
         random = True
     else:
         random = False
     try:
         logini.like_by_tags(LTAGS,random,count)
         sleep(3)
-        print("[!] Posts Liked !")
+        print("[!] Posts liked !")
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
@@ -1867,27 +1861,27 @@ elif option == 26:
         quit(0)
 
 elif option == 27:
-    countu=int(input("[::] Please enter the number of accounts to like their posts: "))
-    while countu <= 0 or countu == None:
-        print("[!] Invalid Number !")
+    countu=int(input("[::] Please enter the number of accounts: "))
+    while countu == None or countu <= 0:
+        print("[!] Invalid number !")
         sleep(1)
-        countu=int(input("[::] Please enter again the number of accounts to like their posts: "))
+        countu=int(input("[::] Please enter again the number of accounts: "))
     count=int(input("[::] Please enter the number of posts to like: "))
-    while count <= 0 or count == None:
-        print("[!] Invalid Number !")
+    while count == None or count <= 0:
+        print("[!] Invalid number !")
         sleep(1)
         count=int(input("[::] Please enter again the number of posts to like: "))
     if countu == 1:
         username=str(input("[::] Please enter the username: "))
-        while username == None or len(username) > 30:
-            print("[!] Invalid Username !")
+        while checkUser(username):
+            print("[!] Invalid username !")
             sleep(1)
             username=str(input("[::] Please enter again the username: "))
         LBU.append(username)
         try:
             logini.like_by_users(LBU,count)
             sleep(5)
-            print("[!] Posts Liked Successfully !")
+            print("[!] Posts liked successfully !")
         except Exception as ex:
             print("[!] Error")
             sleep(1)
@@ -1896,17 +1890,17 @@ elif option == 27:
             print("[+] Exiting...")
             quit(0)
     else:
-        for i in range(1,countu+1):
-            username=str(input("[::] Please enter the username No{} : ".format(i)))
-            while username == None or len(username) > 30:
-                print("[!] Invalid Username !")
+        for i in range(countu):
+            username=str(input(f"[::] Please enter the username No{i+1} : "))
+            while checkUser(username):
+                print("[!] Invalid username !")
                 sleep(1)
-                username=str(input("[::] Please enter again the username No{} : ".format(i)))
+                username=str(input(f"[::] Please enter again the username No{i+1} : "))
             LBU.append(username)
         try:
             logini.like_by_users(LBU,count)
             sleep(5)
-            print("[!] Posts Liked Successfully !")
+            print("[!] Posts liked successfully !")
         except Exception as ex:
             print("[!] Error")
             sleep(1)
@@ -1917,11 +1911,11 @@ elif option == 27:
 
 elif option == 28:
     rand=str(input("[?] Do you want to like the posts with random order ? [yes/no] "))
-    while (rand != "yes" and rand != "YES" and rand != "no" and rand != "NO") or (rand == None):
-        print("[!] Invalid Input !")
+    while rand not in ANS and rand not in NANS or rand == None:
+        print("[!] Invalid input !")
         sleep(1)
         rand=str(input("[?] Do you want to like them with random order ? [yes/no] "))
-    if rand == "yes" or rand == "YES":
+    if rand in ANS:
         random = True
         print("[OK]")
         pass
@@ -1930,27 +1924,27 @@ elif option == 28:
         print("[OK]")
         pass
     numloc=int(input("[::] Please enter the number of locations to like their posts: "))
-    while numloc <= 0 or numloc == None:
-            print("[!] Invalid Number !")
+    while numloc == None or numloc <= 0:
+            print("[!] Invalid number !")
             sleep(1)
             numloc=int(input("[::] Please enter again the number of locations to like their posts: "))
     sleep(2)
-    countp=int(input("[?] How many posts to like for each location ? "))
-    while countp <= 0 or countp == None:
-        print("[!] Invalid Number !")
+    countp=int(input("[?] How many posts to like per location ? (enter a number) "))
+    while countp == None or countp <= 0:
+        print("[!] Invalid number !")
         sleep(1)
-        countp=int(input("[?] How many posts to like for each location ? "))
-    for i in range(1,numloc+1):
-        location=str(input("[::] Please enter location No{} : ".format(i)))
+        countp=int(input("[?] How many posts to like per location ? (enter a number) "))
+    for i in range(numloc):
+        location=str(input(f"[::] Please enter location No{i+1} : "))
         while location == None:
-            print("[!] Invalid Location !")
+            print("[!] Invalid location !")
             sleep(1)
-            location=str(input("[::] Please enter again location No{} : ".format(i)))
+            location=str(input(f"[::] Please enter again location No{i+1} : "))
         LOCLIKE.append(location)
     try:
         logini.like_by_locations(LOCLIKE,amount=countp,randomize=random)
         sleep(5)
-        print("[!] Posts Liked !")
+        print("[!] Posts liked !")
     except Exception as ex:
         print("[!] Error !")
         sleep(1)
@@ -1959,8 +1953,9 @@ elif option == 28:
         print("[+] Exiting...")
         quit(0)
 
+
+
 elif option == 29:
-    print("Getting in option 29")
     count=int(input("[+] Please enter the amount of posts to like: "))
     while count <= 0 or count == None:
         print("[!] Invalid Amount !")
@@ -2021,17 +2016,17 @@ elif option == 29:
 elif option == 30:
     amo=int(input("[::] Please enter the amount of posts to like: "))
     while amo <= 0 or amo == None:
-        print("[!] Invalid Amount !")
+        print("[!] Invalid amount !")
         sleep(1)
         amo=int(input("[::] Please enter again the amount of posts to like: "))
     username=str(input("[::] Please enter the username: "))
-    while username == None:
-        print("[!] Invalid Username !")
+    while checkUser(username):
+        print("[!] Invalid username !")
         sleep(1)
         username=str(input("[::] Please enter again the username: "))
-    uid = loader.check_profile_id(username)
+    getID(username)
     id=int(input("[::] Please enter user's ID as shown above: "))
-    while id == None or len(id) < 3:
+    while checkID(id):
         print("[!] Invalid ID !")
         sleep(1)
         id=int(input("[::] Please enter again user's ID as shown above: "))
@@ -2106,13 +2101,13 @@ elif option == 33:
         count=int(input("[::] Please enter again the number of users to block: "))
     if count == 1:
         username=str(input("[::] Please enter the username: "))
-        while username == None:
+        while checkUser(username):
             print("[!] Invalid Username !")
             sleep(1)
             username=str(input("[::] Please enter again the username: "))
             uid = loader.check_profile_id(username)
             id=int(input("[::] Please enter the ID of the user as shown above: "))
-            while id == None or len(id) < 3:
+            while checkID(id):
                 print("[!] Invalid ID !")
                 sleep(1)
                 id=int(input("[::] Please enter again the ID of the user as shown above: "))
@@ -2131,13 +2126,13 @@ elif option == 33:
     else:
         for i in range(1,count+1):
             username=str(input("[::] Please enter the username No"+str(i)+" : "))
-            while username == None:
+            while checkUser(username):
                 print("[!] Invalid Username !")
                 sleep(1)
                 username=str(input("[::] Please enter again the username No"+str(i)+" : "))
             uid = loader.check_profile_id(username)
             id = int(input("[::] Please enter the ID of the user as shown above: "))
-            while id == None or len(id) < 3:
+            while checkID(id):
                 print("[!] Invalid ID !")
                 sleep(1)
                 id = int(input("[::] Please enter again the ID of the user as shown above: "))
@@ -2156,7 +2151,7 @@ elif option == 33:
 
 elif option == 34:
     id=int(input("[::] Please enter the ID of the user: "))
-    while id == None or len(id) < 3:
+    while checkID(id):
         print("[!] Invalid ID !")
         sleep(1)
         id=int(input("[::] Please enter again the ID of the user: "))
@@ -2299,24 +2294,24 @@ elif option == 38:
         sleep(1)
         count=int(input("[::] How many covers of highlights do you want to change ? "))
     if count == 1:
-        url=input("[::] Please enter the url for the highlight: ")
+        url=str(input("[::] Please enter the url for the highlight: "))
         while url == None or ("https" not in url or "//" not in url or "instagram" not in url or ".com" not in url):
             print("[!] Invalid Link !")
             sleep(1)
-            url=input("[::] Please enter again the url for the highlight: ")
+            url=str(input("[::] Please enter again the url for the highlight: "))
         Get_HP(url)
         pk=int(input("[::] Please enter the highlight id as shown above: "))
         while pk == None or pk <= 0:
             print("[!] Invalid ID !")
             sleep(1)
             pk=int(input("[::] Please enter again the highlight id as shown above: "))
-        path=input("[::] Please enter the path of the cover for the highlight: ")
+        path=str(input("[::] Please enter the path of the cover for the highlight: ")
         while path == None or "/" not in path:
             print("[!] Invalid path !")
             sleep(1)
             print("[!] Path must contain /")
             sleep(2)
-            path=input("[::] Please enter again the path of the cover for the highlight: ")
+            path=str(input("[::] Please enter again the path of the cover for the highlight: ")
         try:
             client.highlight_change_cover(pk,path) 
             sleep(3)
@@ -2330,24 +2325,24 @@ elif option == 38:
             quit(0)
     else:
         for i in range(count):
-            url=input("[::] Please enter the url for the highlight: ")
+            url=str(input("[::] Please enter the url for the highlight: "))
             while url == None or ("https" not in url or "//" not in url or "instagram" not in url or ".com" not in url):
                 print("[!] Invalid Link !")
                 sleep(1)
-                url=input("[::] Please enter again the url for the highlight: ")
+                url=str(input("[::] Please enter again the url for the highlight: "))
             Get_HP(url)
             pk=int(input("[::] Please enter the highlight id as shown above: "))
             while pk == None or pk <= 0:
                 print("[!] Invalid ID !")
                 sleep(1)
                 pk=int(input("[::] Please enter again the highlight id as shown above: "))
-            path=input("[::] Please enter the path of the cover for the highlight: ")
-            while path == None or "/" not in path:
+            path=str(input("[::] Please enter the path of the cover for the highlight: "))
+            while path == None or "/" not in path or "\\" not in path:
                 print("[!] Invalid path !")
                 sleep(1)
-                print("[!] Path must contain /")
+                print("[!] Path must contain / or \\")
                 sleep(2)
-                path=input("[::] Please enter again the path of the cover for the highlight: ")
+                path=str(input("[::] Please enter again the path of the cover for the highlight: "))
             try:
                 client.highlight_change_cover(pk,path) 
                 sleep(3)
@@ -2368,13 +2363,13 @@ elif option == 39:
         countu=int(input("[::] From how many users you want to display their highlights ? "))
     if countu == 1:
         username=str(input("[::] Please enter the username: "))
-        while username == None:
+        while checkUser(username):
             print("[!] Invalid Username !")
             sleep(1)
             username=str(input("[::] Please enter again the username: "))
         uid = loader.check_profile_id(username)
         id=int(input("[::] Please enter the ID of the user as shown above: "))
-        while id == None or len(id) < 3:
+        while checkID(id):
             print("[!] Invalid ID !")
             sleep(1)
             id=int(input("[::] Please enter again the ID of the user as shown above: "))
@@ -2395,13 +2390,13 @@ elif option == 39:
     else:
         for i in range(countu):
             username=str(input("[::] Please enter the username: "))
-            while username == None:
+            while checkUser(username):
                 print("[!] Invalid Username !")
                 sleep(1)
                 username=str(input("[::] Please enter again the username: "))
             uid = loader.check_profile_id(username)
             id=int(input("[::] Please enter the ID of the user as shown above: "))
-            while id == None or len(id) < 3:
+            while checkID(id):
                 print("[!] Invalid ID !")
                 sleep(1)
                 id=int(input("[::] Please enter again the ID of the user as shown above: "))
@@ -2427,11 +2422,11 @@ elif option == 40:
         sleep(1)
         counti=int(input("[::] From how many highlights do you want to retrieve information ? "))
     if counti == 1:
-        url=input("[::] Please enter the url for the highlight: ")
+        url=str(input("[::] Please enter the url for the highlight: ")
         while url == None or ("https" not in url or "//" not in url or "instagram" not in url or ".com" not in url):
             print("[!] Invalid Link !")
             sleep(1)
-            url=input("[::] Please enter again the url for the highlight: ")
+            url=str(input("[::] Please enter again the url for the highlight: ")
         Get_Hpk(url)
         pk=int(input("[::] Please enter the highlight id as shown above: "))
         while pk == None or pk <= 0:
@@ -2451,11 +2446,11 @@ elif option == 40:
             quit(0)
     else:
         for i in range(counti):
-            url=input("[::] Please enter the url for the highlight: ")
+            url=str(input("[::] Please enter the url for the highlight: ")
             while url == None or ("https" not in url or "//" not in url or "instagram" not in url or ".com" not in url):
                 print("[!] Invalid Link !")
                 sleep(1)
-                url=input("[::] Please enter again the url for the highlight: ")
+                url=str(input("[::] Please enter again the url for the highlight: ")
             Get_Hpk(url)
             pk=int(input("[::] Please enter the highlight id as shown above: "))
             while pk == None or pk <= 0:
@@ -2475,14 +2470,14 @@ elif option == 40:
                 quit(0)
 
 elif option == 41:
-    url=input("[::] Please enter the url of the story: ")
+    url=str(input("[::] Please enter the url of the story: ")
     while url == None or ("https" not in url or "//" not in url or "instagram" not in url or ".com" not in url):
         print("[!] Invalid url !")
         sleep(1)
-        url=input("[::] Please enter again the url of the story: ")
+        url=str(input("[::] Please enter again the url of the story: ")
     Get_Spk(url)
     pk=int(input("[::] Please enter the story ID as shown above: "))
-    while id == None or len(id) < 3:
+    while checkID(id):
         print("[!] Invalid ID !")
         sleep(1)
         pk=int(input("[::] Please enter again the story ID as shown above: "))
@@ -2499,14 +2494,14 @@ elif option == 41:
         quit(0)
 
 elif option == 42:
-    url=input("[::] Please enter the url of the story: ")
+    url=str(input("[::] Please enter the url of the story: ")
     while url == None or ("https" not in url or "//" not in url or "instagram" not in url or ".com" not in url):
         print("[!] Invalid url !")
         sleep(1)
-        url=input("[::] Please enter again the url of the story: ")
+        url=str(input("[::] Please enter again the url of the story: ")
     Get_Spk(url)
     pk=int(input("[::] Please enter the story ID as shown above: "))
-    while id == None or len(id) < 3:
+    while checkID(id):
         print("[!] Invalid ID !")
         sleep(1)
         pk=int(input("[::] Please enter again the story ID as shown above: "))
@@ -2558,13 +2553,13 @@ elif option == 44:
         count=int(input("[::] Please specify again the number of users: "))
     for i in range(1,count+1):
         username=input("[::] Please enter the username No"+str(i)+" : ")
-        while username == None:
+        while checkUser(username):
             print("[!] Invalid Username !")
             sleep(1)
             username=input("[::] Please enter again the username No"+str(i)+" : ")
         uid = loader.check_profile_id(username)
         id=int(input("[::] Please enter the ID as shown above: "))
-        while id == None or len(id) < 3:
+        while checkID(id):
             print("[!] Invalid ID !")
             sleep(1)
             id=int(input("[::] Please enter again the ID as shown above: "))
@@ -2582,14 +2577,14 @@ elif option == 44:
         quit(0)
 
 elif option == 45:
-    url=input("[::] Please enter the url of the story: ")
+    url=str(input("[::] Please enter the url of the story: ")
     while url == None or ("https" not in url or "//" not in url or "instagram" not in url or ".com" not in url):
         print("[!] Invalid url !")
         sleep(1)
-        url=input("[::] Please enter again the url of the story: ")
+        url=str(input("[::] Please enter again the url of the story: ")
     Get_Spk(url)
     pk=int(input("[::] Please enter the story ID as shown above: "))
-    while id == None or len(id) < 3:
+    while checkID(id):
         print("[!] Invalid ID !")
         sleep(1)
         pk=int(input("[::] Please enter again the story ID as shown above: "))
@@ -2669,7 +2664,7 @@ elif option == 47:
 
 elif option == 48:
     username=str(input("[::] Please enter your username: "))
-    while username == None:
+    while checkUser(username):
         print("[!] Invalid Username !")
         sleep(1)
         username=str(input("[::] Please enter again your username: "))
@@ -2689,13 +2684,13 @@ elif option == 48:
 
 elif option == 49:
     username=str(input("[::] Please enter the username: "))
-    while username == None:
+    while checkUser(username):
         print("[!] Invalid Username !")
         sleep(1)
         username=str(input("[::] Please enter again the username: "))
     uid = loader.check_profile_id(username)
     id=int(input("[::] Please enter the ID as shown above: "))
-    while id == None or len(id) < 3:
+    while checkID(id):
         print("[!] Invalid ID !")
         sleep(1)
         id=int(input("[::] Please enter again the ID as shown above: "))
@@ -2715,7 +2710,7 @@ elif option == 49:
 
 elif option == 50:
     username=str(input("[::] Please enter your username: "))
-    while username == None:
+    while checkUser(username):
         print("[!] Invalid Username !")
         sleep(1)
         username=str(input("[::] Please enter again your username: "))
@@ -2764,11 +2759,11 @@ elif option == 51:
         sleep(1)
         set_ex_url=str(input("[?] Do you want to set an external url ? [yes/no] "))
     if set_ex_url == "yes" or set_ex_url == "YES":
-        url=input("[::] Please enter the url: ")
+        url=str(input("[::] Please enter the url: ")
         while url == None or "/" not in url or "//" not in url:
             print("[!] Invalid Url !")
             sleep(1)
-            url=input("[::] Please enter again the url: ")
+            url=str(input("[::] Please enter again the url: ")
     else:
         pass
     set_email=str(input("[?] Do you want to set an email ? [yes/no] "))
@@ -2830,11 +2825,11 @@ elif option == 52:
         count=int(input("[::] How many posts do you want to like/unlike ? "))
     browser = webdriver.Chrome()
     for i in range(count):
-        url=input("[::] Please enter the url of the post: ")
+        url=str(input("[::] Please enter the url of the post: ")
         while url == None or ("https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url):
             print("[!] Invalid Url !")
             sleep(1)
-            url=input("[::] Please enter again the url of the post: ")
+            url=str(input("[::] Please enter again the url of the post: ")
         try:
             browser.get(url)
             like = browser.find_element_by_id("mount_0_0_Cs")
@@ -2856,11 +2851,11 @@ elif option == 53:
         count=int(input("[::] Please enter again the number of deletes to make: "))
     browser = webdriver.Firefox()
     for i in range(count):
-        url=input("[::] Please enter the url of the post, igtv, reel etc. : ")
+        url=str(input("[::] Please enter the url of the post, igtv, reel etc. : ")
         while url == None or ("https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url):
             print("[!] Invalid Url !")
             sleep(1)
-            url=input("[::] Please enter again the url of the post, igtv, reel etc. : ")
+            url=str(input("[::] Please enter again the url of the post, igtv, reel etc. : ")
         try:
             browser.get(url)
             menu = browser.find_element_by_class_name("_ab6-")
@@ -2885,11 +2880,11 @@ elif option == 54:
         count=int(input("[::] Please enter again the number of the posts to save: "))
     browser = webdriver.Firefox()
     for i in range(count):
-        url=input("[::] Please enter the url of the post, igtv, reel etc. : ")
+        url=str(input("[::] Please enter the url of the post, igtv, reel etc. : ")
         while url == None or ("https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url):
             print("[!] Invalid Url !")
             sleep(1)
-            url=input("[::] Please enter again the url of the post, igtv, reel etc. : ")
+            url=str(input("[::] Please enter again the url of the post, igtv, reel etc. : ")
         try:
             browser.get(url)
             save = browser.find_element_by_class_name("_abm0 _abm1")
@@ -2926,11 +2921,11 @@ elif option == 55:
             sleep(1)
             count=int(input("[::] Please enter again the number of posts to post: "))
         for i in range(count):
-            path=input("[::] Please enter the path of the file which contains the photo to be uploaded: ")
+            path=str(input("[::] Please enter the path of the file which contains the photo to be uploaded: ")
             while (path == None) or ("/" not in path):
                 print("[!] Invalid Path !")
                 sleep(1)
-                path=input("[::] Please enter again the path of the file which contains the photo to be uploaded: ")
+                path=str(input("[::] Please enter again the path of the file which contains the photo to be uploaded: ")
             sleep(2)
             print(">>>CAPTION<<<")
             sleep(1)
@@ -3097,11 +3092,11 @@ elif option == 55:
                     pass
 
     elif action == 2:
-        path=input("[::] Please enter the full path of the folder which contains your new profile pic: ")
+        path=str(input("[::] Please enter the full path of the folder which contains your new profile pic: ")
         while (path == None) or ("/" not in path):
             print("[!] Invalid Path !")
             sleep(1)
-            path=input("[::] Please enter again the full path of the folder which contains your new profile pic: ")
+            path=str(input("[::] Please enter again the full path of the folder which contains your new profile pic: ")
         try:
             client.account_change_picture(path)
             sleep(3)
@@ -3116,11 +3111,11 @@ elif option == 55:
             quit(0)
 
     elif action == 3:
-        path=input("[::] Please enter the path of the file which contains the photo to be uploaded: ")
+        path=str(input("[::] Please enter the path of the file which contains the photo to be uploaded: ")
         while (path == None) or ("/" not in path):
             print("[!] Invalid Path !")
             sleep(1)
-            path=input("[::] Please enter again the path of the file which contains the photo to be uploaded: ")
+            path=str(input("[::] Please enter again the path of the file which contains the photo to be uploaded: ")
         AddCaption=str(input("[?] Do you want to add caption ? [yes/no] "))
         while (AddCaption != "yes" and AddCaption != "YES" and AddCaption != "no" and AddCaption != "NO") or (AddCaption == None):
             print("[!] Invalid Input !")
@@ -3950,11 +3945,11 @@ elif option == 55:
         caption = None
         hashtag = None
         location = None
-        path=input("[::] Please enter the path of the folder which contains the video: ")
+        path=str(input("[::] Please enter the path of the folder which contains the video: ")
         while (path == None) or ("/" not in path):
             print("[!] Invalid Path !")
             sleep(1)
-            path=input("[::] Please enter again the path of the folder which contains the video: ")
+            path=str(input("[::] Please enter again the path of the folder which contains the video: ")
         incap=str(input("[?] Do you want to include caption ? [yes/no] "))
         while (incap != "yes" and incap != "YES" and incap != "no" and incap != "NO") or (incap == None):
             print("[!] Invalid Input !")
@@ -4046,7 +4041,7 @@ elif option == 55:
             count=int(input("[?] How many accounts do you want to follow ? "))
         if count == 1:
             username=str(input("[::] Please enter the username: "))
-            while username == None or len(username) > 30:
+            while checkUser(username):
                 print("[!] Invalid Username !")
                 sleep(1)
                 username=str(input("[::] Please enter again the username: "))
@@ -4055,7 +4050,7 @@ elif option == 55:
             user_id = loader.check_profile_id(username)
             uid=int(input("[::] Please enter the user's ID as shown above: "))
             while uid == None or uid <= 0:
-                print("[!] Invalid ID")
+                print("[!] Invalid ID !")
                 sleep(1)
                 uid=int(input("[::] Please enter again the user's ID as shown above: "))
             if current_time == __time__:
@@ -4078,7 +4073,7 @@ elif option == 55:
         else:
             for i in range(1,count+1):
                 username=str(input("[::] Please enter the username No{} :".format(i)))
-                while username == None or len(username) > 30:
+                while checkUser(username):
                     print("[!] Invalid Username !")
                     sleep(1)
                     username=str(input("[::] Please enter again username No{} : ".format(i)))
@@ -4086,7 +4081,7 @@ elif option == 55:
                 username.strip()
                 uid=loader.check_profile_id(username)
                 id=int(input("[::] Please enter the user's ID as shown above: "))
-                while id == None or len(id) < 3:
+                while checkID(id):
                     print("[!] Invalid ID !")
                     sleep(1)
                     uid=int(input("[::] Please enter again the user's ID as shown above: "))
@@ -4113,7 +4108,7 @@ elif option == 55:
                 count=int(input("[?] How many accounts do you want to unfollow ? "))
             if count == 1: 
                 username=str(input("[::] Please enter the username: "))
-                while username == None or len(username) > 30:
+                while checkUser(username):
                     print("[!] Invalid Username !")
                     sleep(1)
                     username=str(input("[::] Please enter again the username: "))
@@ -4139,7 +4134,7 @@ elif option == 55:
             else:
                 for i in range(count):
                     username=str(input("[::] Please enter the username: "))
-                    while username == None or len(username) > 30:
+                    while checkUser(username):
                         print("[!] Invalid Username !")
                         sleep(1)
                         username=str(input("[::] Please enter again the username: "))
@@ -4158,3 +4153,7 @@ elif option == 55:
             print("[+] Waiting for the time: "+str(__time__))
             sleep(1)
             pass
+
+elif option == 56:
+    user=str(input("[::] Please enter the username: "))
+    
