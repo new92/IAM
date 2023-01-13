@@ -1,7 +1,7 @@
 """
 Author: new92
 Github: @new92
-[-->] Program for Managing your Instagram Account Remotely
+[-->] Script for managing your Instagram account
 IAM: Instagram Account Manager
 User's data (such as username password) will not be stored or saved ! 
 Will be used only for some functions of the program.
