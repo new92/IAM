@@ -3,10 +3,8 @@ Author: new92
 Github: @new92
 [-->] Script for managing your Instagram account
 User's data (such as username and/or password) will not be stored or saved ! 
-Will be used only for some functions of the program.
+Will be used only for the login process 
 """
-
-#Imports
 
 try:
     import sys
