@@ -2,8 +2,7 @@
 Author: new92
 Github: @new92
 [-->] Script for managing your Instagram account
-IAM: Instagram Account Manager
-User's data (such as username password) will not be stored or saved ! 
+User's data (such as username and/or password) will not be stored or saved ! 
 Will be used only for some functions of the program.
 """
 
