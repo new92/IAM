@@ -38,17 +38,22 @@ except ImportError as imp:
     sleep(2)
     print("[+] Ignoring warning...")
     sleep(1)
-    if sys.platform.startswith('linux') == True:
-        system("sudo pip install -r requirements.txt")
-        pass
+    if sys.platform.startswith('linux'):
+        if os.geteuid() != 0:
+            print("[!] Root user not detected !")
+            sleep(2)
+            print("[+] Trying to enable root user...")
+            sleep(1)
+            system(sudo su)
+        else:
+            system("sudo pip install -r requirements.txt")
+            pass
     elif sys.platform == 'darwin':
         system("python -m pip install requirements.txt")
         pass
     elif platform.system() == 'Windows':
-        system("pip3 install -r requirements.txt")
+        system("pip install -r requirements.txt")
         pass
-
-#Displaying Logo
 
 print("""
 ██╗░█████╗░███╗░░░███╗
@@ -59,12 +64,11 @@ print("""
 ╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝
 """)
 
-#Defs
-def Get_Hpk(link : str) -> str:
-    return client.highlight_pk_from_url(link)
+def Get_Hpk(url:str) -> str:
+    return client.highlight_pk_from_url(url)
 
-def Get_Spk(link : str) -> str:
-    return client.story_pk_from_url(link)
+def Get_Spk(url:str) -> str:
+    return client.story_pk_from_url(url)
 
 def Av_Acts() -> str:
     actions = """
@@ -97,32 +101,31 @@ def Av_Acts() -> str:
     """
     return actions
 
-def ProgInfo() -> str:
+def ProgInfo():
     __version__ = "1.2"
     __author__ = "new92"
     __license__ = "MIT"
     __name__ = "IAM"
     __contributors__ = None
-    __programmedwith__ = "Python"
+    __lang__ = "Python"
     __language__ = "English - en"
     print("[+] Version ==> "+str(__version__))
     print("[+] Author ==> "+str(__author__))
     print("[+] License ==> "+str(__license__))
     print("[+] Program's name ==> "+str(__name__))
     print("[+] Contributors ==> "+str(__contributors__)+" so far... :)")
-    print("[+] Programmed with ==> "+str(__programmedwith__))
+    print("[+] Programmed with ==> "+str(__lang__))
     print("[+] Language ==> "+str(__language__))
 
-def checkUser(username : str) -> bool:
+def checkUser(username:str) -> bool:
     return username == None or len(username) > 30
 
-def GetID(username : str) -> int:
+def GetID(username:str) -> int:
     return loader.check_profile_id(username)
 
-def checkID(id : int) -> bool:
+def checkID(id:int) -> bool:
     return id == None or len(id) < 3
 
-#Lists
 
 ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES"]
 NANS = ["no","NO","No","n","N","nO"]
@@ -170,10 +173,9 @@ count = 0
 #Main program
 
 print("\n")
-print("[+] IAM: Instagram Account Manager")
+print("[+] Program for managing your Instagram account")
 print("\n")
-print("[+] Program for Managing your Instagram Account Remotely")
-print("\n")
+print("[+] Author: new92")
 print("[+] Github: @new92")
 print("\n")
 print("[1] Display your profile ID")
@@ -263,7 +265,7 @@ if option != 999:
     print("|--------------------|LOGIN|--------------------|")
     print("\n")
     username=str(input("[::] Please enter your username: "))
-    while checkUser(username) == True == True:
+    while checkUser(username):
         print("[!] Sorry invalid username !")
         sleep(2)
         username=str(input("[::] Please enter again your username: "))
@@ -271,10 +273,8 @@ if option != 999:
     if username.islower() == False:
         username = username.lower()
         username = username.strip()
-        pass
     else:
         username = username.strip()
-        pass
     password=input("[::] Please enter your password: ")
     while password == None:
         print("[!] Sorry, invalid password !")
@@ -299,7 +299,7 @@ elif option == 999:
     sleep(5)
     quit(0)
 
-if option == 0:
+elif option == 0:
     print("[+] Exiting...")
     quit(0)
 
@@ -421,13 +421,13 @@ elif option == 7:
 
 elif option == 8:
     count=int(input("[+] Number of accounts (to get their stories): "))
-    while count == None or count <= 0:
+    while count <= 0 or count == None:
         print("[!] Invalid number !")
         sleep(1)
         count=int(input("[::] Please enter again the number of accounts (to get their stories): "))
     for i in range(count):
         username=str(input("[::] Please enter the username: "))
-        while checkUser(username) == True:
+        while checkUser(username):
             print("[!] Invalid username !")
             sleep(1)
             username=input("[::] Please enter again the username: ")
