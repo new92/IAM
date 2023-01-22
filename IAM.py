@@ -106,16 +106,18 @@ def ProgInfo():
     __author__ = "new92"
     __license__ = "MIT"
     __name__ = "IAM"
-    __contributors__ = None
     __lang__ = "Python"
-    __language__ = "English - en"
+    __language__ = "en - US"
+    stars = 8
+    forks = 4
     print("[+] Version ==> "+str(__version__))
     print("[+] Author ==> "+str(__author__))
     print("[+] License ==> "+str(__license__))
     print("[+] Program's name ==> "+str(__name__))
-    print("[+] Contributors ==> "+str(__contributors__)+" so far... :)")
-    print("[+] Programmed with ==> "+str(__lang__))
-    print("[+] Language ==> "+str(__language__))
+    print("[+] Programming language ==> "+str(__lang__))
+    print("[+] Natural language ==> "+str(__language__))
+    print("[+] Github repo stars: "+str(stars))
+    print("[+] Github repo forks: "+str(forks))
 
 def checkUser(username:str) -> bool:
     return username == None or len(username) > 30
