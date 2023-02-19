@@ -7,42 +7,42 @@ Use this script to manage your Instagram account remotely.
 
 
 
-## Links
+## Links 🔗
 
  - [License](https://github.com/new92/IAM/blob/main/LICENSE)
  - [Contributing](https://github.com/new92/IAM/blob/main/CONTRIBUTING.md)
  - [You may also find interesting](https://github.com/new92?tab=repositories)
 
 
-## Authors
+## Authors ✍️
 
 - [@new92](https://www.github.com/new92)
 
 
-## Badges
+## Badges 📛
 
 
-[![Code size](https://img.shields.io/github/languages/code-size/new92/IAM)](https://img.shields.io/github/languages/code-size/new92/IAM)
+[![Code size](https://img.shields.io/github/languages/code-size/new92/IAM?style=for-the-badge)](https://img.shields.io/github/languages/code-size/new92/IAM)
 
-[![Number of files](https://img.shields.io/github/directory-file-count/new92/IAM)](https://img.shields.io/github/directory-file-count/new92/IAM)
+[![Number of files](https://img.shields.io/github/directory-file-count/new92/IAM?style=for-the-badge)](https://img.shields.io/github/directory-file-count/new92/IAM)
 
-[![Followers](https://img.shields.io/github/followers/new92?style=social)](https://img.shields.io/github/followers/new92?style=social)
+[![Followers](https://img.shields.io/github/followers/new92?style=for-the-badge)](https://img.shields.io/github/followers/new92?style=social)
 
-[![Forks](https://img.shields.io/github/forks/new92/IAM?style=social)](https://img.shields.io/github/forks/new92/IAM?style=social)
+[![Forks](https://img.shields.io/github/forks/new92/IAM?style=for-the-badge)](https://img.shields.io/github/forks/new92/IAM?style=social)
 
-[![Stars](https://img.shields.io/github/stars/new92/IAM?style=social)](https://img.shields.io/github/stars/new92/IAM?style=social)
+[![Stars](https://img.shields.io/github/stars/new92/IAM?style=for-the-badge)](https://img.shields.io/github/stars/new92/IAM?style=social)
 
-[![License](https://img.shields.io/github/license/new92/IAM)](https://img.shields.io/github/license/new92/IAM)
+[![License](https://img.shields.io/github/license/new92/IAM?style=for-the-badge)](https://img.shields.io/github/license/new92/IAM)
 
-[![Issues](https://img.shields.io/github/issues-raw/new92/IAM)](https://img.shields.io/github/issues-raw/new92/IAM)
+[![Issues](https://img.shields.io/github/issues-raw/new92/IAM?style=for-the-badge)](https://img.shields.io/github/issues-raw/new92/IAM)
 
-[![Closed Issues](https://img.shields.io/github/issues-closed-raw/new92/IAM)](https://img.shields.io/github/issues-closed-raw/new92/IAM)
+[![Closed Issues](https://img.shields.io/github/issues-closed-raw/new92/IAM?style=for-the-badge)](https://img.shields.io/github/issues-closed-raw/new92/IAM)
 
-[![Open pull requests](https://img.shields.io/github/issues-pr-raw/new92/IAM)](https://img.shields.io/github/issues-pr-raw/new92/IAM)
+[![Open pull requests](https://img.shields.io/github/issues-pr-raw/new92/IAM?style=for-the-badge)](https://img.shields.io/github/issues-pr-raw/new92/IAM)
 
-[![Closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/new92/IAM)](https://img.shields.io/github/issues-pr-closed-raw/new92/IAM)
+[![Closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/new92/IAM?style=for-the-badge)](https://img.shields.io/github/issues-pr-closed-raw/new92/IAM)
 
-[![Contributors](https://img.shields.io/github/contributors/new92/IAM)](https://img.shields.io/github/contributors/new92/IAM)
+[![Contributors](https://img.shields.io/github/contributors/new92/IAM?style=for-the-badge)](https://img.shields.io/github/contributors/new92/IAM)
 
 
 ## Contributing
