@@ -45,7 +45,7 @@ Use this script to manage your Instagram account remotely.
 [![Contributors](https://img.shields.io/github/contributors/new92/IAM?style=for-the-badge)](https://img.shields.io/github/contributors/new92/IAM)
 
 
-## Contributing
+## Contributing 🤝
 
 Contributions are always welcome!
 
@@ -56,7 +56,7 @@ Please adhere to this project's `code of conduct`.
 For more info please check the `CODE_OF_CONDUCT.md` file
 
 
-## Feedback 
+## Feedback 💭
 
 If you have any feedback, please reach out to us at new92github@gmail.com
 
@@ -67,7 +67,6 @@ If you have any feedback, please reach out to us at new92github@gmail.com
 - Option for increasing followers
 - Anonymous actions such as viewing anonymously an account
 - Add options more for viewing than reacting (such as: checking the number of likes, comments of a post or even how many users have saved it !)
-
 
 
 ## FAQ 🤔
@@ -137,5 +136,5 @@ Answers:
     
 ## License 📄
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://choosealicense.com/licenses/mit/?style=for-the-badge)
 
