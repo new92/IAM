@@ -119,7 +119,10 @@ For more info please check the `CODE_OF_CONDUCT.md` file
 
 ## Feedback 💭
 
-If you have any feedback, please reach out to us at this <a href="mailto:new92github@gmail.com">email</a> address
+If you have any feedback, please reach out to us at <a href="mailto:new92github@gmail.com">this</a> email address
+
+**Feel free to contact us anytime ! You'll get a reply within a day. Please avoid using abusive or offensive language.
+If you are reporting a bug or making a suggestion please make sure your report/suggestion is as much detailed as possible.**
 
 
 ## Features 🔜
@@ -134,21 +137,21 @@ If you have any feedback, please reach out to us at this <a href="mailto:new92gi
 
 #### Question 1
 
-- How to login successfully with instaloader in python ?
+- How to login successfully ?
 
-Answer ➡️ This can be resolved by logging in to your instagram account from your browser and then running the script.
+Answer ➡️ First log in to your instagram account from your browser and then use this script.
 
 #### Question 2
 
 - Where can I report a bug ?
 
-Answer ➡️ User can report a bug by creating an issue. Please feel free to include screenshots, the error which is being displayed, the OS you are using, your default browser etc. And any other additional info which can be used to resolve the bug.
+Answer ➡️ You can report a bug by creating an issue or by emailing us at <a href="mailto:new92github@gmail.com">this</a> email address. Please feel free to include screenshots, the error which is being displayed, the OS you are using, your default browser etc. Any other additional info will be appreciated and will help to resolve the bug faster
 
 #### Question 3
 
 - Which are the most common bugs ?
 
-Answer ➡️ The most common bugs are: Login error, error while commenting, sending a file to another user and setting a specific time to execute an action
+Answer ➡️ The most common bugs are: Login error, error while making a comment, sending a file to another user, reseting the password and setting a specific time to make an action.
 
 #### Question 4
 
@@ -156,11 +159,13 @@ Answer ➡️ The most common bugs are: Login error, error while commenting, sen
 
 Answers:
 
-    ➡️ The login error can be resolved by logging in to your instagram account from your browser and then running the script.
+    ➡️ The login error can be resolved by logging in to your instagram account from your browser and then running this script.
     
-    ➡️ The error while commecting can be resolved by using the option No 32 
+    ➡️ The error while making a comment if you are using the option No 30 can be resolved by using the option No 32. And the opposite if you are using option No 32
     
     ➡️ The error while sending a file to another user can be resolved by sending a file with a different extension or by compressing it in a .zip file.
+    
+    ➡️ The error while reseting the password can be resolved by reseting it manually. Most times this option works but there are some times that it doesn't.
     
     ➡️ And finally the error while setting a specific time to execute an action can be resolved by 
 
