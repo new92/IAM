@@ -10,7 +10,7 @@ Use this script to manage your Instagram account remotely.
 You can use the IAM script to perform the following actions:
 | Numbers | Actions |
 | :---: | :---: |
-| 1       | Display your profile ID |
+| 1 | Display your profile ID |
 | 2 | Display your security info |
 | 3 | Display your account info |
 | 4 | Display your pending follow requests |
@@ -19,26 +19,33 @@ You can use the IAM script to perform the following actions:
 | 7 | Download your highlights |
 | 8 | **Download anonymously stories of other users (works for both public and private accounts)** |
 | 9 | Download some of and/or all your saved posts |
-| 10 | Upload post(s) |
-| 11 | Enable/Disable your notifications |
-| 12 | Change profile picture |
-| 13 | Upload story with photo |
-| 14 | Upload IGTV video |
-| 15 | Follow user(s) |
-| 16 | Unfollow user(s) |
-| 17 | Accept follow request(s) |
-| 18 | Reject follow request(s) |
-| 19 | Follow user's followers |
-| 20 | Follow user's following |
-| 21 | Send DM (Direct Message) |
-| 22 | Send file |
-| 23 | Send photo |
-| 24 | Send video |
-| 25 | Like the posts from hashtag(s) |
-| 26 | Like the posts from user(s) |
-| 27 | Like the posts from location(s) |
-| 28 | Like the posts from feed |
-| 29 |
+| 10 | Download some of and/or all posts from your feed |
+| 11 | Upload post(s) |
+| 12 | Enable/Disable your notifications |
+| 13 | Change profile picture |
+| 14 | Upload story with photo |
+| 15 | Upload IGTV video |
+| 16 | Follow user(s) |
+| 17 | Unfollow user(s) |
+| 18 | Accept follow request(s) |
+| 19 | Reject follow request(s) |
+| 20 | Follow user's followers |
+| 21 | Follow user's following |
+| 22 | Send DM (Direct Message) |
+| 23 | Send file |
+| 24 | Send photo |
+| 25 | Send video |
+| 26 | Like the posts from hashtag(s) |
+| 27 | Like the posts from user(s) |
+| 28 | Like the posts from location(s) |
+| 29 | Like the posts from your feed |
+| 30 | Comment (by user)|
+| 31 | Set default reply to comments |
+| 32 | Make a comment |
+| 33 | Block user(s) |
+| 34 | Get username from user ID |
+| 35 | Get a list of all users you have blocked |
+| 36 | 
 
 ## Urls 🔗
 
