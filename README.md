@@ -119,7 +119,7 @@ For more info please check the `CODE_OF_CONDUCT.md` file
 
 ## Feedback 💭
 
-If you have any feedback, please reach out to us at <a href="mailto:new92github@gmail.com">this</a> email address
+If you have any feedback, please reach out to us at <a href="mailto:new92github@gmail.com">this email address</a>.
 
 **Feel free to contact us anytime ! You'll get a reply within a day. Please avoid using abusive or offensive language.
 If you are reporting a bug or making a suggestion please make sure your report/suggestion is as much detailed as possible.**
