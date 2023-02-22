@@ -396,7 +396,7 @@ def main():
     print("[53] Delete your (post(s), reel(s), igtv(s) etc.)")
     print("[54] Save/Unsave (post(s), reel(s), igtv(s) etc.)")
     print("\n")
-    print("[55] Set a specific time (from the current day) to execute an action")
+    print("[55] Set a specific time (from the current day) to make an action")
     print("\n")
     print("[56] Hide your stories from a specific user")
     print("\n")
