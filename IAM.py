@@ -335,7 +335,7 @@ def main():
     print("[3] Display your account info")
     print("[4] Display your pending follow requests")
     print("[5] Display your followers")
-    print("[6] Display the users you Follow")
+    print("[6] Display the users you follow")
     print("\n")
     print("[7] Download your highlights")
     print("[8] Download anonymous stories of other users")
