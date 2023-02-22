@@ -13,31 +13,32 @@ You can use the IAM script to perform the following actions:
 | 1       | Display your profile ID |
 | 2 | Display your security info |
 | 3 | Display your account info |
-
-- Display your account info
-- Display your pending follow requests
-- Display your followers
-- Display the users you follow
-- Download your highlights
-- **Download anonymously stories of other users (works for both public and private accounts)**
-- Download some of and/or all your saved posts
-- Download some of and/or all the posts from your feed
-- Upload post(s)
-- Enable/Disable your notifications
-- Change profile pic
-- Upload story with pic
-- Upload IGTV video
-- Follow user(s)
-- Unfollow user(s)
-- Accept follow request(s)
-- Reject follow request(s)
-- Follow user's followers
-- Follow user's following
-- Send DM (Direct Message)
-- Send file
-- Send photo
-- Send video
-- 
+| 4 | Display your pending follow requests |
+| 5 | Display your followers |
+| 6 | Display the users you follow |
+| 7 | Download your highlights |
+| 8 | **Download anonymously stories of other users (works for both public and private accounts)** |
+| 9 | Download some of and/or all your saved posts |
+| 10 | Upload post(s) |
+| 11 | Enable/Disable your notifications |
+| 12 | Change profile picture |
+| 13 | Upload story with photo |
+| 14 | Upload IGTV video |
+| 15 | Follow user(s) |
+| 16 | Unfollow user(s) |
+| 17 | Accept follow request(s) |
+| 18 | Reject follow request(s) |
+| 19 | Follow user's followers |
+| 20 | Follow user's following |
+| 21 | Send DM (Direct Message) |
+| 22 | Send file |
+| 23 | Send photo |
+| 24 | Send video |
+| 25 | Like the posts from hashtag(s) |
+| 26 | Like the posts from user(s) |
+| 27 | Like the posts from location(s) |
+| 28 | Like the posts from feed |
+| 29 |
 
 ## Urls 🔗
 
