@@ -88,10 +88,10 @@ If you have any feedback, please reach out to us at this <a href="mailto:new92gi
 
 ## Features 🔜
 
-[ ] GUI
-[ ] Option for increasing the followers of an account
-[ ] Anonymous actions such as viewing anonymously an account
-[ ] Additions to the available options (such as: who doesn't follow me back, how many users visited my account, who has blocked me etc.)
+- [ ] GUI
+- [ ] Option for increasing the followers of an account
+- [ ] Anonymous actions such as viewing anonymously an account
+- [ ] Additions to the available options (such as: who doesn't follow me back, how many users visited my account, who has blocked me etc.)
 
 
 ## FAQ 🤔
