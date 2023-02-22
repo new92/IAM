@@ -338,7 +338,7 @@ def main():
     print("[6] Display the users you follow")
     print("\n")
     print("[7] Download your highlights")
-    print("[8] Download anonymous stories of other users")
+    print("[8] Download anonymously stories of other users")
     print("[9] Download your saved posts")
     print("[10] Download posts from your feed")
     print("\n")
