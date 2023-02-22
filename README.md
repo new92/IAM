@@ -45,7 +45,28 @@ You can use the IAM script to perform the following actions:
 | 33 | Block user(s) |
 | 34 | Get username from user ID |
 | 35 | Get a list of all users you have blocked |
-| 36 | 
+| 36 | Create highlight(s) |
+| 37 | Delete highlight(s) |
+| 38 | Change the cover of highlight(s) |
+| 39 | Display the highlights of user(s) |
+| 40 | Retrieve information from highlight(s) |
+| 41 | **Delete your story** |
+| 42 | **Get story viewers** |
+| 43 | Get stories by hashtag(s) |
+| 44 | Get stories by user(s) |
+| 45 | Retrieve information from a story |
+| 46 | Set country |
+| 47 | Set bio |
+| 48 | **Gather information for a user (works better on public accounts)** |
+| 49 | Get information about the posts where the user is tagged |
+| 50 | Reset your password |
+| 51 | Edit profile |
+| 52 | Like/Unlike (post(s), reel(s), igtv(s) etc.) |
+| 53 | Delete your (post(s), reel(s), igtv(s) etc.) |
+| 54 | Save/Unsave (post(s), reel(s), igtv(s) etc.) |
+| 55 | Set a specific time (from the current day) to make an action |
+| 56 | Hide your stories from a specific user |
+| 999 | Show script's info and exit |
 
 ## Urls 🔗
 
