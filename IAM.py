@@ -369,7 +369,7 @@ def main():
     print("[31] Set default reply to comments")
     print("[32] Make a comment")
     print("\n")
-    print("[33] Block User(s)")
+    print("[33] Block user(s)")
     print("[34] Get username from user ID")
     print("[35] Get a list of all users you have blocked")
     print("\n")
