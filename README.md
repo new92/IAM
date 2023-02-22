@@ -30,6 +30,9 @@ You can use the IAM script to perform the following actions:
 - Follow user's followers
 - Follow user's following
 - Send DM (Direct Message)
+- Send file
+- Send photo
+- Send video
 - 
 
 ## Links 🔗
