@@ -29,6 +29,7 @@ You can use the IAM script to perform the following actions:
 - Reject follow request(s)
 - Follow user's followers
 - Follow user's following
+- Send DM (Direct Message)
 - 
 
 ## Links 🔗
