@@ -35,14 +35,14 @@ You can use the IAM script to perform the following actions:
 - Send video
 - 
 
-## Links 🔗
+## Urls 🔗
 
  - [License](https://github.com/new92/IAM/blob/main/LICENSE)
  - [Contributing](https://github.com/new92/IAM/blob/main/CONTRIBUTING.md)
  - [You may also find interesting](https://github.com/new92?tab=repositories)
 
 
-## Authors ✍️
+## Author ✍️
 
 - [@new92](https://www.github.com/new92)
 
