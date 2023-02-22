@@ -5,7 +5,31 @@ Instagram Account Manager.
 Use this script to manage your Instagram account remotely.
 
 
+## Usage ⚙️
 
+You can use the IAM script to perform the following actions:
+- Display your profile ID
+- Display your security info
+- Display your account info
+- Display your pending follow requests
+- Display your followers
+- Display the users you follow
+- Download your highlights
+- **Download anonymously stories of other users (works for both public and private accounts)**
+- Download some of and/or all your saved posts
+- Download some of and/or all the posts from your feed
+- Upload post(s)
+- Enable/Disable your notifications
+- Change profile pic
+- Upload story with pic
+- Upload IGTV video
+- Follow user(s)
+- Unfollow user(s)
+- Accept follow request(s)
+- Reject follow request(s)
+- Follow user's followers
+- Follow user's following
+- 
 
 ## Links 🔗
 
@@ -64,9 +88,9 @@ If you have any feedback, please reach out to us at new92github@gmail.com
 ## Features 🔜
 
 - GUI
-- Option for increasing followers
+- Option for increasing the followers of an account
 - Anonymous actions such as viewing anonymously an account
-- Add options more for viewing than reacting (such as: checking the number of likes, comments of a post or even how many users have saved it !)
+- Additions to the available options (such as: who doesn't follow me back, how many users visited my account, who has blocked me etc.)
 
 
 ## FAQ 🤔
