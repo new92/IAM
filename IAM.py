@@ -367,7 +367,7 @@ def main():
     print("\n")
     print("[30] Comment by user")
     print("[31] Set default reply to comments")
-    print("[32] Do comment")
+    print("[32] Make a comment")
     print("\n")
     print("[33] Block User(s)")
     print("[34] Get username from user ID")
