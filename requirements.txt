@@ -1,3 +1,4 @@
-instagrapi == 1.16.17
-instaloader == 4.9.1
+instagrapi == 1.16.30
+instaloader == 4.9.5
+instabot == 0.117.0
 requests == 2.28.1
