@@ -8,8 +8,12 @@ Use this script to manage your Instagram account remotely.
 ## Usage ⚙️
 
 You can use the IAM script to perform the following actions:
-- Display your profile ID
-- Display your security info
+| Numbers | Actions |
+| :---: | :---: |
+| 1       | Display your profile ID |
+| 2 | Display your security info |
+| 3 | Display your account info |
+
 - Display your account info
 - Display your pending follow requests
 - Display your followers
