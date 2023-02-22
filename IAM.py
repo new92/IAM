@@ -363,7 +363,7 @@ def main():
     print("[26] Like the posts from hashtag(s)")
     print("[27] Like the posts from user(s)")
     print("[28] Like the posts from location(s)")
-    print("[29] Like the posts from feed")
+    print("[29] Like the posts from your feed")
     print("\n")
     print("[30] Comment by user")
     print("[31] Set default reply to comments")
