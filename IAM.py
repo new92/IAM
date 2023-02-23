@@ -247,8 +247,8 @@ def ProgInfo():
     __lines__ = 4365
     __programmedwith__ = "Python"
     __language__ = "en-US"
-    stars = 8
-    forks = stars // 2
+    stars = 9
+    forks = 4
     print("[+] Author ==> "+str(__author__))
     print("[+] Github ==> @"+str(__author__))
     print("[+] License ==> "+str(__license__))
