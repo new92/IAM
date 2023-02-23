@@ -69,6 +69,27 @@ def banner() -> str:
 ╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝
 """
 
+def clear():
+    """
+    Clears the terminal
+    """
+    if platform.system() == 'Windows':
+        system("cls")
+    else:
+        system("clear")
+
+def Get_Hpk(url:str) -> str:
+    return client.highlight_pk_from_url(url)
+
+def Get_Spk(url:str) -> str:
+    return client.story_pk_from_url(url)
+
+def valUser(user):
+    """
+    Checks the validation of the username using the requests module
+    """
+    return re.get(f"https://www.instagram.com/{user}/").status_code == 404 or re.get(f"https://www.instagram.com/{user}/").status_code == 400
+
 def Except(ex:str):
     """
     Used for exceptions
@@ -99,27 +120,6 @@ def Except(ex:str):
         print("[+] See you next time 👋")
         sleep(1)
         quit(0)
-
-def cls():
-    """
-    Clears the terminal
-    """
-    if platform.system() == 'Windows':
-        system("cls")
-    else:
-        system("clear")
-
-def Get_Hpk(url:str) -> str:
-    return client.highlight_pk_from_url(url)
-
-def Get_Spk(url:str) -> str:
-    return client.story_pk_from_url(url)
-
-def valUser(user):
-    """
-    Checks the validation of the username using the requests module
-    """
-    return re.get(f"https://www.instagram.com/{user}/").status_code == 404 or re.get(f"https://www.instagram.com/{user}/").status_code == 400
 
 def checkOpt(opt,data):
     """
@@ -164,22 +164,6 @@ def valOpt(opt:int,x:int,y:int):
     """
     return opt < x or opt > y or opt == None or type(opt) != int
     
-def Class():
-    if Next() == 1:
-        main()
-    else:
-        Exiting()
-
-def Exiting():
-    """
-    Exits the script
-    """
-    print("[+] Exiting...")
-    sleep(1)
-    print("[+] See you next time 👋")
-    sleep(1)
-    quit(0)
-    
 def Next() -> int:
     print("[1] Return to menu")
     print("[2] Exit")
@@ -196,6 +180,20 @@ def Next() -> int:
         sleep(1)
         opt=int(input("[::] Please enter a number (from the above ones): "))
     return opt
+
+def Class():
+    main() if Next() == 1 else Exiting()
+
+def Exiting():
+    """
+    Exits the script
+    """
+    print("[+] Exiting...")
+    sleep(1)
+    print("[+] See you next time 👋")
+    sleep(1)
+    quit(0)
+    
     
 def checkCount(num:int) -> bool:
     """
@@ -203,6 +201,9 @@ def checkCount(num:int) -> bool:
     """
     return num == None or num < 1 or type(num) != int
     
+def checkTag(tag: str) -> bool:
+    return "#" in tag or tag == None or type(tag) != str
+
 def checkPath(path):
     return path == None or "/" not in path or "\\" not in path
 
@@ -240,23 +241,23 @@ def Av_Acts() -> str:
     """
 
 def ProgInfo():
-    ___version__ = "1.2"
-    __author__ = "new92"
-    __license__ = "MIT"
-    ___name__ = "IAM"
-    __lines__ = 4365
-    __programmedwith__ = "Python"
-    __language__ = "en-US"
+    version = "1.2"
+    author = "new92"
+    license = "MIT"
+    name = "IAM"
+    lines = 4182
+    lang = "Python"
+    language = "en-US"
     stars = 9
     forks = 4
-    print("[+] Author ==> "+str(__author__))
-    print("[+] Github ==> @"+str(__author__))
-    print("[+] License ==> "+str(__license__))
-    print("[+] Script's name ==> "+str(___name__))
-    print("[+] Version ==> "+str(___version__))
-    print("[+] Programmed with ==> "+str(__programmedwith__))
-    print("[+] Natural language ==> "+str(__language__))
-    print("[+] Number of lines ==> "+str(__lines__))
+    print("[+] Author ==> "+str(author))
+    print("[+] Github ==> @"+str(author))
+    print("[+] License ==> "+str(license))
+    print("[+] Script's name ==> "+str(name))
+    print("[+] Version ==> "+str(version))
+    print("[+] Programmed with ==> "+str(lang))
+    print("[+] Natural language ==> "+str(language))
+    print("[+] Number of lines ==> "+str(lines))
     print("[+] Number of stars on the github repo ==> "+str(stars))
     print("[+] Number of forks on the github repo ==> "+str(forks))
 
@@ -335,18 +336,18 @@ def main():
     print("[3] Display your account info")
     print("[4] Display your pending follow requests")
     print("[5] Display your followers")
-    print("[6] Display the users you follow")
+    print("[6] Display the users you Follow")
     print("\n")
     print("[7] Download your highlights")
-    print("[8] Download anonymously stories of other users")
+    print("[8] Download anonymous stories of other users")
     print("[9] Download your saved posts")
     print("[10] Download posts from your feed")
     print("\n")
-    print("[11] Upload post(s)")
+    print("[11] Publish post(s)")
     print("[12] Enable/Disable your notifications")
     print("[13] Change profile pic")
     print("[14] Upload story with pic")
-    print("[15] Upload IGTV video")
+    print("[15] Publish IGTV video")
     print("\n")
     print("[16] Follow user(s)")
     print("[17] Unfollow user(s)")
@@ -363,13 +364,13 @@ def main():
     print("[26] Like the posts from hashtag(s)")
     print("[27] Like the posts from user(s)")
     print("[28] Like the posts from location(s)")
-    print("[29] Like the posts from your feed")
+    print("[29] Like the posts from feed")
     print("\n")
     print("[30] Comment by user")
     print("[31] Set default reply to comments")
-    print("[32] Make a comment")
+    print("[32] Do comment")
     print("\n")
-    print("[33] Block user(s)")
+    print("[33] Block User(s)")
     print("[34] Get username from user ID")
     print("[35] Get a list of all users you have blocked")
     print("\n")
@@ -381,9 +382,9 @@ def main():
     print("\n")
     print("[41] Delete story")
     print("[42] Get story viewers")
-    print("[43] Get stories by hashtag(s)")
-    print("[44] Get stories by user(s)")
-    print("[45] Retrieve information from a story")
+    print("[43] Get stories by hashtags")
+    print("[44] Get stories by users")
+    print("[45] Retrieve information of a story")
     print("\n")
     print("[46] Set country")
     print("[47] Set bio")
@@ -396,11 +397,11 @@ def main():
     print("[53] Delete your (post(s), reel(s), igtv(s) etc.)")
     print("[54] Save/Unsave (post(s), reel(s), igtv(s) etc.)")
     print("\n")
-    print("[55] Set a specific time (from the current day) to make an action")
+    print("[55] Set a specific time (from the current day) to execute an action")
     print("\n")
     print("[56] Hide your stories from a specific user")
     print("\n")
-    print("[999] Show script's info and exit")
+    print("[999] Show program info and exit")
     print("\n")
     print("[0] Exit") 
     print("\n")
@@ -413,25 +414,25 @@ def main():
         else:
             print("[+] Invalid number !")
             sleep(1)
-            print("[+] Acceptable numbers: [1 to 56, 999 and 0]")
+            print("[+] Acceptable numbers: [1 to 56 /999/0]")
         sleep(2)
         print("[1] Display your profile ID")
         print("[2] Display your security information")
         print("[3] Display your account info")
         print("[4] Display your pending follow requests")
         print("[5] Display your followers")
-        print("[6] Display the users you follow")
+        print("[6] Display the users you Follow")
         print("\n")
         print("[7] Download your highlights")
-        print("[8] Download anonymously stories of other users")
+        print("[8] Download anonymous stories of other users")
         print("[9] Download your saved posts")
         print("[10] Download posts from your feed")
         print("\n")
-        print("[11] Upload post(s)")
+        print("[11] Publish post(s)")
         print("[12] Enable/Disable your notifications")
         print("[13] Change profile pic")
         print("[14] Upload story with pic")
-        print("[15] Upload IGTV video")
+        print("[15] Publish IGTV video")
         print("\n")
         print("[16] Follow user(s)")
         print("[17] Unfollow user(s)")
@@ -448,13 +449,13 @@ def main():
         print("[26] Like the posts from hashtag(s)")
         print("[27] Like the posts from user(s)")
         print("[28] Like the posts from location(s)")
-        print("[29] Like the posts from your feed")
+        print("[29] Like the posts from feed")
         print("\n")
         print("[30] Comment by user")
         print("[31] Set default reply to comments")
-        print("[32] Make a comment")
+        print("[32] Do comment")
         print("\n")
-        print("[33] Block user(s)")
+        print("[33] Block User(s)")
         print("[34] Get username from user ID")
         print("[35] Get a list of all users you have blocked")
         print("\n")
@@ -466,9 +467,9 @@ def main():
         print("\n")
         print("[41] Delete story")
         print("[42] Get story viewers")
-        print("[43] Get stories by hashtag(s)")
-        print("[44] Get stories by user(s)")
-        print("[45] Retrieve information from a story")
+        print("[43] Get stories by hashtags")
+        print("[44] Get stories by users")
+        print("[45] Retrieve information of a story")
         print("\n")
         print("[46] Set country")
         print("[47] Set bio")
@@ -481,18 +482,16 @@ def main():
         print("[53] Delete your (post(s), reel(s), igtv(s) etc.)")
         print("[54] Save/Unsave (post(s), reel(s), igtv(s) etc.)")
         print("\n")
-        print("[55] Set a specific time (from the current day) to make an action")
+        print("[55] Set a specific time (from the current day) to execute an action")
         print("\n")
         print("[56] Hide your stories from a specific user")
         print("\n")
-        print("[999] Show script's info and exit")
-        print("\n")
-        print("[0] Exit") 
+        print("[999] Show program info and exit")
         print("\n")
         print("[0] Exit")
         option=int(input("[::] Please enter again a number (from the above ones): "))
     if option != 0:
-        cls()
+        clear()
         print("\n")
         print("|--------------------|LOGIN|--------------------|")
         print("\n")
@@ -547,14 +546,14 @@ def main():
             logini = instapy.InstaPy(username,password)
             api = instagram_private_api.Client(username,password)
         except Exception as ex:
-            Except()
+            Except(ex)
 
     elif option == 999:
-        cls()
+        clear()
         ProgInfo()
     
     if option == 0:
-        cls()
+        clear()
         print("[+] Thank you for using my script 😁")
         sleep(2)
         print("[+] See you next time 👋")
@@ -562,7 +561,7 @@ def main():
         quit(0)
 
     elif option == 1:
-        cls()
+        clear()
         try:
             print("[+] Your ID: "+str(GetID(username)))
             Class()
@@ -570,7 +569,7 @@ def main():
             Except(ex)
 
     elif option == 2:
-        cls()
+        clear()
         try:
             sec=client.account_security_info()
             print("[+] Is phone confirmed ? "+str(sec["is_phone_confirmed"]))
@@ -591,7 +590,7 @@ def main():
             Except(ex)
 
     elif option == 3:
-        cls()
+        clear()
         try:
             print("[+] Your account information: "+str(client.account_info()))
             Class()
@@ -599,7 +598,7 @@ def main():
             Except(ex)
 
     elif option == 4:
-        cls()
+        clear()
         try:
             print(api.friendships_pending())
             Class()
@@ -607,7 +606,7 @@ def main():
             Except(ex)
 
     elif option == 5:
-        cls()
+        clear()
         print(GetID(username))
         id=int(input("[::] Please enter your id as shown above: "))
         while checkID(id):
@@ -621,7 +620,7 @@ def main():
             Except(ex)
 
     elif option == 6:
-        cls()
+        clear()
         print(GetID(username))
         id=int(input("[::] Please enter your id (as shown above): "))
         while checkID(id):
@@ -635,7 +634,7 @@ def main():
             Except(ex)
 
     elif option == 7:
-        cls()
+        clear()
         print(GetID(username))
         id=int(input("[::] Please enter your id as shown above: "))
         while checkID(id):
@@ -651,7 +650,7 @@ def main():
             Except(ex)
 
     elif option == 8:
-        cls()
+        clear()
         count=int(input("[+] Number of accounts (to get their stories): "))
         while valOpt(count,1,999):
             checkOpt(count,"other")
@@ -683,7 +682,7 @@ def main():
             Except(ex)
 
     elif option == 9:
-        cls()
+        clear()
         count=int(input("[?] How many of your saved posts do you want to download ? (enter a number) "))
         while checkCount(count):
             checkOpt(count,"other")
@@ -697,7 +696,7 @@ def main():
             Except(ex)
 
     elif option == 10:
-        cls()
+        clear()
         count=int(input("[?] How many posts do you want to download ? (enter a number) "))
         while checkCount(count):
             checkOpt(count, "other")
@@ -711,7 +710,7 @@ def main():
             Except(ex)
 
     elif option == 11:
-        cls()
+        clear()
         count=int(input("[::] Please enter the number of posts to post: "))
         while checkCount(count):
             checkOpt(count, "other")
@@ -843,7 +842,7 @@ def main():
                     Except(ex)
 
     elif option == 12:
-        cls()
+        clear()
         username=str(input("[::] Please enter your username: "))
         while checkUser(username):
             checkOpt(username, "username")
@@ -975,7 +974,7 @@ def main():
                     Except(ex)
 
     elif option == 13:
-        cls()
+        clear()
         path=str(input("[::] Please enter the path of the photo for your new profile picture: "))
         while checkPath(path):
             checkOpt(path, "path")
@@ -989,7 +988,7 @@ def main():
             Except(ex)
 
     elif option == 14:
-        cls()
+        clear()
         path=str(input("[::] Please enter the path to the photo to be uploaded: "))
         while checkPath(path):
             checkOpt(path, "path")
@@ -1181,401 +1180,250 @@ def main():
                 Class()
             except Exception as ex:
                 Except(ex)
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$]
-        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
         elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash != None:
             try:
                 client.photo_upload_to_story(path,caption,mentions=MENTIONS,hashtags=HASHTAGS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,mentions=MENTIONS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,locations=LOCATIONS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks != None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,links=LINKS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
             try:
                 client.photo_upload_to_story(path,hashtags=HASHTAGS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption,mentions=MENTIONS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=AddLinks)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
             try:
                 client.photo_upload_to_story(path,caption,hashtags=HASHTAGS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks != None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,mentions=MENTIONS,links=LINKS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks == None and AddHash != None:
             try:
                 client.photo_upload_to_story(path,caption,locations=LOCATIONS,hashtags=HASHTAGS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption,mentions=MENTIONS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=LINKS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
             try:
                 client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption,mentions=MENTIONS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption,locations=LOCATIONS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks != None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,caption,links=LINKS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
             try:
                 client.photo_upload_to_story(path,caption,hashtags=HASHTAGS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks != None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,mentions=MENTIONS,links=LINKS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks == None and AddHash != None:
             try:
                 client.photo_upload_to_story(path,mentions=MENTIONS,hashtags=HASHTAGS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks != None and AddHash == None:
             try:
                 client.photo_upload_to_story(path,locations=LOCATIONS,links=LINKS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks == None and AddHash != None:
             try:
                 client.photo_upload_to_story(path,locations=LOCATIONS,hashtags=HASHTAGS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
         elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks != None and AddHash != None:
             try:
                 client.photo_upload_to_story(path,links=LINKS,hashtags=HASHTAGS)
                 sleep(5)
                 print("[!] Story uploaded successfully !")
-                quit(0)
+                Class()
             except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                Except(ex)
 
     elif option == 15:
+        clear()
         caption = None
         hashtag = None
         location = None
         path=str(input("[::] Please enter the path to the video: "))
-        while path == None or "/" not in path or "\\" not in path:
-            print("[!] Invalid path !")
+        while checkPath(path):
+            checkOpt(path, "path")
             sleep(1)
             path=str(input("[::] Please enter again the to the video: "))
         incap=str(input("[?] Do you want to include caption ? [yes/no] "))
-        while incap not in ANS and incap not in NANS or incap == None:
-            print("[!] Invalid input !")
+        while incap not in ANS or incap == None:
+            if incap == None:
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid input !")
             sleep(1)
             incap=str(input("[?] Do you want to include caption ? [yes/no] "))
-        if incap in ANS:
+        if incap in ANS[:9]:
             sleep(1)
             print("[+] Default: Check out my new video !")
             sleep(2)
@@ -1585,100 +1433,95 @@ def main():
             if caption == "\t":
                 caption = "Check out my new video !"
         intag=str(input("[?] Do you want to include hashtag(s) ? [yes/no] "))
-        while intag not in ANS and intag not in NANS or intag == None:
-            print("[!] Invalid input !")
+        while intag not in ANS or intag == None:
+            if intag == None:
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid input !")
             sleep(1)
             intag=str(input("[?] Do you want to include hashtag(s) ? [yes/no] "))
-        if intag in ANS:
+        if intag in ANS[:9]:
             count=int(input("[?] How many ? (enter a number) "))
-            while count <= 0 or count == None:
-                print("[!] Invalid number !")
+            while checkCount(count):
+                checkOpt(count, "other")
                 sleep(1)
                 count=int(input("[?] How many hashtags to include ? (enter a number) "))
             for i in range(count):
                 hashtag=str(input(f"[::] Please enter the hashtag No{i+1}: "))
-                while hashtag == None or "#" not in hashtag:
-                    print("[!] Invalid hashtag !")
-                    sleep(2)
-                    print("[+] Please include the    #    sign")
-                    sleep(2)
+                while checkTag(hashtag):
+                    if hashtag == None:
+                        print("[!] This field can't be blank !")
+                    else:
+                        print("[!] Invalid hashtag !")
+                    sleep(1)
                     hashtag=str(input(f"[::] Please enter again hashtag No{i+1}: "))
                 HASHVID.append(hashtag)
                 sleep(1)
                 print("[!] Hashtag added successfully !")
-        else:
-            print("[OK]")
-            sleep(1)
-            pass
         inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-        while inloc not in ANS and inloc not in NANS or inloc == None:
-            print("[!] Invalid location !")
+        while inloc not in ANS or inloc == None:
+            if inloc == None:
+                print("[!] This field can't be blank !")
+            else:
+                print("[!] Invalid location !")
             sleep(1)
             inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-        if inloc in ANS:
+        if inloc in ANS[:9]:
             count=int(input("[?] How many ? (enter a number) "))
-            while count <= 0 or count == None:
-                print("[!] Invalid Number !")
+            while checkCount(count):
+                checkOpt(count, "other")
                 sleep(1)
                 count=int(input("[?] How many locations to include ? (enter a number) "))
             for i in range(count):
                 location=str(input(f"[::] Please enter location No{i+1} : "))
-                while location == None:
-                    print("[!] Invalid location !")
+                while location == None or type(location) != str:
+                    if location == None:
+                        print("[!] This field can't be blank !")
+                    else:
+                        print("[!] Invalid location !")
                     sleep(1)
                     location=str(input(f"[::] Please enter again location No{i+1} : "))
-        else:
-            print("[OK]")
-            pass
         try:
             client.video_upload(path,caption,usertags=HASHVID,location=location)
             sleep(5)
             print("[!] Video uploaded successfully !")
-            quit(0)
+            Class()
         except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+            Except(ex)
 
     elif option == 16:
+        clear()
         count=int(input("[?] How many accounts do you want to follow ? (enter a number) "))
-        while count <= 0 or count == None:
-            print("[!] Invalid number !")
+        while checkCount(count):
+            checkOpt(count, "other")
             sleep(1)
             count=int(input("[?] How many accounts do you want to follow ? (enter a number) "))
         if count == 1:
             username=str(input("[::] Please enter the username: "))
-            while checkUser(username) == True:
-                print("[!] Invalid username !")
+            while checkUser(username):
+                checkOpt(username, "username")
                 sleep(1)
                 username=str(input("[::] Please enter again the username: "))
             username.lower()
             username.strip()
             print(GetID(username))
-            uid=int(input("[::] Please enter the user's ID as shown above: "))
-            while checkID(uid):
-                print("[!] Invalid ID !")
+            id=int(input("[::] Please enter the user's ID as shown above: "))
+            while checkID(id):
+                checkOpt(id, "id")
                 sleep(1)
                 uid=int(input("[::] Please enter again the user's ID as shown above: "))
             try:
-                client.user_follow(uid)
-                sleep(3)
-                print(f"[!] Successfully followed {username} !")
-            except Exception as ex:
-                print("[!] Error !")
-                sleep(1)
-                print(ex)
+                client.user_follow(id)
                 sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                print(f"[!] Successfully followed {username} !")
+                Class()
+            except Exception as ex:
+                Except(ex)
         else:
             for i in range(count):
                 username=str(input(f"[::] Please enter the username No{i+1} :"))
-                while checkUser(username) == True:
-                    print("[!] Invalid username !")
+                while checkUser(username):
+                    checkOpt(username, "username")
                     sleep(1)
                     username=str(input(f"[::] Please enter again username No{i+1} : "))
                 username.lower()
@@ -1686,54 +1529,50 @@ def main():
                 print(GetID(username))
                 id=int(input("[::] Please enter the user's ID as shown above: "))
                 while checkID(id):
-                    print("[!] Invalid ID !")
+                    checkOpt(id, "id")
                     sleep(1)
-                    uid=int(input("[::] Please enter again the user's ID as shown above: "))
+                    id=int(input("[::] Please enter again the user's ID as shown above: "))
                 try:
                     client.user_follow(id)
-                    sleep(3)
+                    sleep(1)
                     print(f"[!] Successfully followed {username} !")
                 except Exception as ex:
-                    print(f"[!] Unable to follow {username} !")
-                    sleep(2)
-                    print("[+] Error: "+str(ex))
+                    Except(ex)
+            Class()
 
     elif option == 17:
+        clear()
         count=int(input("[?] How many accounts do you want to unfollow ? (enter a number) "))
-        while count <= 0 or count == None:
-            print("[!] Invalid number !")
+        while checkCount(count):
+            checkOpt(count, "other")
             sleep(1)
             count=int(input("[?] How many accounts do you want to unfollow ? (enter a number) "))
         if count == 1: 
             username=str(input("[::] Please enter the username: "))
-            while checkUser(username) == True:
-                print("[!] Invalid username !")
+            while checkUser(username):
+                checkOpt(username, username)
                 sleep(1)
                 username=str(input("[::] Please enter again the username: "))
             username.lower()
             username.strip()
             print(GetID(username))
-            uid=int(input("[::] Please enter the user's ID as shown above: "))
-            while checkID(uid):
-                print("[!] Invalid ID !")
+            id=int(input("[::] Please enter the user's ID as shown above: "))
+            while checkID(id):
+                checkOpt(id, "id")
                 sleep(1)
-                uid=int(input("[::] Please enter again the user's ID as shown above: "))
+                id=int(input("[::] Please enter again the user's ID as shown above: "))
             try:
-                client.user_unfollow(uid)
-                sleep(3)
-                print(f"[!] Successfully unfollowed {username} !")
-            except Exception as ex:
-                print("[!] Error !")
+                client.user_unfollow(id)
                 sleep(1)
-                print(ex)
-                sleep(2)
-                print("[+] Exiting...")
-                quit(0)
+                print(f"[!] Successfully unfollowed {username} !")
+                Class()
+            except Exception as ex:
+                Except(ex)
         else:
             for i in range(count):
                 username=str(input(f"[::] Please enter username No{i+1}: "))
-                while checkUser(username) == True:
-                    print("[!] Invalid username !")
+                while checkUser(username):
+                    checkOpt(username, "username")
                     sleep(1)
                     username=str(input("[::] Please enter again the username: "))
                 username.lower()
@@ -1744,57 +1583,52 @@ def main():
                     print(f"[!] Successfully unfollowed {username} !")
                 except Exception as e:
                     print(f"[!] Can't unfollow {username} !")
-                    pass
+            Class()
 
     elif option == 18:
+        clear()
         count=int(input("[::] Please enter the number of the follow requests to accept: "))
-        while count == None or count <= 0:
-            print("[!] Invalid number !")
+        while checkCount(count):
+            checkOpt(count, "other")
             sleep(1)
             count=int(input("[::] Please enter again the number of the follow requests to accept: "))
         try:
             logini.accept_follow_requests(count,3)
             print("[!] Follow requests accepted !")
+            Class()
         except Exception as ex:
-            print("[!] Error !")
-            sleep(1)
-            print(ex)
-            sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            Except(ex)
 
     elif option == 19:
+        clear()
         count=int(input("[::] Please enter the number of the follow requests to remove: "))
-        while count == None or count <= 0:
-            print("[!] Invalid number !")
+        while checkCount(count):
+            checkOpt(count, "other")
             sleep(1)
             count=int(input("[::] Please enter again the number of the follow requests to remove: "))
         try:
             logini.remove_follow_requests(count,3)
             print("[!] Follow requests removed !")
+            Class()
         except Exception as ex:
-            print("[!] Error !")
-            sleep(1)
-            print(ex)
-            sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            Except(ex)
 
     elif option == 20:
+        clear()
         count=int(input("[::] Please enter the number of users to follow:  "))
-        while count == None or count <= 0:
-            print("[!] Invalid number !")
+        while checkCount(count):
+            checkOpt(count, "other")
             sleep(2)
             count=int(input("[::] Please enter again the number of users to follow: "))
         countu=int(input("[?] From how many users do you want to follow their followers ? (enter a number) "))
-        while countu <= 0 or countu == None:
-            print("[!] Invalid number !")
+        while checkCount(countu):
+            checkOpt(countu, "other")
             sleep(1)
             countu=int(input("[?] From how many users do you want to follow their followers ? "))
         for i in range(countu):
             username=str(input("[::] Please enter the username of the user (to follow their followers): "))
-            while checkUser(username) == True:
-                print("[!] Invalid username !")
+            while checkUser(username):
+                checkOpt(username, "username")
                 sleep(1)
                 username=str(input("[::] Please enter again the username: "))
             FUFERS.append(username)
@@ -1802,46 +1636,27 @@ def main():
             logini.follow_user_followers(FUFERS,count)
             print("[!] Successfully followed users !")
         except Exception as ex:
-            print("[!] Error !")
-            sleep(1)
-            print(ex)
-            sleep(2)
-            print("[+] Exiting...")
-            quit(0)
+            Except(ex)
+        Class()
 
     elif option == 21:
-        count=int(input("[::] Please enter the number of users to follow: "))
-        while count == None or count <= 0:
-            print("[!] Invalid number !")
-            sleep(2)
-            count=int(input("[::] Please enter again the number of users to follow: "))
-        countu=int(input("[?] From how many users do you want to follow their followings ? (enter a number) "))
-        while countu == None or countu <= 0:
-            print("[!] Invalid number !")
-            sleep(1)
-            countu=int(input("[?] From how many users do you want to follow their followings ? (enter a number) "))
-        for i in range(countu):
-            username=str(input("[::] Please enter the username: "))
-            while checkUser(username) == True:
-                print("[!] Invalid username !")
-                sleep(1)
-                username=str(input("[::] Please enter again the username: "))
-            FUFING.append(username)
-        browser = webdriver.Firefox()
-        for i in range(len(FUFING)):
-            browser.get(f"https://www.instagram.com/{username}/following/")
-            for j in range(count):
-                try:
-                    follow = browser.find_element_by_class_name("_acan _acap _acas")
-                    follow.click()
-                    print(f"[+] User >>> {username} -> followed !")
-                except Exception as ex:
-                    print("[!] Error !")
-                    sleep(1)
-                    print(ex)
-                    sleep(2)
-                    print("[+] Exiting...")
-                    quit(0)
+        clear()
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+        # $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
 
     elif option == 22:
         count=int(input("[?] How many messages do you want to send ? (enter a number) "))
@@ -2017,7 +1832,7 @@ def main():
             print("[!] Invalid input !")
             sleep(1)
             rtags=input("[?] Do you want to like random hashtags ? [yes/no] ")
-        if rtags in ANS:
+        if rtags in ANS[:9]:
             random = True
         else:
             random = False
@@ -2088,7 +1903,7 @@ def main():
             print("[!] Invalid input !")
             sleep(1)
             rand=str(input("[?] Do you want to like them with random order ? [yes/no] "))
-        if rand in ANS:
+        if rand in ANS[:9]:
             random = True
             print("[OK]")
             pass
@@ -2138,7 +1953,7 @@ def main():
                 print("[!] Invalid input !")
                 sleep(1)
                 rand=str(input("[?] Do you want to like them with random order ? [yes/no] "))
-            if rand in ANS:
+            if rand in ANS[:9]:
                 rmize = True
                 print("[OK]")
             else:
@@ -2161,7 +1976,7 @@ def main():
                 print("[!] Invalid input !")
                 sleep(1)
                 rand=str(input("[?] Do you want to like them with random order ? [yes/no] "))
-            if rand in ANS:
+            if rand in ANS[:9]:
                 random = True
                 print("[OK]")
                 pass
@@ -2240,7 +2055,7 @@ def main():
             print("[!] Invalid input !")
             sleep(1)
             found=str(input("[::] If found enter [yes]: "))
-        if found in ANS:
+        if found in ANS[:9]:
             browser=webdriver.Firefox()
             link=input("[::] Please enter the url for the post: ")
             while link == None or "https" not in link or "//" not in link or "instagram" not in link or "www" not in link or ".com" not in link:
@@ -2778,7 +2593,7 @@ def main():
             print("[!] Invalid input !")
             sleep(1)
             fcodes=str(input("[?] Do you want to display full list of country codes ? [yes/no] "))
-        if fcodes in ANS:
+        if fcodes in ANS[:9]:
             webbrowser.open("https://www.iban.com/country-codes")
             country=str(input("[::] Please enter the country: "))
             while country == None:
@@ -2901,11 +2716,11 @@ def main():
 
     elif option == 51:
         set_first_name=str(input("[?] Do you want to set a first name ? [yes/no] "))
-        while set_first_name == None or set_first_name not in ANS and set_first_name not in NANS:
+        while set_first_name == None or set_first_name not in ANS and set_first_name not in NANS[:9]:
             print("[!] Invalid input !")
             sleep(1)
             set_first_name=str(input("[?] Do you want to set a first name ? [yes/no] "))
-        if set_first_name in ANS:
+        if set_first_name in ANS[:9]:
             first_name=str(input("[::] Please enter your first name: "))
             while first_name == None:
                 print("[!] Invalid first name !")
@@ -2914,11 +2729,11 @@ def main():
         else:
             pass
         set_bio=str(input("[?] Do you want to set a bio ? [yes/no] "))
-        while set_bio == None or set_bio not in ANS and set_bio not in NANS:
+        while set_bio == None or set_bio not in ANS and set_bio not in NANS[:9]:
             print("[!] Invalid input !")
             sleep(1)
             set_bio=str(input("[?] Do you want to set a bio ? [yes/no] "))
-        if set_bio in ANS:
+        if set_bio in ANS[:9]:
             bio=str(input("[::] Please enter the bio: "))
             while bio == None:
                 print("[!] Invalid Bio !")
@@ -2927,11 +2742,11 @@ def main():
         else:
             pass
         set_ex_url=str(input("[?] Do you want to add an external url ? [yes/no] "))
-        while set_ex_url == None or set_ex_url not in ANS and set_ex_url not in NANS:
+        while set_ex_url == None or set_ex_url not in ANS and set_ex_url not in NANS[:9]:
             print("[!] Invalid input !")
             sleep(1)
             set_ex_url=str(input("[?] Do you want to set an external url ? [yes/no] "))
-        if set_ex_url in ANS:
+        if set_ex_url in ANS[:9]:
             url=str(input("[::] Please enter the url: "))
             while url == None or "/" not in url or "//" not in url:
                 print("[!] Invalid url !")
@@ -2941,11 +2756,11 @@ def main():
             print("[OK]")
             pass
         set_email=str(input("[?] Do you want to add an email ? [yes/no] "))
-        while set_email == None or set_email not in ANS and set_email not in NANS:
+        while set_email == None or set_email not in ANS and set_email not in NANS[:9]:
             print("[!] Invalid input !")
             sleep(1)
             set_email=str(input("[?] Do you want to set an email ? [yes/no] "))
-        if set_email in ANS:
+        if set_email in ANS[:9]:
             email=str(input("[::] Please enter the email address: "))
             while email == None or "@" not in email or "gmail" not in email or ".com" not in email:
                 print("[!] Invalid email address!")
@@ -2954,11 +2769,11 @@ def main():
         else:
             pass
         set_phone_number=str(input("[?] Do you want to add a phone number ? [yes/no] "))
-        while set_phone_number == None or set_phone_number not in ANS and set_phone_number not in NANS:
+        while set_phone_number == None or set_phone_number not in ANS and set_phone_number not in NANS[:9]:
             print("[!] Invalid input !")
             sleep(1)
             set_phone_number=str(input("[?] Do you want to set a phone number ? [yes/no] "))
-        if set_phone_number in ANS:
+        if set_phone_number in ANS[:9]:
             phone_number=int(input("[::] Please enter the phone number: "))
             while phone_number == None:
                 print("[!] Invalid phone number !")
@@ -2967,11 +2782,11 @@ def main():
         else:
             pass
         set_gender=str(input("[?] Do you want to set a gender ? [yes/no] "))
-        while set_gender == None or set_gender not in ANS and set_gender not in NANS:
+        while set_gender == None or set_gender not in ANS and set_gender not in NANS[:9]:
             print("[!] Invalid input !")
             sleep(1)
             set_gender=str(input("[?] Do you want to set a gender ? [yes/no] "))
-        if set_gender in ANS:
+        if set_gender in ANS[:9]:
             gender=str(input("[::] Please enter the gender: "))
             while gender == None:
                 print("[!] Invalid gender !")
@@ -3128,7 +2943,7 @@ def main():
                     tags=input("[?] Do you want to tag other users ? [yes/no] ")
                 if tags == "\t":
                     tags = "no"
-                if tags in ANS:
+                if tags in ANS[:9]:
                     print("[+] Default: 1")
                     sleep(2)
                     print("[+] Hit <Tab> and <Enter> to Apply the Default Option")
@@ -3170,7 +2985,7 @@ def main():
                     loc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
                 if loc == "\t":
                     loc = "no"
-                if loc in ANS:
+                if loc in ANS[:9]:
                     count=int(input("[?] How many ? "))
                     while count == None or count <= 0:
                         print("[!] Invalid number !")
@@ -3205,7 +3020,7 @@ def main():
                 else:
                     print("[OK]")
                     pass
-                if tags in ANS and loc in ANS:
+                if tags in ANS and loc in ANS[:9]:
                     if current_time == __time__:
                         try:
                             client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
@@ -3223,7 +3038,7 @@ def main():
                         sleep(1)
                         print("[+] Waiting for the time: "+str(__time__))
                         pass
-                elif tags in ANS and loc in NANS:
+                elif tags in ANS and loc in NANS[:9]:
                     if current_time == __time__:
                         try:
                             client.photo_upload(path=path,caption=caption,tags=TaggedUsers)
@@ -3241,7 +3056,7 @@ def main():
                         sleep(1)
                         print("[+] Waiting for the time: "+str(__time__))
                         pass
-                elif tags in NANS and loc in ANS:
+                elif tags in NANS and loc in ANS[:9]:
                     if current_time == __time__:
                         try:
                             client.photo_upload(path=path,caption=caption,location=LOCATIONS)
@@ -3259,7 +3074,7 @@ def main():
                         sleep(1)
                         print("[+] Waiting for the time: "+str(__time__))
                         pass
-                elif tags in NANS and loc in NANS:
+                elif tags in NANS and loc in NANS[:9]:
                     if current_time == __time__:
                         try:
                             client.photo_upload(path=path,caption=caption)
@@ -3308,7 +3123,7 @@ def main():
                 print("[!] Invalid input !")
                 sleep(1)
                 AddCaption=str(input("[?] Do you want to add caption ? [yes/no] "))
-            if AddCaption in ANS:
+            if AddCaption in ANS[:9]:
                 print("[+] Default: Check out my new story !")
                 sleep(2)
                 print("[+] Hit <Tab> and <Enter> for the default option to be applied")
@@ -3330,7 +3145,7 @@ def main():
                 print("[!] Invalid input !")
                 sleep(1)
                 mention=str(input("[?] Do you want to mention user(s) ? [yes/no] "))
-            if AddMention in ANS:
+            if AddMention in ANS[:9]:
                 MENTIONS = []
                 count=int(input("[?] How many ? "))
                 while count == None or count <= 0:
@@ -3355,7 +3170,7 @@ def main():
                 print("[!] Invalid input !")
                 sleep(1)
                 AddLoc=str(input("[?] Do you want to add location ? [yes/no] "))
-            if AddLoc in ANS:
+            if AddLoc in ANS[:9]:
                 count=int(input("[?] How many locations do you want to add ? "))
                 while count == None or count <= 0:
                     print("[!] Invalid number !")
@@ -3379,7 +3194,7 @@ def main():
                 print("[!] Invalid input !")
                 sleep(1)
                 AddLinks=str(input("[?] Do you want to include links ? [yes/no] "))
-            if AddLinks in ANS:
+            if AddLinks in ANS[:9]:
                 count=int(input("[?] How many ? (enter a number) "))
                 while count == None or count <= 0:
                     print("[!] Invalid number !")
@@ -3403,7 +3218,7 @@ def main():
                 print("[!] Invalid input !")
                 sleep(1)
                 AddHash=str(input("[?] Do you want to include hashtags ? [yes/no] "))
-            if AddHash in ANS:
+            if AddHash in ANS[:9]:
                 count=int(input("[?] How many ? (enter a number) "))
                 while  count <= 0 or count == None :
                     print("[!] Invalid Number !")
@@ -4140,7 +3955,7 @@ def main():
                 print("[!] Invalid input !")
                 sleep(1)
                 incap=str(input("[?] Do you want to include caption ? [yes/no] "))
-            if incap in ANS:
+            if incap in ANS[:9]:
                 sleep(1)
                 print("[+] Default Caption: Check out my new video !")
                 sleep(2)
@@ -4157,7 +3972,7 @@ def main():
                 print("[!] Invalid input !")
                 sleep(1)
                 intag=str(input("[?] Do you want to include hashtag(s) ? [yes/no] "))
-            if intag in ANS:
+            if intag in ANS[:9]:
                 count=int(input("[?] How many ? (enter a number) "))
                 while count == None or count <= 0:
                     print("[!] Invalid number !")
@@ -4183,7 +3998,7 @@ def main():
                 print("[!] Invalid location !")
                 sleep(1)
                 inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-            if inloc in ANS:
+            if inloc in ANS[:9]:
                 count=int(input("[?] How many ? (enter a number) "))
                 while count == None or count <= 0:
                     print("[!] Invalid number !")
