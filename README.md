@@ -1,8 +1,3 @@
-# ⚠️ MAINTENANCE BREAK ⚠️
-
-> This script is under maintenance. Will upload it again in 3 days in order to make some changes.
-
-
 # IAM 🤖
 
 Instagram Account Manager.
