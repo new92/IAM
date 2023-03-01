@@ -1,6 +1,5 @@
 ﻿"""
 Author: new92
-Github: @new92
 [-->] Script for Managing your Instagram Account Remotely
 IAM: Instagram Account Manager
 
