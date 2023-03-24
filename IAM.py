@@ -297,7 +297,7 @@ def ProgInfo():
     lines = 4130
     lang = 'Python'
     language = 'en-US'
-    stars = 9
+    stars = 11
     forks = 4
     print("[+] Author ==> "+str(author))
     print("[+] Github ==> @"+str(author))
