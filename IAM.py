@@ -1,7 +1,7 @@
-﻿"""
+"""
 Author: new92
 Github: @new92
-[-->] Script for managing your Instagram Account Remotely
+[-->] Script for Managing your Instagram Account Remotely
 IAM: Instagram Account Manager
 
 
@@ -15,9 +15,20 @@ IAM: Instagram Account Manager
 
 try:
     import sys
+    from time import sleep
+    if sys.version_info[0] < 3:
+        print("[!] Error ! This script requires Python version 3.X ! ")
+        print("""[+] Instructions to download Python 3.x : 
+        Linux: apt install python3
+        Windows: https://www.python.org/downloads/
+        MacOS: https://docs.python-guide.org/starting/install3/osx/""")
+        print("[+] Please install the Python 3 and then use this script ✅")
+        sleep(2)
+        print("[+] Exiting...")
+        sleep(1)
+        quit(0)
     import platform
     from os import system
-    from time import sleep
     import instagrapi
     import instaloader
     import instabot
@@ -25,7 +36,7 @@ try:
     import os
     from tkinter import *
 except ImportError as imp:
-    print("[!] WARNING: Not all packages used in this program have been installed !")
+    print("[!] WARNING: Not all packages used in this script have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
     sleep(1)
@@ -41,7 +52,7 @@ except ImportError as imp:
             except Exception as ex:
                 print("[!] Error ! Cannot install the required modules !")
                 sleep(1)
-                print("[=] Error message ==> "+str(ex))
+                print(f"[*] Error message ==> {ex}")
                 sleep(2)
                 print("[1] Uninstall script")
                 print("[2] Exit")
@@ -68,8 +79,8 @@ except ImportError as imp:
                         for i in range(len(DIRS)):
                             os.rmdir(DIRS[i])
                         os.rmdir(dire)
-                    rmdir(os.path.abspath('IGFollowersIncreaser'))
-                    print("[+] Files and dependencies uninstalled !")
+                    rmdir(os.path.abspath('IAM'))
+                    print("[✓] Files and dependencies uninstalled successfully !")
                 else:
                     print("[+] Exiting...")
                     sleep(1)
@@ -109,12 +120,12 @@ def Get_Spk(url:str) -> str:
     return client.story_pk_from_url(url)
 
 def valUser(user):
-    return re.get(f"https://www.instagram.com/{user}/").status_code == 404 or re.get(f"https://www.instagram.com/{user}/").status_code == 400
+    return re.get(f"https://www.instagram.com/{user}/").status_code != 200
 
 def Except(ex:str):
     print("[!] Error !")
     sleep(1)
-    print(f"[=] Error message -> {ex}")
+    print(f"[*] Error message ==> {ex}")
     sleep(2)
     print("[1] Return to menu")
     print("[2] Exit")
@@ -174,7 +185,7 @@ def checkOpt(opt,data):
             print("[!] Invalid number !")
 
 def valOpt(opt:int,x:int,y:int):
-    return opt < x or opt > y or opt == None or type(opt) != int
+    return opt < x or opt > y or opt == None
 
 def CheckVal() -> str:
     print("[!] User not found !")
@@ -218,8 +229,8 @@ def Uninstall() -> str:
         for i in range(len(DIRS)):
             os.rmdir(DIRS[i])
         os.rmdir(dire)
-    rmdir(os.path.abspath('IGFollowersIncreaser'))
-    return "[✓] Files and dependencies uninstalled !"
+    rmdir(os.path.abspath('IAM'))
+    return "[✓] Files and dependencies uninstalled successfully !"
 
 def Next() -> int:
     sleep(1)
@@ -251,10 +262,10 @@ def Exiting():
     
     
 def checkCount(num:int) -> bool:
-    return num == None or num < 1 or type(num) != int
+    return num == None or num < 1
     
 def checkTag(tag: str) -> bool:
-    return "#" in tag or tag == None or type(tag) != str
+    return "#" in tag or tag == None
 
 def checkPath(path):
     return path == None or "/" not in path or "\\" not in path
@@ -290,25 +301,42 @@ def Av_Acts() -> str:
     """
 
 def ProgInfo():
-    version = '1.4'
+    version = '1.5'
     author = 'new92'
-    license = 'MIT'
+    lice = 'MIT'
     name = 'IAM'
     lines = 4130
     lang = 'Python'
     language = 'en-US'
+    f = name+'.py'
+    if os.path.exists(os.path.abspath(f)):
+        fsize = (os.stat(f).st_size)
+    else:
+        fsize = 0
     stars = 11
     forks = 4
-    print("[+] Author ==> "+str(author))
-    print("[+] Github ==> @"+str(author))
-    print("[+] License ==> "+str(license))
-    print("[+] Script's name ==> "+str(name))
-    print("[+] Version ==> "+str(version))
-    print("[+] Programmed with ==> "+str(lang))
-    print("[+] Natural language ==> "+str(language))
-    print("[+] Number of lines ==> "+str(lines))
-    print("[+] Number of stars on the github repo ==> "+str(stars))
-    print("[+] Number of forks on the github repo ==> "+str(forks))
+    issues = 0
+    clissues = 0
+    prs = 0
+    clprs = 0
+    discs = 1
+    print(f"[+] Author ==> {author}")
+    print(f"[+] Github ==> @{author}")
+    print(f"[+] License ==> {lice}")
+    print(f"[+] Script's name ==> {name}")
+    print(f"[+] Version ==> {version}")
+    print(f"[+] Programmed with ==> {lang}")
+    print(f"[+] Natural language ==> {language}")
+    print(f"{p
+    print(f"[+] Number of lines ==> {lines}")
+    print(f"[+] Number of stars on the github repo ==> {stars}")
+    print(f"[+] Number of forks on the github repo ==> {forks}")
+    print(f"[+] Number of open issues: {issues}")
+    print(f"[+] Number of closed issues: {clissues}")
+    print(f"[+] Number of open pull requests: {prs}")
+    print(f"[+] Number of closed pull requests: {clprs}")
+    print(f"[+] Number of discussions: {discs}")
+
 
 def checkUser(username:str) -> bool:
     return username == None or len(username) > 30
@@ -368,7 +396,7 @@ def main():
     print("\n")
     print("[+] IAM: Instagram Account Manager")
     print("\n")
-    print("[+] Program for Managing your Instagram Account Remotely")
+    print("[+] Script for Managing your Instagram Account Remotely")
     print("\n")
     print("[+] Github: @new92")
     print("\n")
@@ -576,7 +604,7 @@ def main():
     elif option == 1:
         clear()
         try:
-            print("[+] Your ID: "+str(GetID(username)))
+            print(f"[+] Your ID: {GetID(username)}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -585,19 +613,19 @@ def main():
         clear()
         try:
             sec=client.account_security_info()
-            print("[+] Is phone confirmed ? "+str(sec["is_phone_confirmed"]))
-            print("[+] Is 2 factor authentication enabled ? "+str(sec["is_two_factor_enabled"]))
-            print("[+] Is Time-based One-Time Passwords (TOTP) 2 factor authentication enabled ? "+str(sec["is_totp_two_factor_enabled"]))
-            print("[+] Is trusted notifications enabled ? "+str(sec["is_trusted_notifications_enabled"]))
-            print("[+] Is eligible for Whatsapp 2 factor authentication ? "+str(sec["is_eligible_for_whatsapp_two_factor"]))
-            print("[+] Is Whatsapp 2 factor authentication enabled ? "+str(sec["is_whatsapp_two_factor_enabled"]))
-            print("[+] Backup codes: "+str(sec["backup_codes"]))
-            print("[+] Trusted devices: "+str(sec["trusted_devices"]))
-            print("[+] Has reachable email ? "+str(sec["has_reachable_email"]))
-            print("[+] Is eligible for trusted notifications ? "+str(sec["eligible_for_trusted_notifications"]))
-            print("[+] Is eligible for multiple TOTP ? "+str(sec["is_eligible_for_multiple_totp"]))
-            print("[+] TOTP seeds: "+str(sec["totp_seeds"]))
-            print("[+] Can add additional TOTP seed ? "+str(sec["can_add_additional_totp_seed"]))
+            print(f"[+] Is phone confirmed ? {sec['is_phone_confirmed']}")
+            print(f"[+] Is 2 factor authentication enabled ? {sec['is_two_factor_enabled']}")
+            print(f"[+] Is Time-based One-Time Passwords (TOTP) 2 factor authentication enabled ? {sec['is_totp_two_factor_enabled']}")
+            print(f"[+] Is trusted notifications enabled ? {sec['is_trusted_notifications_enabled']}")
+            print(f"[+] Is eligible for Whatsapp 2 factor authentication ? {sec['is_eligible_for_whatsapp_two_factor']}")
+            print(f"[+] Is Whatsapp 2 factor authentication enabled ? {sec['is_whatsapp_two_factor_enabled']}")
+            print(f"[+] Backup codes: {sec['backup_codes']}")
+            print(f"[+] Trusted devices: {sec['trusted_devices']}")
+            print(f"[+] Has reachable email ? {sec['has_reachable_email']}")
+            print(f"[+] Is eligible for trusted notifications ? {sec['eligible_for_trusted_notifications']}")
+            print(f"[+] Is eligible for multiple TOTP ? {sec['is_eligible_for_multiple_totp']}")
+            print(f"[+] TOTP seeds: {sec['totp_seeds']}")
+            print(f"[+] Can add additional TOTP seed ? {sec['can_add_additional_totp_seed']}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -605,7 +633,7 @@ def main():
     elif option == 3:
         clear()
         try:
-            print("[+] Your account information: "+str(client.account_info()))
+            print(f"[+] Your account information: {client.account_info()}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -657,7 +685,7 @@ def main():
         try:
             highlights=loader.download_highlights(id)
             sleep(1)
-            print("[+] Highlights folder path: "+os.path.abspath(username))
+            print(f"[+] Highlights folder path: {os.path.abspath(username)}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -691,7 +719,7 @@ def main():
         try:
             loader.download_stories(IDS)
             sleep(2)
-            print("[+] Path to folder containing the stories: "+os.path.abspath(":stories"))
+            print(f"[+] Path to folder containing the stories: {os.path.abspath(':stories')}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -705,7 +733,7 @@ def main():
             count=int(input("[?] How many of your saved posts do you want to download ? "))
         try:
             loader.download_saved_posts(count)
-            print("[+] Path to folder containing saved posts: "+os.path.abspath(":saved"))
+            print(f"[+] Path to folder containing saved posts: {os.path.abspath(':saved')}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -719,7 +747,7 @@ def main():
             count=int(input("[?] How many posts do you want to download ? "))
         try:
             loader.download_feed_posts(count)
-            print("[+] Path to folder containing feed posts: "+os.path.abspath(":feed"))
+            print(f"[+] Path to folder containing feed posts: {os.path.abspath(':feed')}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -749,7 +777,7 @@ def main():
                 caption = "Check out my new post !"
             print(">>>TAGS<<<")
             sleep(2)
-            print("[+] Default: [no]")
+            print("[+] Default: [No]")
             sleep(2)
             print("[*] Hit <Tab> and <Enter> to apply the default option")
             sleep(2)
@@ -795,7 +823,7 @@ def main():
                         TaggedUsers.append(utag)
             print(">>>LOCATION<<<")
             sleep(2)
-            print("[+] Default: [no]")
+            print("[+] Default: [No]")
             sleep(1)
             print("[*] Hit <Tab> and <Enter> to Apply the Default Option")
             sleep(2)
@@ -3052,7 +3080,7 @@ def main():
                     caption = "Check out my new post !"
                 print(">>>TAGS<<<")
                 sleep(2)
-                print("[+] Default: [no]")
+                print("[+] Default: [No]")
                 sleep(2)
                 print("[*] Hit <Tab> and <Enter> to apply the default option")
                 sleep(2)
@@ -3102,7 +3130,7 @@ def main():
                         TaggedUsers.append(utag)
                 print(">>>LOCATION<<<")
                 sleep(2)
-                print("[+] Default: [no]")
+                print("[+] Default: [No]")
                 sleep(1)
                 print("[*] Hit <Tab> and <Enter> to apply the default option")
                 sleep(2)
@@ -3142,9 +3170,9 @@ def main():
                         except Exception as ex:
                             Except(ex)
                     else:
-                        print("[+] Current time: "+str(current_time))
+                        print(f"[+] Current time: {current_time}")
                         sleep(1)
-                        print("[+] Waiting for time: "+str(__time__))
+                        print(f"[+] Waiting for time: {__time__}")
                         Class()
 
                 if tags in ANS[:9] and loc in ANS[:9]:
@@ -3156,9 +3184,9 @@ def main():
                         except Exception as ex:
                             Except(ex)
                     else:
-                        print("[+] Current time: "+str(current_time))
+                        print(f"[+] Current time: {current_time}")
                         sleep(1)
-                        print("[+] Waiting for time: "+str(__time__))
+                        print(f"[+] Waiting for time: {__time__}")
                         Class()
                 elif tags in ANS[:9] and loc in ANS[9:]:
                     if current_time == __time__:
@@ -3169,9 +3197,9 @@ def main():
                         except Exception as ex:
                             Except(ex)
                     else:
-                        print("[+] Current time: "+str(current_time))
+                        print(f"[+] Current time: {current_time}")
                         sleep(1)
-                        print("[+] Waiting for time: "+str(__time__))
+                        print(f"[+] Waiting for time: {__time__}")
                         Class()
                 elif tags in ANS[9:] and loc in ANS[:9]:
                     if current_time == __time__:
@@ -3182,9 +3210,9 @@ def main():
                         except Exception as ex:
                             Except(ex)
                     else:
-                        print("[+] Current time: "+str(current_time))
+                        print(f"[+] Current time: {current_time}")
                         sleep(1)
-                        print("[+] Waiting for time: "+str(__time__))
+                        print(f"[+] Waiting for time: {__time__}")
                         Class()
                 elif tags in ANS[9:] and loc in ANS[9:]:
                     if current_time == __time__:
@@ -3195,9 +3223,9 @@ def main():
                         except Exception as ex:
                             Except(ex)
                     else:
-                        print("[+] Current time: "+str(current_time))
+                        print(f"[+] Current time: {current_time}")
                         sleep(1)
-                        print("[+] Waiting for time: "+str(__time__))
+                        print(f"[+] Waiting for time: {__time__}")
                         Class()
 
         elif action == 2:
@@ -3357,9 +3385,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3371,9 +3399,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
                 if current_time == __time__:
@@ -3385,9 +3413,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks != None and AddHash != None:
                 if current_time == __time__:
@@ -3399,9 +3427,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks != None and AddHash != None:
                 if current_time == __time__:
@@ -3413,9 +3441,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash != None:
                 if current_time == __time__:
@@ -3427,9 +3455,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
                 if current_time == __time__:
@@ -3441,9 +3469,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks != None and AddHash != None:
                 if current_time == __time__:
@@ -3455,9 +3483,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks != None and AddHash != None:
                 if current_time == __time__:
@@ -3469,9 +3497,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for the time: "+str(__time__))
+                    print(f"[+] Waiting for the time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash != None:
                 if current_time == __time__:
@@ -3483,9 +3511,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3497,9 +3525,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3511,9 +3539,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3525,9 +3553,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3539,9 +3567,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for the time: "+str(__time__))
+                    print(f"[+] Waiting for the time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks != None and AddHash == None:
                 if current_time == __time__:
@@ -3553,9 +3581,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
                 if current_time == __time__:
@@ -3567,9 +3595,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3581,9 +3609,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3595,9 +3623,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
                 if current_time == __time__:
@@ -3609,9 +3637,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
                 if current_time == __time__:
@@ -3623,9 +3651,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
                 if current_time == __time__:
@@ -3637,9 +3665,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks != None and AddHash == None:
                 if current_time == __time__:
@@ -3651,9 +3679,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks == None and AddHash != None:
                 if current_time == __time__:
@@ -3665,9 +3693,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3679,9 +3707,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3693,9 +3721,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
                 if current_time == __time__:
@@ -3707,9 +3735,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
                 if current_time == __time__:
@@ -3721,9 +3749,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3735,9 +3763,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3749,9 +3777,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks != None and AddHash == None:
                 if current_time == __time__:
@@ -3763,9 +3791,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
                 if current_time == __time__:
@@ -3777,9 +3805,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
                 if current_time == __time__:
@@ -3791,9 +3819,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks != None and AddHash == None:
                 if current_time == __time__:
@@ -3805,9 +3833,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks == None and AddHash != None:
                 if current_time == __time__:
@@ -3819,9 +3847,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks != None and AddHash == None:
                 if current_time == __time__:
@@ -3833,9 +3861,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks == None and AddHash != None:
                 if current_time == __time__:
@@ -3847,9 +3875,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks != None and AddHash != None:
                 if current_time == __time__:
@@ -3861,9 +3889,9 @@ def main():
                     except Exception as ex:
                         Except(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
 
         elif action == 4:
@@ -3913,7 +3941,7 @@ def main():
                         else:
                             print("[!] Invalid hashtag !")
                         sleep(2)
-                        print("[+] You must include the   #   symbol !")
+                        print("[+] You must include the: \"#\" symbol !")
                         sleep(2)
                         hashtag=str(input(f"[::] Please enter again hashtag No{i+1}: "))
                     HASHVID.append(hashtag)
@@ -3951,9 +3979,9 @@ def main():
                 except Exception as ex:
                     Except(ex)
             else:
-                print("[+] Current time: "+str(current_time))
+                print(f"[+] Current time: {current_time}")
                 sleep(1)
-                print("[+] Waiting for time: "+str(__time__))
+                print(f"[+] Waiting for time: {__time__}")
                 Class()
 
         elif action == 5:
@@ -3989,9 +4017,9 @@ def main():
                     except Exception as ex:
                         Exception(ex)
                 else:
-                    print("[+] Current time: "+str(current_time))
+                    print(f"[+] Current time: {current_time}")
                     sleep(1)
-                    print("[+] Waiting for time: "+str(__time__))
+                    print(f"[+] Waiting for time: {__time__}")
                     Class()
             else:
                 for i in range(count):
@@ -4021,9 +4049,9 @@ def main():
                         except Exception as ex:
                             Exception(ex)
                     else:
-                        print("[+] Current time: "+str(current_time))
+                        print(f"[+] Current time: {current_time}")
                         sleep(1)
-                        print("[+] Waiting for time: "+str(__time__))
+                        print(f"[+] Waiting for time: {__time__}")
                         Class()
      
         elif action == 6:
@@ -4079,9 +4107,9 @@ def main():
                             Except(ex)
                     Class()
             else:
-                print("[+] Current time: "+str(current_time))
+                print(f"[+] Current time: {current_time}")
                 sleep(1)
-                print("[+] Waiting for time: "+str(__time__))
+                print(f"[+] Waiting for time: {__time__}")
                 sleep(1)
                 Class()
 
@@ -4107,7 +4135,7 @@ def main():
         try:
             api.block_friend_reel(id)
             sleep(2)
-            print("[✓] User blocked from watching your stories")
+            print(f"[✓] User: {user} blocked from watching your stories")
             Class()
         except Exception as ex:
             Except(ex)
