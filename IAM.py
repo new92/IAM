@@ -1,7 +1,10 @@
 """
 Author: new92
 Github: @new92
+
 [-->] Script for Managing your Instagram Account Remotely
+
+
 IAM: Instagram Account Manager
 
 
@@ -154,8 +157,6 @@ def checkOpt(opt,data):
     if data == "username":
         if opt == None:
             print("[!] This field can't be empty !")
-        elif type(opt) != str:
-            print("[!] Username must be a string !")
         else:
             print("[!] Invalid length !")
             sleep(1)
@@ -163,8 +164,6 @@ def checkOpt(opt,data):
     elif data == "id":
         if opt == None:
             print("[!] This field can't be empty !")
-        elif type(opt) != int:
-            print("[!] ID must be an integer !")
         else:
             print("[!] Invalid length !")
             sleep(1)
@@ -172,15 +171,11 @@ def checkOpt(opt,data):
     elif data == "path":
         if opt == None:
             print("[!] This field can't be empty !")
-        elif type(opt) != str:
-            print("[!] Path must be a string !")
         else:
             print("[!] Path must contain: / or \ ")
     else:
         if opt == None:
             print("[!] This field can't be empty !")
-        elif type(opt) != int:
-            print("[!] This input must be an integer !")
         else:
             print("[!] Invalid number !")
 
@@ -240,8 +235,6 @@ def Next() -> int:
     while valOpt(opt,1,2):
         if opt == None:
             print("[!] This field can't be blank !")
-        elif type(opt) != int:
-            print("[!] You must enter an integer !")
         else:
             print("[!] Invalid number !")
             sleep(1)
@@ -301,16 +294,16 @@ def Av_Acts() -> str:
     """
 
 def ProgInfo():
-    version = '1.5'
+    version = '1.6'
     author = 'new92'
     lice = 'MIT'
     name = 'IAM'
-    lines = 4130
+    lines = 4063
     lang = 'Python'
     language = 'en-US'
     f = name+'.py'
     if os.path.exists(os.path.abspath(f)):
-        fsize = (os.stat(f).st_size)
+        fsize = (os.stat(f)).st_size
     else:
         fsize = 0
     stars = 11
@@ -327,7 +320,8 @@ def ProgInfo():
     print(f"[+] Version ==> {version}")
     print(f"[+] Programmed with ==> {lang}")
     print(f"[+] Natural language ==> {language}")
-    print(f"{p
+    print(f"[+] File size: {fsize} bytes")
+    print(f"[+] File path: {os.path.abspath(f)}")
     print(f"[+] Number of lines ==> {lines}")
     print(f"[+] Number of stars on the github repo ==> {stars}")
     print(f"[+] Number of forks on the github repo ==> {forks}")
@@ -345,7 +339,7 @@ def GetID(username:str) -> int:
     return loader.check_profile_id(username)
 
 def checkID(id:int) -> bool:
-    return id == None or len(id) < 3 or type(id) != int
+    return id == None or len(id) < 3
 
 
 ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES","no","NO","No","n","N","nO"]
@@ -398,6 +392,7 @@ def main():
     print("\n")
     print("[+] Script for Managing your Instagram Account Remotely")
     print("\n")
+    print("[+] Author: new92")
     print("[+] Github: @new92")
     print("\n")
     print("[1] Display your profile ID")
@@ -573,11 +568,8 @@ def main():
                 username = CheckVal()
         username = username.lower().strip()
         password=str(input("[::] Please enter your password: "))
-        while password == None or type(password) !=str:
-            if password == None:
-                print("[!] This field can't be blank !")
-            else:
-                print("[!] Password must be a string !")
+        while password == None:
+            print("[!] This field can't be blank !")
             sleep(1)
             password=input("[::] Please enter again your password: ")
         password = password.strip()
@@ -828,7 +820,7 @@ def main():
             print("[*] Hit <Tab> and <Enter> to Apply the Default Option")
             sleep(2)
             loc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-            while loc not in ANS or loc == None or type(loc) != str:
+            while loc not in ANS or loc == None:
                 if loc == None:
                     print("[!] This field can't be blank !")
                 else:
@@ -843,7 +835,7 @@ def main():
                     count=int(input("[?] How many locations do you want to include ? "))
                 for i in range(count):
                     location=str(input(f"[::] Please enter location No{i+1}: "))
-                    while location == None or type(location) != str:
+                    while location == None:
                         if location == None:
                             print("[!] This field can't be blank !")
                         else:
@@ -1028,7 +1020,7 @@ def main():
                     uid=int(input("[::] Please enter again your ID as shown above: "))
                 try:
                     enabled = client.enable_videos_notifications(uid)
-                    print("[+] Video notifications enabled: "+str(enabled))
+                    print(f"[+] Video notifications enabled: {enabled}")
                     Class()
                 except Exception as ex:
                     Except(ex)
@@ -1072,7 +1064,7 @@ def main():
                 caption = "Check out my new story !"
             else:
                 caption=str(input("[::] Please enter a caption to include to your story: "))
-                while caption == None or type(caption) != str:
+                while caption == None:
                     print("[!] Invalid caption !")
                     sleep(1)
                     caption=str(input("[::] Please enter again a caption to include to your story: "))
@@ -1118,11 +1110,8 @@ def main():
                 count=int(input("[?] How many locations do you want to add ? "))
             for i in range(count):
                 loc=str(input(f"[::] Please enter location No{i+1}: "))
-                while loc == None or type(loc) != str:
-                    if loc == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Location must be a string !")
+                while loc == None:
+                    print("[!] This field can't be blank !")
                     sleep(1)
                     loc=str(input(f"[::] Please enter again location No{i+1}: "))
                 LOCATIONS.append(loc)
@@ -1169,11 +1158,8 @@ def main():
                 count=int(input("[?] How many hashtags do you want to include ? "))
             for i in range(count):
                 hashtag=str(input(f"[::] Please enter the hashtag No{i+1}: "))
-                while hashtag == None or "#" not in hashtag or type(hashtag) != str:
-                    if hashtag == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid hashtag !")
+                while hashtag == None or "#" not in hashtag:
+                    print("[!] This field can't be blank !")
                     sleep(1)
                     hashtag=str(input(f"[::] Please enter again the hashtag No{i+1}: "))
                 HASHTAGS.append(hashtag)
@@ -1542,11 +1528,8 @@ def main():
                 count=int(input("[?] How many locations to include ? "))
             for i in range(count):
                 location=str(input(f"[::] Please enter location No{i+1} : "))
-                while location == None or type(location) != str:
-                    if location == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid location !")
+                while location == None:
+                    print("[!] This field can't be blank !")
                     sleep(1)
                     location=str(input(f"[::] Please enter again location No{i+1} : "))
         try:
@@ -1769,11 +1752,8 @@ def main():
             count=int(input("[?] How many messages do you want to send ? "))
         for i in range(count):
             text=str(input("[::] Please enter the message to send >>>  "))
-            while text == None or type(text) != str:
-                if text == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid message !")
+            while text == None:
+                print("[!] This field can't be blank !")
                 sleep(1)
                 text=str(input("[::] Please enter again the text to send >>>  "))
             count=int(input("[?] In how many users do you want to send it ? "))
@@ -2049,11 +2029,8 @@ def main():
             countp=int(input("[?] How many posts to like per location ? "))
         for i in range(numloc):
             location=str(input(f"[::] Please enter location No{i+1} : "))
-            while location == None or type(location) != str:
-                if location == None:
-                    print("[!] This field can't be empty !")
-                else:
-                    print("[!] Invalid location !")
+            while location == None:
+                print("[!] This field can't be empty !")
                 sleep(1)
                 location=str(input(f"[::] Please enter again location No{i+1} : "))
             LOCLIKE.append(location)
@@ -2298,11 +2275,8 @@ def main():
             counti=int(input("[::] How many highlights do you want to create ? "))
         if counti == 1:
             title=str(input("[::] Please enter the title of the highlight: "))
-            while title == None or type(title) != str:
-                if title == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid title")
+            while title == None:
+                print("[!] This field can't be blank !")
                 sleep(1)
                 title=str(input("[::] Please enter again the title of the highlight: "))
             count=int(input("[::] Please enter the number of stories to add in the highlight: "))
@@ -2312,11 +2286,8 @@ def main():
                 count=int(input("[::] Please enter again the number of stories to add in the highlight: "))
             for i in range(count):
                 story_id=int(input(f"[::] Please enter the story ID No{i+1}: "))
-                while story_id == None or type(story_id) != int:
-                    if story_id == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid ID !")
+                while story_id == None:
+                    print("[!] This field can't be blank !")
                     sleep(1)
                     story_id=int(input(f"[::] Please enter again the story ID No{i+1}: "))
                 STIDS.append(story_id)
@@ -2330,11 +2301,8 @@ def main():
         else:
             for i in range(counti):
                 title=str(input(f"[::] Please enter the title of the highlight No{i+1}: "))
-                while title == None or type(title) != str:
-                    if title == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid title")
+                while title == None:
+                    print("[!] This field can't be blank !")
                     sleep(1)
                     title=str(input(f"[::] Please enter again the title of the highlight No{i+1}: "))
                 count=int(input("[::] Please enter the number of stories to add in the highlight: "))
@@ -2344,11 +2312,8 @@ def main():
                     count=int(input("[::] Please enter again the number of stories to add in the highlight: "))
                 for i in range(count):
                     story_id=int(input(f"[::] Please enter the story ID No{i+1}: "))
-                    while story_id == None or type(story_id) != int:
-                        if story_id == None:
-                            print("[!] This field can't be blank !")
-                        else:
-                            print("[!] Invalid ID !")
+                    while story_id == None:
+                        print("[!] This field can't be blank !")
                         sleep(1)
                         story_id = int(input(f"[::] Please enter again the story ID No{i+1}: "))
                     STIDS.append(story_id)
@@ -2369,11 +2334,8 @@ def main():
             count=int(input("[::] How many highlights do you want to delete ? "))
         if count == 1:
             hid=int(input("[::] Please enter the highlight ID: "))
-            while hid == None or type(hid) != int:
-                if hid == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid ID !")
+            while hid == None:
+                print("[!] This field can't be blank !")
                 sleep(1)
                 hid=int(input("[::] Please enter again the highlight ID: "))
             try:
@@ -2386,11 +2348,8 @@ def main():
         else:
             for i in range(count):
                 hid=int(input(f"[::] Please enter the highlight ID No{i+1}: "))
-                while hid == None or type(hid) != int:
-                    if hid == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid ID !")
+                while hid == None:
+                    print("[!] This field can't be blank !")
                     sleep(1)
                     hid=int(input(f"[::] Please enter again the highlight ID No{i+1}: "))
                 try:
@@ -2410,7 +2369,7 @@ def main():
             count=int(input("[::] How many covers of highlights do you want to change ? "))
         if count == 1:
             url=str(input("[::] Please enter the url to the highlight: "))
-            while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url or type(url) != str:
+            while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
                 if url == None:
                     print("[!] This field can't be blank !")
                 else:
@@ -2419,11 +2378,8 @@ def main():
                 url=str(input("[::] Please enter again the url to the highlight: "))
             print(Get_Hpk(url))
             pk=int(input("[::] Please enter the highlight id as shown above: "))
-            while pk == None or type(pk) != int:
-                if pk == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid ID !")
+            while pk == None:
+                print("[!] This field can't be blank !")
                 sleep(1)
                 pk=int(input("[::] Please enter again the highlight id as shown above: "))
             path=str(input("[::] Please enter the path to the cover for the highlight: "))
@@ -2441,20 +2397,14 @@ def main():
         else:
             for i in range(count):
                 url=str(input("[::] Please enter the url for the highlight: "))
-                while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url or type(url) != str:
-                    if url == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid url !")
+                while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
+                    print("[!] This field can't be blank !")
                     sleep(1)
                     url=str(input("[::] Please enter again the url for the highlight: "))
                 print(Get_Hpk(url))
                 pk=int(input("[::] Please enter the highlight id as shown above: "))
-                while pk == None or type(pk) != int:
-                    if pk == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid ID !")
+                while pk == None:
+                    print("[!] This field can't be blank !")
                     sleep(1)
                     pk=int(input("[::] Please enter again the highlight id as shown above: "))
                 path=str(input("[::] Please enter the path of the cover for the highlight: "))
@@ -2503,7 +2453,7 @@ def main():
             try:
                 HL = client.user_highlights(id,number)
                 for i in range(len(HL)):
-                    print("[+] Highlight: "+str(L[i]))
+                    print(f"[+] Highlight: {L[i]}")
                 Class()
             except Exception as ex:
                 Except(ex)
@@ -2534,7 +2484,7 @@ def main():
                 try:
                     HL = client.user_highlights(id,number)
                     for j in range(len(HL)):
-                        print("[+] Highlight: "+str(HL[j]))
+                        print(f"[+] Highlight: {HL[j]}")
                     Class()
                 except Exception as ex:
                     Except(ex)
@@ -2548,16 +2498,13 @@ def main():
             counti=int(input("[::] From how many highlights do you want to retrieve information ? "))
         if counti == 1:
             url=str(input("[::] Please enter the url for the highlight: "))
-            while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url or type(url) != str:
-                if url == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid url !")
+            while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
+                print("[!] This field can't be blank !")
                 sleep(1)
                 url=str(input("[::] Please enter again the url for the highlight: "))
             print(Get_Hpk(url))
             pk=int(input("[::] Please enter the highlight id as shown above: "))
-            while pk == None or type(pk) != int:
+            while pk == None:
                 if pk == None:
                     print("[!] This field can't be blank !")
                 else:
@@ -2574,7 +2521,7 @@ def main():
         else:
             for i in range(counti):
                 url=str(input("[::] Please enter the url for the highlight: "))
-                while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url or type(url) != str:
+                while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
                     if url == None:
                         print("[!] This field can't be blank !")
                     else:
@@ -2583,7 +2530,7 @@ def main():
                     url=str(input("[::] Please enter again the url for the highlight: "))
                 print(Get_Hpk(url))
                 pk=int(input("[::] Please enter the highlight id as shown above: "))
-                while pk == None or type(pk) != int:
+                while pk == None:
                     if pk == None:
                         print("[!] This field can't be blank !")
                     else:
@@ -2601,11 +2548,8 @@ def main():
     elif option == 41:
         clear()
         url=str(input("[::] Please enter the url of the story: "))
-        while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url or type(url) != str:
-            if url == None:
-                print("[!] This field can't be blank !")
-            else:
-                print("[!] Invalid url !")
+        while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
+            print("[!] This field can't be blank !")
             sleep(1)
             url=str(input("[::] Please enter again the url of the story: "))
         print(Get_Spk(url))
@@ -2627,11 +2571,8 @@ def main():
     elif option == 42:
         clear()
         url=str(input("[::] Please enter the url of the story: "))
-        while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url or type(url) != str:
-            if url == None:
-                print("[!] This field can't be blank !")
-            else:
-                print("[!] Invalid url !")
+        while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
+            print("[!] This field can't be blank !")
             sleep(1)
             url=str(input("[::] Please enter again the url of the story: "))
         print(Get_Spk(url))
@@ -2715,11 +2656,8 @@ def main():
     elif option == 45:
         clear()
         url=str(input("[::] Please enter the url of the story: "))
-        while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url or type(url) != str:
-            if url == None:
-                print("[!] This field can't be blank !")
-            else:
-                print("[!] Invalid url !")
+        while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
+            print("[!] This field can't be blank !")
             sleep(1)
             url=str(input("[::] Please enter again the url of the story: "))
         print(Get_Spk(url))
@@ -2764,11 +2702,8 @@ def main():
     elif option == 47:
         clear()
         bio=str(input("[::] Please enter the text for the bio: "))
-        while bio == None or type(bio) != str:
-            if bio == None:
-                print("[!] This field can't be blank !")
-            else:
-                print("[!] Invalid bio !")
+        while bio == None:
+            print("[!] This field can't be blank !")
             sleep(1)
             bio=str(input("[::] Please enter again the text for the bio: "))
         try:
@@ -2893,11 +2828,8 @@ def main():
             set_ex_url=str(input("[?] Do you want to set an external url ? [yes/no] "))
         if set_ex_url in ANS[:9]:
             url=str(input("[::] Please enter the url: "))
-            while url == None or "/" not in url or "//" not in url or type(url) != str:
-                if url == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid url !")
+            while url == None or "/" not in url or "//" not in url:
+                print("[!] This field can't be blank !")
                 sleep(1)
                 url=str(input("[::] Please enter again the url: "))
         set_email=str(input("[?] Do you want to add an email ? [yes/no] "))
@@ -2963,11 +2895,8 @@ def main():
         browser = webdriver.Chrome()
         for i in range(count):
             url=str(input("[::] Please enter the url of the post: "))
-            while url == None or "https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url or type(url) != str:
-                if url == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid url !")
+            while url == None or "https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url:
+                print("[!] This field can't be blank !")
                 sleep(1)
                 url=str(input("[::] Please enter again the url of the post: "))
             try:
@@ -2990,11 +2919,8 @@ def main():
         browser = webdriver.Chrome()
         for i in range(count):
             url=str(input("[::] Please enter the url of the post, igtv, reel etc. : "))
-            while url == None or "https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url or type(url) != str:
-                if url == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid url !")
+            while url == None or "https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url:
+                print("[!] This field can't be blank !")
                 sleep(1)
                 url=str(input("[::] Please enter again the url of the post, igtv, reel etc. : "))
             try:
@@ -3018,11 +2944,8 @@ def main():
         browser = webdriver.Chrome()
         for i in range(count):
             url=str(input("[::] Please enter the url of the post, igtv, reel etc. : "))
-            while url == None or "https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url or type(url) != str:
-                if url == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid url !")
+            while url == None or "https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url:
+                print("[!] This field can't be blank !")
                 sleep(1)
                 url=str(input("[::] Please enter again the url of the post, igtv, reel etc. : "))
             try:
@@ -3038,11 +2961,8 @@ def main():
     elif option == 55:
         clear()
         __time__=str(input("[::] Please enter the time (example: 15:06:10): "))
-        while __time__ == None or ":" not in __time__ or type(__time__) != str:
-            if __time__ == None:
-                print("[!] This field can't be blank !")
-            else:
-                print("[!] Invalid time !")
+        while __time__ == None or ":" not in __time__:
+            print("[!] This field can't be blank !")
             sleep(1)
             __time__=str(input("[::] Please enter again the time (example: 15:06:10): "))
         Av_Acts()
@@ -3152,11 +3072,8 @@ def main():
                         count=int(input("[?] How many locations do you want to include ? "))
                     for i in range(count):
                         location1=str(input(f"[::] Please enter location No{i+1}: "))
-                        while location1 == None or type(location1) != str:
-                            if location1 == None:
-                                print("[!] This field can't be blank !")
-                            else:
-                                print("[!] Invalid input !")
+                        while location1 == None:
+                            print("[!] This field can't be blank !")
                             sleep(1)
                             location1=str(input(f"[::] Please enter again location No{i+1}: "))
                         LOCATIONS.append(location1)
@@ -3339,11 +3256,8 @@ def main():
                     count=int(input("[?] How many urls do you want to include ? "))
                 for i in range(count):
                     link=str(input(f"[::] Please enter the url No{i+1}: "))
-                    while link == None or "/" not in link or "https" not in link or type(link) != str:
-                        if link == None:
-                            print("[!] This field can't be blank !")
-                        else:
-                            print("[!] Invalid url !")
+                    while link == None or "/" not in link or "https" not in link:
+                        print("[!] This field can't be blank !")
                         sleep(1)
                         link=str(input(f"[::] Please enter again the url No{i+1}: "))
                     LINKS.append(link)
@@ -3365,11 +3279,8 @@ def main():
                     count=int(input("[?] How many hashtags do you want to include ? "))
                 for i in range(count):
                     hashtag=str(input(f"[::] Please enter the hashtag No{i+1}: "))
-                    while hashtag == None or "#" not in hashtag or type(hashtag) != str:
-                        if hashtag == None:
-                            print("[!] This field can't be blank !")
-                        else:
-                            print("[!] Invalid hashtag !")
+                    while hashtag == None or "#" not in hashtag:
+                        print("[!] This field can't be blank !")
                         sleep(1)
                         hashtag=str(input(f"[::] Please enter again the hashtag No{i+1}: "))
                     HASHTAGS.append(hashtag)
@@ -3948,11 +3859,8 @@ def main():
                     sleep(1)
                     print("[✓] Hashtag added !")
             inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-            while inloc not in ANS or inloc == None or type(inloc) != str:
-                if inloc == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid location !")
+            while inloc not in ANS or inloc == None:
+                print("[!] This field can't be blank !")
                 sleep(1)
                 inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
             if inloc in ANS[:9]:
@@ -3963,11 +3871,8 @@ def main():
                     count=int(input("[?] How many locations to include ? "))
                 for i in range(count):
                     location=str(input(f"[::] Please enter location No{i+1} : "))
-                    while location == None or type(location) != str:
-                        if location == None:
-                            print("[!] This field can't be blank !")
-                        else:
-                            print("[!] Invalid location !")
+                    while location == None:
+                        print("[!] This field can't be blank !")
                         sleep(1)
                         location=str(input(f"[::] Please enter again location No{i+1}: "))
             if current_time == __time__:
