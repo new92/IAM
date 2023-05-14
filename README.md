@@ -199,6 +199,13 @@ Answers:
   python -m pip install requirements.txt
   python IAM.py
 ```
+
+## Update 🔄️
+
+```bash
+   git pull
+```
+
     
 ## License 📄
 
