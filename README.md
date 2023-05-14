@@ -203,6 +203,7 @@ Answers:
 ## Update 🔄️
 
 ```bash
+   cd IAM
    git pull
 ```
 
