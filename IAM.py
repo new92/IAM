@@ -11,7 +11,7 @@ IAM: Instagram Account Manager
 
 ******************************|IMPORTANT|*******************************
 * User's data (such as username password) will not be stored or saved !*
-* Will be used only for some functions of the program.                 *
+* Will be used only for some functions of the script.                  *
 ************************************************************************
 """
 
@@ -39,8 +39,8 @@ try:
     import requests as re
     import os
     from tkinter import *
-except ImportError as imp:
-    print("[!] WARNING: Not all packages used in this script have been installed !")
+except ImportError:
+    print("[!] WARNING: Not all packages used in IAM have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
     sleep(1)
@@ -67,7 +67,7 @@ except ImportError as imp:
                     else:
                         print("[!] Invalid number !")
                         sleep(1)
-                        print("[+] Acceptable numbers: [1,2]")
+                        print("[*] Acceptable numbers: [1/2]")
                     sleep(1)
                     print("[1] Uninstall script")
                     print("[2] Exit")
@@ -103,19 +103,19 @@ bot=instabot.Bot()
 
 def banner() -> str:
     return """
-██╗░█████╗░███╗░░░███╗
-██║██╔══██╗████╗░████║
-██║███████║██╔████╔██║
-██║██╔══██║██║╚██╔╝██║
-██║██║░░██║██║░╚═╝░██║
-╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝
-"""
+    ██╗░█████╗░███╗░░░███╗
+    ██║██╔══██╗████╗░████║
+    ██║███████║██╔████╔██║
+    ██║██╔══██║██║╚██╔╝██║
+    ██║██║░░██║██║░╚═╝░██║
+    ╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝
+    """
 
 def clear():
     if platform.system() == 'Windows':
-        system("cls")
+        system('cls')
     else:
-        system("clear")
+        system('clear')
 
 def Get_Hpk(url:str) -> str:
     return client.highlight_pk_from_url(url)
@@ -140,7 +140,7 @@ def Except(ex:str):
         else:
             print("[!] Invalid number !")
             sleep(1)
-            print("[+] Acceptable numbers: [1/2]")
+            print("[*] Acceptable numbers: [1/2]")
         sleep(1)
         print("[1] Return to menu")
         print("[2] Exit")
@@ -191,7 +191,7 @@ def CheckVal() -> str:
     print("[3] Exit")
     opt=int(input("[::] Please enter a number (from the above ones): "))
     while valOpt(opt,1,3):
-        checkOpt(opt, "other")
+        checkOpt(opt, 'other')
         sleep(1)
         print("[1] Try with another username")
         print("[2] Return to menu")
@@ -200,7 +200,7 @@ def CheckVal() -> str:
     if opt == 1:
         username=str(input("[::] Please enter the username: "))
         while checkUser(username):
-            checkOpt(opt,"username")
+            checkOpt(opt, 'username')
         sleep(1)
         username=str(input("[::] Please enter again the username: "))
         return username
@@ -294,7 +294,7 @@ def Av_Acts() -> str:
     26) Save/Unsave (post(s), reel(s), igtv(s) etc.)
     """
 
-def ProgInfo():
+def ScriptInfo():
     version = '1.6'
     author = 'new92'
     lice = 'MIT'
@@ -307,7 +307,7 @@ def ProgInfo():
         fsize = (os.stat(f)).st_size
     else:
         fsize = 0
-    stars = 14
+    stars = 12
     forks = 4
     issues = 0
     clissues = 0
@@ -318,19 +318,20 @@ def ProgInfo():
     print(f"[+] Github ==> @{author}")
     print(f"[+] License ==> {lice}")
     print(f"[+] Script's name ==> {name}")
-    print(f"[+] Version ==> {version}")
-    print(f"[+] Programmed with ==> {lang}")
+    print(f"[+] Script's version ==> {version}")
+    print(f"[+] Programming language(s) used ==> {lang}")
     print(f"[+] Natural language ==> {language}")
     print(f"[+] File size: {fsize} bytes")
     print(f"[+] File path: {os.path.abspath(f)}")
     print(f"[+] Number of lines ==> {lines}")
-    print(f"[+] Number of stars on the github repo ==> {stars}")
-    print(f"[+] Number of forks on the github repo ==> {forks}")
-    print(f"[+] Number of open issues: {issues}")
-    print(f"[+] Number of closed issues: {clissues}")
-    print(f"[+] Number of open pull requests: {prs}")
-    print(f"[+] Number of closed pull requests: {clprs}")
-    print(f"[+] Number of discussions: {discs}")
+    print("|======|GITHUB REPO INFO|======|")
+    print(f"[+] Stars ==> {stars}")
+    print(f"[+] Forks ==> {forks}")
+    print(f"[+] Open issues: {issues}")
+    print(f"[+] Closed issues: {clissues}")
+    print(f"[+] Open pull requests: {prs}")
+    print(f"[+] Closed pull requests: {clprs}")
+    print(f"[+] Discussions: {discs}")
 
 
 def checkUser(username:str) -> bool:
@@ -344,7 +345,6 @@ def checkID(id:int) -> bool:
 
 
 ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES","no","NO","No","n","N","nO"]
-
 TaggedUsers=[]
 Location=[]
 Locations=[]
@@ -353,34 +353,22 @@ LOCATIONS=[]
 LINKS=[]
 IDS=[]
 HASHTAGS=[]
-
 FUFERS=[]
 FUFING=[]
-
 LTAGS=[]
-
 LBU=[]
-
 MSGIDS=[]
 FILEIDS=[]
 PHOTOIDS=[]
 VIDEOIDS=[]
-
 LBL=[]
-
 BLOCKU=[]
-
 REPLS=[]
-
 STIDS=[]
-
 STBTGS=[]
 GTST=[]
-
 HASHVID=[]
-
 LOCLIKE=[]
-
 random = None
 sktp = None
 count = 0
@@ -584,7 +572,7 @@ def main():
 
     elif option == 999:
         clear()
-        ProgInfo()
+        ScriptInfo()
     
     if option == 0:
         clear()
@@ -660,7 +648,7 @@ def main():
         while checkID(id):
             checkOpt(id,"id")
             sleep(1)
-            id1=input("[::] Please enter again your id (as shown above): ")
+            id=input("[::] Please enter again your id (as shown above): ")
         try:
             print(client.user_following(id))
             Class()
@@ -678,7 +666,7 @@ def main():
         try:
             highlights=loader.download_highlights(id)
             sleep(1)
-            print(f"[+] Highlights folder path: {os.path.abspath(username)}")
+            print(f"[+] Highlights folder path: {os.path.abspath(highlights)}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -687,7 +675,7 @@ def main():
         clear()
         count=int(input("[+] Number of accounts (to get their stories): "))
         while valOpt(count,1,999):
-            checkOpt(count,"other")
+            checkOpt(count,'other')
             sleep(1)
             count=int(input("[::] Please enter again the number of accounts (to get their stories): "))
         for i in range(count):
