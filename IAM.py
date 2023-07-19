@@ -304,11 +304,11 @@ def ScriptInfo():
     language = 'en-US'
     f = name+'.py'
     if os.path.exists(os.path.abspath(f)):
-        fsize = (os.stat(f)).st_size
+        fsize = os.stat(f).st_size
     else:
         fsize = 0
     stars = 16
-    forks = 4
+    forks = 5
     issues = 0
     clissues = 0
     prs = 0
