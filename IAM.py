@@ -205,9 +205,11 @@ def CheckVal() -> str:
         username=str(input("[::] Please enter again the username: "))
         return username
     elif opt == 2:
+        clear()
         main()
     else:
-        print("[+] Thank you for using my script 😁")
+        clear()
+        print("[+] Thank you for using IAM😁")
         sleep(2)
         print("[+] See you next time 👋")
         sleep(1)
