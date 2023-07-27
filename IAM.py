@@ -274,14 +274,14 @@ def Exiting():
     sleep(1)
     quit(0)
     
-def checkCount(num:int) -> bool:
+def checkCount(num: int) -> bool:
     return num == None or num < 1
     
 def checkTag(tag: str) -> bool:
-    return "#" in tag or tag == None
+    return "#" in tag or tag == None or tag == ''
 
-def checkPath(path):
-    return path == None or "/" not in path or "\\" not in path
+def checkPath(path: str) -> bool:
+    return path == None or "/" not in path or "\\" not in path or path == ''
 
 def Av_Acts() -> str:
     return """
@@ -318,7 +318,7 @@ def ScriptInfo():
     author = 'new92'
     lice = 'MIT'
     name = 'IAM'
-    lines = 4120
+    lines = 4095
     lang = 'Python'
     language = 'en-US'
     f = name+'.py'
@@ -341,7 +341,7 @@ def ScriptInfo():
     print(f"[+] Programming language(s) used ==> {lang}")
     print(f"[+] Natural language ==> {language}")
     print(f"[+] File size: {fsize} bytes")
-    print(f"[+] File path: {os.path.abspath(f)}")
+    print(f"[+] File path: {fpath(f)}")
     print(f"[+] Number of lines ==> {lines}")
     print("|======|GITHUB REPO INFO|======|")
     print(f"[+] Stars ==> {stars}")
@@ -353,13 +353,13 @@ def ScriptInfo():
     print(f"[+] Discussions: {discs}")
 
 
-def checkUser(username:str) -> bool:
+def checkUser(username: str) -> bool:
     return username == None or len(username) > 30 or username == ''
 
-def GetID(username:str) -> int:
+def GetID(username: str) -> int:
     return loader.check_profile_id(username)
 
-def checkID(id:int) -> bool:
+def checkID(id: int) -> bool:
     return id == None or len(id) < 3
 
 
@@ -685,7 +685,7 @@ def main():
         try:
             highlights=loader.download_highlights(id)
             sleep(1)
-            print(f"[+] Highlights folder path: {os.path.abspath(highlights)}")
+            print(f"[+] Highlights folder path: {fpath(highlights)}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -719,7 +719,7 @@ def main():
         try:
             loader.download_stories(IDS)
             sleep(2)
-            print(f"[+] Path to folder containing the stories: {os.path.abspath(':stories')}")
+            print(f"[+] Path to folder containing the stories: {fpath(':stories')}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -733,7 +733,7 @@ def main():
             count=int(input("[?] How many of your saved posts do you want to download ? "))
         try:
             loader.download_saved_posts(count)
-            print(f"[+] Path to folder containing saved posts: {os.path.abspath(':saved')}")
+            print(f"[+] Path to folder containing saved posts: {fpath(':saved')}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -747,7 +747,7 @@ def main():
             count=int(input("[?] How many posts do you want to download ? "))
         try:
             loader.download_feed_posts(count)
-            print(f"[+] Path to folder containing feed posts: {os.path.abspath(':feed')}")
+            print(f"[+] Path to folder containing feed posts: {fpath(':feed')}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -4088,31 +4088,6 @@ def main():
         print("[+] If you have any suggestions or found a bug or need help feel free to contact me anytime, at this email address: new92github@gmail.com")
         sleep(3)
         print("[+] Until we meet again 🫡")
-        sleep(1)
-        quit(0)
-
-    print(f"{YELLOW}[1] Return to menu")
-    print(f"{YELLOW}[2] Exit")
-    num=int(input(f"{YELLOW}[>] Please enter a number (from the above ones): "))
-    while num < 1 or num > 2 or num == None:
-        if num == None:
-            print(f"{RED}[!] This field can't be empty !")
-        else:
-            print(f"{RED}[!] Invalid number !")
-            sleep(1)
-            print(f"{GREEN}[*] Acceptable numbers: [1/2]")
-        sleep(1)
-        print(f"{YELLOW}[1] Return to menu")
-        print(f"{YELLOW}[2] Exit")
-        num=int(input(f"{YELLOW}[>] Please enter again a number (from the above ones): "))
-    if num == 1:
-        clear()
-        main()
-    else:
-        clear()
-        print(f"{RED}[+] Exiting...")
-        sleep(1)
-        print(f"{GREEN}[+] See you next time 👋")
         sleep(1)
         quit(0)
 
