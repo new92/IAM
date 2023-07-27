@@ -115,6 +115,9 @@ loader=instaloader.Instaloader()
 client=instagrapi.Client()
 bot=instabot.Bot()
 
+print("[SUCCESS] Successfully loaded modules ✓")
+sleep(1)
+
 def fpath(fname: str):
     for root, dirs, files in os.walk('/'):
         if fname in files:
@@ -318,7 +321,7 @@ def ScriptInfo():
     author = 'new92'
     lice = 'MIT'
     name = 'IAM'
-    lines = 4095
+    lines = 4098
     lang = 'Python'
     language = 'en-US'
     f = name+'.py'
