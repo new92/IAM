@@ -21,17 +21,26 @@ try:
     import sys
     from time import sleep
     if sys.version_info[0] < 3:
-        print("[!] Error ! This script requires Python version 3.X ! ")
+        print("[!] Error ! IAM requires Python version 3.X ! ")
+        sleep(2)
         print("""[+] Instructions to download Python 3.x : 
         Linux: apt install python3
         Windows: https://www.python.org/downloads/
         MacOS: https://docs.python-guide.org/starting/install3/osx/""")
-        print("[+] Please install the Python 3 and then use this script ✅")
+        sleep(3)
+        print("[+] Please install Python 3 and then use IAM ✅")
         sleep(2)
         print("[+] Exiting...")
         sleep(1)
         quit(0)
     import platform
+    from tqdm import tqdm
+    total_mods = 10
+    bar = tqdm(total=total_mods, desc='Loading modules', unit='module')
+    for _ in range(total_mods):
+        sleep(0.75)
+        bar.update(1)
+    bar.close()
     from os import system
     import instagrapi
     import instaloader
@@ -39,7 +48,7 @@ try:
     import requests as re
     import os
     from tkinter import *
-except ImportError:
+except ImportError or ModuleNotFoundError:
     print("[!] WARNING: Not all packages used in IAM have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
@@ -73,6 +82,11 @@ except ImportError:
                     print("[2] Exit")
                     opt=int(input("[>] Please enter again a number (from the above ones): "))
                 if opt == 1:
+                    def fpath(fname: str):
+                        for root, dirs, files in os.walk('/'):
+                            if fname in files:
+                                return os.path.abspath(os.path.join(root, fname))
+                        return None
                     def rmdir(dire):
                         DIRS = []
                         for root, dirs, files in os.walk(dire):
@@ -83,7 +97,7 @@ except ImportError:
                         for i in range(len(DIRS)):
                             os.rmdir(DIRS[i])
                         os.rmdir(dire)
-                    rmdir(os.path.abspath('IAM'))
+                    rmdir(fpath('IAM'))
                     print("[✓] Files and dependencies uninstalled successfully !")
                 else:
                     print("[+] Exiting...")
@@ -100,6 +114,12 @@ except ImportError:
 loader=instaloader.Instaloader()
 client=instagrapi.Client()
 bot=instabot.Bot()
+
+def fpath(fname: str):
+    for root, dirs, files in os.walk('/'):
+        if fname in files:
+            return os.path.abspath(os.path.join(root, fname))
+    return None
 
 def banner() -> str:
     return """
@@ -161,14 +181,14 @@ def checkOpt(opt,data):
         else:
             print("[!] Invalid length !")
             sleep(1)
-            print("[+] Acceptable length: less than or equal to 30 characters")
+            print("[*] Acceptable length: less than or equal to 30 characters")
     elif data == "id":
         if opt == None:
             print("[!] This field can't be empty !")
         else:
             print("[!] Invalid length !")
             sleep(1)
-            print("[+] Acceptable length: greater than 3")
+            print("[*] Acceptable length: greater than 3")
     elif data == "path":
         if opt == None:
             print("[!] This field can't be empty !")
@@ -205,11 +225,9 @@ def CheckVal() -> str:
         username=str(input("[::] Please enter again the username: "))
         return username
     elif opt == 2:
-        clear()
         main()
     else:
-        clear()
-        print("[+] Thank you for using IAM😁")
+        print("[+] Thank you for using my script 😁")
         sleep(2)
         print("[+] See you next time 👋")
         sleep(1)
@@ -227,7 +245,7 @@ def Uninstall() -> str:
         for i in range(len(DIRS)):
             os.rmdir(DIRS[i])
         os.rmdir(dire)
-    rmdir(os.path.abspath('IAM'))
+    rmdir(fpath('IAM'))
     return "[✓] Files and dependencies uninstalled successfully !"
 
 def Next() -> int:
@@ -241,7 +259,7 @@ def Next() -> int:
         else:
             print("[!] Invalid number !")
             sleep(1)
-            print("[+] Acceptable numbers: [1/2]")
+            print("[*] Acceptable numbers: [1/2]")
         sleep(1)
         opt=int(input("[::] Please enter a number (from the above ones): "))
     return opt
@@ -255,7 +273,6 @@ def Exiting():
     print("[+] See you next time 👋")
     sleep(1)
     quit(0)
-    
     
 def checkCount(num:int) -> bool:
     return num == None or num < 1
@@ -297,15 +314,15 @@ def Av_Acts() -> str:
     """
 
 def ScriptInfo():
-    version = '1.6'
+    __version__ = '1.6'
     author = 'new92'
     lice = 'MIT'
     name = 'IAM'
-    lines = 4063
+    lines = 4120
     lang = 'Python'
     language = 'en-US'
     f = name+'.py'
-    if os.path.exists(os.path.abspath(f)):
+    if os.path.exists(fpath(f)):
         fsize = os.stat(f).st_size
     else:
         fsize = 0
@@ -320,7 +337,7 @@ def ScriptInfo():
     print(f"[+] Github ==> @{author}")
     print(f"[+] License ==> {lice}")
     print(f"[+] Script's name ==> {name}")
-    print(f"[+] Script's version ==> {version}")
+    print(f"[+] Script's version ==> {__version__}")
     print(f"[+] Programming language(s) used ==> {lang}")
     print(f"[+] Natural language ==> {language}")
     print(f"[+] File size: {fsize} bytes")
@@ -337,7 +354,7 @@ def ScriptInfo():
 
 
 def checkUser(username:str) -> bool:
-    return username == None or len(username) > 30
+    return username == None or len(username) > 30 or username == ''
 
 def GetID(username:str) -> int:
     return loader.check_profile_id(username)
@@ -559,7 +576,7 @@ def main():
                 username = CheckVal()
         username = username.lower().strip()
         password=str(input("[::] Please enter your password: "))
-        while password == None:
+        while password == None or password == ''    :
             print("[!] This field can't be blank !")
             sleep(1)
             password=input("[::] Please enter again your password: ")
@@ -771,7 +788,7 @@ def main():
                 else:
                     print("[!] Invalid answer !")
                     sleep(1)
-                    print("[+] Acceptable answers: [yes/no]")
+                    print("[*] Acceptableanswers: [yes/no]")
                 sleep(1)
                 tags=str(input("[?] Do you want to include other users to your post by tagging them ? [yes/no] "))
             if tags in ANS[:9]:
@@ -810,14 +827,18 @@ def main():
             sleep(1)
             print("[*] Hit <Tab> and <Enter> to Apply the Default Option")
             sleep(2)
-            loc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
+            print("[*] Acceptable answers: [yes/no]")
+            sleep(1)
+            loc=str(input("[?] Do you want to include location(s) ? "))
             while loc not in ANS or loc == None:
                 if loc == None:
                     print("[!] This field can't be blank !")
                 else:
                     print("[!] Invalid location !")
                 sleep(1)
-                loc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
+                print("[*] Acceptable answers: [yes/no]")
+                sleep(1)
+                loc=str(input("[?] Do you want to include location(s) ? "))
             if loc in ANS[:9]:
                 count=int(input("[?] How many ? "))
                 while checkCount(count):
@@ -889,15 +910,19 @@ def main():
         while valUser(username):
             CheckVal()
         username = username.lower().strip()
-        EN = ["enable","ENABLE","disable","DISABLE", "enable".capitalize(), "disable".capitalize()]
-        endis=str(input("[?] Do you want to enable or disable your notifications ? [enable/disable] "))
+        EN = ["enable","ENABLE","disable","DISABLE", "Enable", "Disable"]
+        print("[*] Acceptable answers: [enable/disable]")
+        sleep(1)
+        endis=str(input("[?] Do you want to enable or disable your notifications ? "))
         while endis not in EN or endis == None:
             if endis == None:
                 print("[!] This field can't be blank !")
             else:
                 print("[!] Invalid input !")
             sleep(1)
-            endis=input("[?] Do you want to enable or disable your notifications ? [enable/disable] ")
+            print("[*] Acceptable answers: [enable/disable]")
+            sleep(1)
+            endis=input("[?] Do you want to enable or disable your notifications ? ")
         if endis in EN[:2]:
             username=str(input("[::] Please enter your username: "))
             while checkUser(username):
@@ -1037,21 +1062,25 @@ def main():
             checkOpt(path, "path")
             sleep(1)
             path=str(input("[::] Please enter again the path to the photo to be uploaded: "))
-        AddCaption=str(input("[?] Do you want to add caption ? [yes/no] "))
+        print("[*] Acceptable answers: [yes/no]")
+        sleep(1)
+        AddCaption=str(input("[?] Do you want to add caption ? "))
         while AddCaption not in ANS or AddCaption == None:
             if AddCaption == None:
                 print("[!] This field can't be blank !")
             else:
                 print("[!] Invalid input !")
+                sleep(1)
+                print("[*] Acceptable answers: [yes/no]")
             sleep(1)
-            AddCaption=str(input("[?] Do you want to add caption ? [yes/no] "))
+            AddCaption=str(input("[?] Do you want to add caption ? "))
         if AddCaption in ANS[:9]:
             print("[+] Default: \"Check out my new story !\"")
             sleep(1)
-            print("[*] Hit <Tab> and <Enter> for the default option to be applied")
+            print("[*] Enter: 'default' for the default option to be applied")
             sleep(2)
             caption=str(input("[::] Please enter the caption: "))
-            if caption == "\t":
+            if caption == "default":
                 caption = "Check out my new story !"
             else:
                 caption=str(input("[::] Please enter a caption to include to your story: "))
@@ -1059,14 +1088,19 @@ def main():
                     print("[!] Invalid caption !")
                     sleep(1)
                     caption=str(input("[::] Please enter again a caption to include to your story: "))
-        AddMention=str(input("[?] Do you want to add mention ? [yes/no] "))
+        sleep(1)
+        print("[*] Acceptable answers: [yes/no]")
+        sleep(1)
+        AddMention=str(input("[?] Do you want to add mention ? "))
         while AddMention not in ANS or AddMention == None:
             if AddMention == None:
                 print("[!] This field can't be blank !")
             else:
                 print("[!] Invalid input !")
             sleep(1)
-            mention=str(input("[?] Do you want to mention other user(s) ? [yes/no] "))
+            print("[*] Acceptable answers: [yes/no]")
+            sleep(1)
+            mention=str(input("[?] Do you want to mention other user(s) ? "))
         if AddMention in ANS[:9]:
             MENTIONS = []
             count=int(input("[?] How many ? "))
@@ -1085,14 +1119,18 @@ def main():
                 if not mention.islower():
                     mention = mention.lower().strip()
                 MENTIONS.append(mention)
-        AddLoc=str(input("[?] Do you want to add location ? [yes/no] "))
+        sleep(1)
+        print("[*] Acceptable answers: [yes/no]")
+        AddLoc=str(input("[?] Do you want to add location ? "))
         while AddLoc not in ANS or AddLoc == None:
             if AddLoc == None:
                 print("[!] This field can't be blank !")
             else:
                 print("[!] Invalid input !")
             sleep(1)
-            AddLoc=str(input("[?] Do you want to add location ? [yes/no] "))
+            print("[*] Acceptable answers: [yes/no]")
+            sleep(1)
+            AddLoc=str(input("[?] Do you want to add location ? "))
         if AddLoc in ANS[:9]:
             count=int(input("[?] How many locations do you want to add ? "))
             while checkCount(count):
@@ -1106,14 +1144,17 @@ def main():
                     sleep(1)
                     loc=str(input(f"[::] Please enter again location No{i+1}: "))
                 LOCATIONS.append(loc)
-        AddLinks=str(input("[?] Do you want to include urls ? [yes/no] "))
+        sleep(1)
+        print("[*] Acceptable answers: [yes/no]")
+        sleep(1)
+        AddLinks=str(input("[?] Do you want to include urls ? "))
         while AddLinks not in ANS or AddLinks == None:
             if AddLinks == None:
                 print("[!] This field can't be blank !")
             else:
                 print("[!] Invalid input !")
             sleep(1)
-            AddLinks=str(input("[?] Do you want to include urls ? [yes/no] "))
+            AddLinks=str(input("[?] Do you want to include urls ? "))
         if AddLinks in ANS[:9]:
             count=int(input("[?] How many ? "))
             while checkCount(count):
@@ -4047,6 +4088,31 @@ def main():
         print("[+] If you have any suggestions or found a bug or need help feel free to contact me anytime, at this email address: new92github@gmail.com")
         sleep(3)
         print("[+] Until we meet again 🫡")
+        sleep(1)
+        quit(0)
+
+    print(f"{YELLOW}[1] Return to menu")
+    print(f"{YELLOW}[2] Exit")
+    num=int(input(f"{YELLOW}[>] Please enter a number (from the above ones): "))
+    while num < 1 or num > 2 or num == None:
+        if num == None:
+            print(f"{RED}[!] This field can't be empty !")
+        else:
+            print(f"{RED}[!] Invalid number !")
+            sleep(1)
+            print(f"{GREEN}[*] Acceptable numbers: [1/2]")
+        sleep(1)
+        print(f"{YELLOW}[1] Return to menu")
+        print(f"{YELLOW}[2] Exit")
+        num=int(input(f"{YELLOW}[>] Please enter again a number (from the above ones): "))
+    if num == 1:
+        clear()
+        main()
+    else:
+        clear()
+        print(f"{RED}[+] Exiting...")
+        sleep(1)
+        print(f"{GREEN}[+] See you next time 👋")
         sleep(1)
         quit(0)
 
