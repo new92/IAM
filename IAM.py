@@ -112,7 +112,7 @@ except ImportError or ModuleNotFoundError:
 loader=instaloader.Instaloader()
 client=instagrapi.Client()
 
-print("[SUCCESS] Successfully loaded modules ✓")
+print("[✓] Successfully loaded modules !")
 sleep(1)
 
 def fpath(fname: str):
@@ -328,17 +328,18 @@ def ScriptInfo():
     print(f"[+] Script's version ==> {conf['version']}")
     print(f"[+] Programming language(s) used ==> {conf['lang']}")
     print(f"[+] Natural language ==> {conf['language']}")
-    print(f"[+] File size: {fsize} bytes")
-    print(f"[+] File path: {fpath(f)}")
+    print(f"[+] File size ==> {fsize} bytes")
+    print(f"[+] File path ==> {fpath(f)}")
     print(f"[+] Number of lines ==> {conf['lines']}")
+    print(f"[+] API(s) used ==> {conf['api']}")
     print("|======|GITHUB REPO INFO|======|")
     print(f"[+] Stars ==> {conf['stars']}")
     print(f"[+] Forks ==> {conf['forks']}")
-    print(f"[+] Open issues: {conf['issues']}")
-    print(f"[+] Closed issues: {conf['clissues']}")
-    print(f"[+] Open pull requests: {conf['prs']}")
-    print(f"[+] Closed pull requests: {conf['clprs']}")
-    print(f"[+] Discussions: {conf['discs']}")
+    print(f"[+] Open issues ==> {conf['issues']}")
+    print(f"[+] Closed issues ==> {conf['clissues']}")
+    print(f"[+] Open pull requests ==> {conf['prs']}")
+    print(f"[+] Closed pull requests ==> {conf['clprs']}")
+    print(f"[+] Discussions ==> {conf['discs']}")
 
 
 def checkUser(username: str) -> bool:
