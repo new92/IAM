@@ -2,6 +2,7 @@
 """
 Author: new92
 Github: @new92
+Leetcode: @new92
 
 [-->] Script for Managing your Instagram Account Remotely
 
@@ -14,9 +15,6 @@ IAM: Instagram Account Manager
 * Will be used only for some functions of the script.                  *
 ************************************************************************
 """
-
-
-
 try:
     import sys
     from time import sleep
@@ -35,7 +33,7 @@ try:
         quit(0)
     import platform
     from tqdm import tqdm
-    total_mods = 10
+    total_mods = 11
     bar = tqdm(total=total_mods, desc='Loading modules', unit='module')
     for _ in range(total_mods):
         sleep(0.75)
@@ -43,8 +41,8 @@ try:
     bar.close()
     from os import system
     import instagrapi
+    import json
     import instaloader
-    import instabot
     import requests as re
     import os
     from tkinter import *
@@ -113,7 +111,6 @@ except ImportError or ModuleNotFoundError:
 
 loader=instaloader.Instaloader()
 client=instagrapi.Client()
-bot=instabot.Bot()
 
 print("[SUCCESS] Successfully loaded modules ✓")
 sleep(1)
@@ -317,43 +314,31 @@ def Av_Acts() -> str:
     """
 
 def ScriptInfo():
-    __version__ = '1.6'
-    author = 'new92'
-    lice = 'MIT'
-    name = 'IAM'
-    lines = 4098
-    lang = 'Python'
-    language = 'en-US'
-    f = name+'.py'
+    with open('config.json') as config:
+        conf = json.load(config)
+    f = conf['name'] + '.py'
     if os.path.exists(fpath(f)):
-        fsize = os.stat(f).st_size
+        fsize = os.stat(fpath(f)).st_size
     else:
         fsize = 0
-    stars = 17
-    forks = 5
-    issues = 0
-    clissues = 0
-    prs = 0
-    clprs = 0
-    discs = 1
-    print(f"[+] Author ==> {author}")
-    print(f"[+] Github ==> @{author}")
-    print(f"[+] License ==> {lice}")
-    print(f"[+] Script's name ==> {name}")
-    print(f"[+] Script's version ==> {__version__}")
-    print(f"[+] Programming language(s) used ==> {lang}")
-    print(f"[+] Natural language ==> {language}")
+    print(f"[+] Author ==> {conf['author']}")
+    print(f"[+] Github ==> @{conf['author']}")
+    print(f"[+] License ==> {conf['lice']}")
+    print(f"[+] Script's name ==> {conf['name']}")
+    print(f"[+] Script's version ==> {conf['version']}")
+    print(f"[+] Programming language(s) used ==> {conf['lang']}")
+    print(f"[+] Natural language ==> {conf['language']}")
     print(f"[+] File size: {fsize} bytes")
     print(f"[+] File path: {fpath(f)}")
-    print(f"[+] Number of lines ==> {lines}")
+    print(f"[+] Number of lines ==> {conf['lines']}")
     print("|======|GITHUB REPO INFO|======|")
-    print(f"[+] Stars ==> {stars}")
-    print(f"[+] Forks ==> {forks}")
-    print(f"[+] Open issues: {issues}")
-    print(f"[+] Closed issues: {clissues}")
-    print(f"[+] Open pull requests: {prs}")
-    print(f"[+] Closed pull requests: {clprs}")
-    print(f"[+] Discussions: {discs}")
+    print(f"[+] Stars ==> {conf['stars']}")
+    print(f"[+] Forks ==> {conf['forks']}")
+    print(f"[+] Open issues: {conf['issues']}")
+    print(f"[+] Closed issues: {conf['clissues']}")
+    print(f"[+] Open pull requests: {conf['prs']}")
+    print(f"[+] Closed pull requests: {conf['clprs']}")
+    print(f"[+] Discussions: {conf['discs']}")
 
 
 def checkUser(username: str) -> bool:
@@ -366,7 +351,7 @@ def checkID(id: int) -> bool:
     return id == None or len(id) < 3
 
 
-ANS = ["yes","YES","Yes","y","Y","YeS","yEs","YEs","yES","no","NO","No","n","N","nO"]
+ANS = ['yes','no']
 TaggedUsers=[]
 Location=[]
 Locations=[]
@@ -784,23 +769,25 @@ def main():
             sleep(2)
             print("[*] Hit <Tab> and <Enter> to apply the default option")
             sleep(2)
-            tags=str(input("[?] Do you want to include other users to your post by tagging them ? [yes/no] "))
-            while tags not in ANS or tags == None:
-                if tags == None:
+            print("[*] Acceptable answers: [yes/no]")
+            sleep(2)
+            tags=str(input("[?] Do you want to include other users to your post by tagging them ? "))
+            while tags.lower() not in ANS or tags == None or tags == '':
+                if tags == None or tags == '':
                     print("[!] This field can't be empty !")
                 else:
                     print("[!] Invalid answer !")
                     sleep(1)
-                    print("[*] Acceptableanswers: [yes/no]")
+                    print("[*] Acceptable answers: [yes/no]")
                 sleep(1)
-                tags=str(input("[?] Do you want to include other users to your post by tagging them ? [yes/no] "))
-            if tags in ANS[:9]:
+                tags=str(input("[?] Do you want to include other users to your post by tagging them ? "))
+            if tags.lower() == ANS[0]:
                 print("[+] Default: 1")
                 sleep(2)
-                print("[*] Hit <Tab> and <Enter> to apply the default option")
+                print("[*] Please enter 'def' to apply the default option")
                 sleep(1)
                 count=input("[?] How many users do you want to include ? ")
-                if count == "\t":
+                if count == 'def':
                     username=str(input("[::] Please enter the username: "))
                     while checkUser(username):
                         checkOpt(username, "username")
@@ -828,13 +815,13 @@ def main():
             sleep(2)
             print("[+] Default: [No]")
             sleep(1)
-            print("[*] Hit <Tab> and <Enter> to Apply the Default Option")
+            print("[*] Please enter 'def' to apply the default option")
             sleep(2)
             print("[*] Acceptable answers: [yes/no]")
             sleep(1)
             loc=str(input("[?] Do you want to include location(s) ? "))
-            while loc not in ANS or loc == None:
-                if loc == None:
+            while (loc.lower() not in ANS or loc == None or loc == '') and loc != 'def':
+                if loc == None or loc == '':
                     print("[!] This field can't be blank !")
                 else:
                     print("[!] Invalid location !")
@@ -842,7 +829,7 @@ def main():
                 print("[*] Acceptable answers: [yes/no]")
                 sleep(1)
                 loc=str(input("[?] Do you want to include location(s) ? "))
-            if loc in ANS[:9]:
+            if loc.lower() == ANS[0]:
                 count=int(input("[?] How many ? "))
                 while checkCount(count):
                     checkOpt(count,"other")
@@ -850,11 +837,8 @@ def main():
                     count=int(input("[?] How many locations do you want to include ? "))
                 for i in range(count):
                     location=str(input(f"[::] Please enter location No{i+1}: "))
-                    while location == None:
-                        if location == None:
-                            print("[!] This field can't be blank !")
-                        else:
-                            print("[!] Invalid location !")
+                    while location == None or location == '':
+                        print("[!] This field can't be blank !")
                         sleep(1)
                         location=str(input(f"[::] Please enter again location No{i+1}: "))
                     LOCATIONS.append(location)
@@ -867,7 +851,7 @@ def main():
                 except Exception as ex:
                     Except(ex)
 
-            if tags in ANS[:9] and loc in ANS[:9]:
+            if tags.lower() in ANS and loc.lower() in ANS:
                 try:
                     client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
                     sleep(2)
@@ -876,7 +860,7 @@ def main():
                 except Exception as ex:
                     Except(ex)
 
-            elif tags in ANS[:9] and loc in ANS[9:]:
+            elif tags.lower() in ANS and loc.lower() in ANS:
                 try:
                     client.photo_upload(path=path,caption=caption,tags=TaggedUsers)
                     sleep(2)
@@ -885,7 +869,7 @@ def main():
                 except Exception as ex:
                     Except(ex)
 
-            elif tags in ANS[9:] and loc in ANS[:9]:
+            elif tags.lower() in ANS and loc.lower() in ANS:
                 try:
                     client.photo_upload(path=path,caption=caption,location=LOCATIONS)
                     sleep(2)
@@ -894,7 +878,7 @@ def main():
                 except Exception as ex:
                     Except(ex)
 
-            elif tags in ANS[9:] and loc in ANS[:9]:
+            elif tags.lower() in ANS and loc.lower() in ANS:
                 try:
                     client.photo_upload(path=path,caption=caption)
                     sleep(2)
@@ -913,12 +897,12 @@ def main():
         while valUser(username):
             CheckVal()
         username = username.lower().strip()
-        EN = ["enable","ENABLE","disable","DISABLE", "Enable", "Disable"]
+        EN = ["enable","disable"]
         print("[*] Acceptable answers: [enable/disable]")
         sleep(1)
         endis=str(input("[?] Do you want to enable or disable your notifications ? "))
-        while endis not in EN or endis == None:
-            if endis == None:
+        while endis.lower() not in EN or endis == None or endis == '':
+            if endis == None or endis == '':
                 print("[!] This field can't be blank !")
             else:
                 print("[!] Invalid input !")
@@ -926,7 +910,7 @@ def main():
             print("[*] Acceptable answers: [enable/disable]")
             sleep(1)
             endis=input("[?] Do you want to enable or disable your notifications ? ")
-        if endis in EN[:2]:
+        if endis.lower() == EN[0]:
             username=str(input("[::] Please enter your username: "))
             while checkUser(username):
                 checkOpt(username, "username")
@@ -938,8 +922,8 @@ def main():
             print("[*] Notifications available for: [posts/reels/stories/videos]")
             sleep(2)
             action=str(input("[?] Which notifications do you want to enable ?"))
-            while action not in ["posts","POSTS","reels","REELS","stories","STORIES","videos","VIDEOS"] or action == None:
-                if action == None:
+            while action.lower() not in ["posts","reels","stories","videos"] or action == None or action == '':
+                if action == None or action == '':
                     print("[!] This field can't be blank !")
                 else:
                     print("[!] Invalid input !")
@@ -947,7 +931,7 @@ def main():
                 print("[*] Acceptable answers: [posts/reels/stories/videos]")
                 sleep(1)
                 action=input("[?] Please enter again the notifications to enable: ")
-            if action == "posts" or action == "POSTS":
+            if action.lower() == "posts":
                 username=str(input("[::] Please enter your username: "))
                 while checkUser(username):
                     checkOpt(username, "username")
@@ -972,7 +956,7 @@ def main():
                 except Exception as ex:
                     Except(ex)
 
-            elif action == "reels" or action == "REELS":
+            elif action.lower() == "reels":
                 username=str(input("[::] Please enter your username: "))
                 while checkUser(username):
                     checkOpt(username, "username")
@@ -997,7 +981,7 @@ def main():
                 except Exception as ex:
                     Except(ex)
 
-            elif action == "stories" or action == "STORIES":
+            elif action.lower() == "stories":
                 username=str(input("[::] Please enter your username: "))
                 while checkUser(username):
                     checkOpt(username, "username")
@@ -1053,7 +1037,7 @@ def main():
             path=str(input("[::] Please enter again the path of the photo for your new profile picture: "))
         try:
             client.account_change_picture(path)
-            print("[!] Your profile picture changed !")
+            print("[✓] Your profile pic changed !")
             Class()
         except Exception as ex:
             Except(ex)
@@ -1065,11 +1049,12 @@ def main():
             checkOpt(path, "path")
             sleep(1)
             path=str(input("[::] Please enter again the path to the photo to be uploaded: "))
+        sleep(2)
         print("[*] Acceptable answers: [yes/no]")
         sleep(1)
         AddCaption=str(input("[?] Do you want to add caption ? "))
-        while AddCaption not in ANS or AddCaption == None:
-            if AddCaption == None:
+        while AddCaption.lower() not in ANS or AddCaption == None or AddCaption == '':
+            if AddCaption == None or AddCaption == '':
                 print("[!] This field can't be blank !")
             else:
                 print("[!] Invalid input !")
@@ -1077,26 +1062,30 @@ def main():
                 print("[*] Acceptable answers: [yes/no]")
             sleep(1)
             AddCaption=str(input("[?] Do you want to add caption ? "))
-        if AddCaption in ANS[:9]:
+        if AddCaption.lower() == ANS[0]:
             print("[+] Default: \"Check out my new story !\"")
             sleep(1)
-            print("[*] Enter: 'default' for the default option to be applied")
+            print("[*] Enter >>> 'def' for the default option to be applied")
             sleep(2)
             caption=str(input("[::] Please enter the caption: "))
-            if caption == "default":
+            while caption == '' or caption == None or caption == ' ':
+                print("[!] This field can't be blank !")
+                sleep(1)
+                caption=str(input("[::] Please enter again the caption: "))
+            if caption == "def":
                 caption = "Check out my new story !"
             else:
                 caption=str(input("[::] Please enter a caption to include to your story: "))
-                while caption == None:
-                    print("[!] Invalid caption !")
+                while caption == None or caption == '' or caption == ' ':
+                    print("[!] This field can't be blank !")
                     sleep(1)
                     caption=str(input("[::] Please enter again a caption to include to your story: "))
         sleep(1)
         print("[*] Acceptable answers: [yes/no]")
         sleep(1)
         AddMention=str(input("[?] Do you want to add mention ? "))
-        while AddMention not in ANS or AddMention == None:
-            if AddMention == None:
+        while AddMention.lower() not in ANS or AddMention == None or AddMention == '':
+            if AddMention == None or AddMention == '':
                 print("[!] This field can't be blank !")
             else:
                 print("[!] Invalid input !")
@@ -1104,7 +1093,7 @@ def main():
             print("[*] Acceptable answers: [yes/no]")
             sleep(1)
             mention=str(input("[?] Do you want to mention other user(s) ? "))
-        if AddMention in ANS[:9]:
+        if AddMention.lower() == ANS[0]:
             MENTIONS = []
             count=int(input("[?] How many ? "))
             while checkCount(count):
@@ -1124,9 +1113,10 @@ def main():
                 MENTIONS.append(mention)
         sleep(1)
         print("[*] Acceptable answers: [yes/no]")
+        sleep(1)
         AddLoc=str(input("[?] Do you want to add location ? "))
-        while AddLoc not in ANS or AddLoc == None:
-            if AddLoc == None:
+        while AddLoc.lower() not in ANS or AddLoc == None or AddLoc == '':
+            if AddLoc == None or AddLoc == '':
                 print("[!] This field can't be blank !")
             else:
                 print("[!] Invalid input !")
@@ -1134,7 +1124,7 @@ def main():
             print("[*] Acceptable answers: [yes/no]")
             sleep(1)
             AddLoc=str(input("[?] Do you want to add location ? "))
-        if AddLoc in ANS[:9]:
+        if AddLoc.lower() == ANS[0]:
             count=int(input("[?] How many locations do you want to add ? "))
             while checkCount(count):
                 checkOpt(count, "other")
@@ -1151,14 +1141,14 @@ def main():
         print("[*] Acceptable answers: [yes/no]")
         sleep(1)
         AddLinks=str(input("[?] Do you want to include urls ? "))
-        while AddLinks not in ANS or AddLinks == None:
-            if AddLinks == None:
+        while AddLinks.lower() not in ANS or AddLinks == None or AddLinks == '':
+            if AddLinks == None or AddLinks == '':
                 print("[!] This field can't be blank !")
             else:
                 print("[!] Invalid input !")
             sleep(1)
             AddLinks=str(input("[?] Do you want to include urls ? "))
-        if AddLinks in ANS[:9]:
+        if AddLinks.lower() == ANS[0]:
             count=int(input("[?] How many ? "))
             while checkCount(count):
                 checkOpt(count, "other")
