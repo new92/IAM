@@ -50,7 +50,7 @@ You can use the IAM script to perform the following actions:
 | 38 | Change the cover of highlight(s) |
 | 39 | Display the highlights of user(s) |
 | 40 | Retrieve information from highlight(s) |
-| 41 | **Delete your story** |
+| 41 | Delete your story |
 | 42 | **Get story viewers** |
 | 43 | Get stories by hashtag(s) |
 | 44 | Get stories by user(s) |
