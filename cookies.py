@@ -37,7 +37,7 @@ def import_session(cookiefile, sessionfile):
     username = instaloader.test_login()
     if not username:
         raise SystemExit("Not logged in. Are you logged in successfully in Firefox?")
-    print("Imported session cookie for {}.".format(username))
+    print(f"[✓] Imported session cookie for {username}.")
     instaloader.context.username = username
     instaloader.save_session_to_file(sessionfile)
 
