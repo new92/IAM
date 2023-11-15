@@ -3,6 +3,7 @@
 Author: new92
 Github: @new92
 Leetcode: @new92
+PyPI: @new92
 
 [-->] Script for Managing your Instagram Account Remotely
 
@@ -30,22 +31,31 @@ try:
         sleep(2)
         print("[+] Exiting...")
         sleep(1)
-        quit(0)
+        exit(0)
     import platform
-    from tqdm import tqdm
-    total_mods = 11
-    bar = tqdm(total=total_mods, desc='Loading modules', unit='module')
-    for _ in range(total_mods):
-        sleep(0.75)
-        bar.update(1)
-    bar.close()
+    from rich.align import Align
+    from rich.table import Table
+    from rich.live import Live
+    from rich.console import Console
+    console = Console()
+    mods = ['sys', 'time', 'os', 'platform', 'rich', 'instagrapi', 'requests', 'json', 'instaloader', 'tkinter', 'colorama']
+    with console.status('[bold dark_orange]Loading module...') as status:
+        for mod in mods:
+            sleep(0.8)
+            console.log(f'[[bold red]{mod}[/]] => [bold dark_green]okay')
     from os import system
     import instagrapi
-    import json
     import instaloader
+    import instagram_private_api
+    import instapy
+    import json
+    import webbrowser
+    import datetime
     import requests as re
     import os
+    from colorama import init, Fore
     from tkinter import *
+    from selenium import webdriver
 except ImportError or ModuleNotFoundError:
     print("[!] WARNING: Not all packages used in IAM have been installed !")
     sleep(2)
@@ -63,22 +73,19 @@ except ImportError or ModuleNotFoundError:
             except Exception as ex:
                 print("[!] Error ! Cannot install the required modules !")
                 sleep(1)
-                print(f"[*] Error message ==> {ex}")
+                print("[*] Error message ==> {ex}")
                 sleep(2)
                 print("[1] Uninstall script")
                 print("[2] Exit")
-                opt=int(input("[>] Please enter a number (from the above ones): "))
-                while opt < 1 or opt > 2 or opt == None:
-                    if opt == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid number !")
-                        sleep(1)
-                        print("[*] Acceptable numbers: [1/2]")
+                opt=int(input(f"[>] Please enter a number (from the above ones): "))
+                while opt < 1 or opt > 2:
+                    print("[!] Invalid number !")
+                    sleep(1)
+                    print("[*] Acceptable numbers: [1/2]")
                     sleep(1)
                     print("[1] Uninstall script")
                     print("[2] Exit")
-                    opt=int(input("[>] Please enter again a number (from the above ones): "))
+                    opt=int(input(f"[>] Please enter again a number (from the above ones): "))
                 if opt == 1:
                     def fpath(fname: str):
                         for root, dirs, files in os.walk('/'):
@@ -101,7 +108,7 @@ except ImportError or ModuleNotFoundError:
                     print("[+] Exiting...")
                     sleep(1)
                     print("[+] See you next time 👋")
-                    quit(0)
+                    exit(0)
         else:
             system("sudo pip install -r requirements.txt")
     elif sys.platform == 'darwin':
@@ -112,8 +119,16 @@ except ImportError or ModuleNotFoundError:
 loader=instaloader.Instaloader()
 client=instagrapi.Client()
 
-print("[✓] Successfully loaded modules !")
-sleep(1)
+init(autoreset=True)
+green = Fore.GREEN
+red = Fore.RED
+yellow = Fore.YELLOW
+
+sleep(0.8)
+console.clear()
+console.print(f"[bold dark_green][✓] Successfully loaded modules.")
+sleep(1.1)
+console.clear()
 
 def fpath(fname: str):
     for root, dirs, files in os.walk('/'):
@@ -122,7 +137,7 @@ def fpath(fname: str):
     return None
 
 def banner() -> str:
-    return """
+    return f"""{green}
     ██╗░█████╗░███╗░░░███╗
     ██║██╔══██╗████╗░████║
     ██║███████║██╔████╔██║
@@ -132,10 +147,7 @@ def banner() -> str:
     """
 
 def clear():
-    if platform.system() == 'Windows':
-        system('cls')
-    else:
-        system('clear')
+    system('cls' if platform.system() == 'Windows' else 'clear')
 
 def Get_Hpk(url:str) -> str:
     return client.highlight_pk_from_url(url)
@@ -144,96 +156,86 @@ def Get_Spk(url:str) -> str:
     return client.story_pk_from_url(url)
 
 def valUser(user):
-    return re.get(f"https://www.instagram.com/{user}/").status_code != 200
+    return re.get(f"https://www.instagram.com/{user}/", allow_redirects=False).status_code != 200
 
 def Except(ex:str):
-    print("[!] Error !")
+    print(f"{red}[!] Error !")
     sleep(1)
-    print(f"[*] Error message ==> {ex}")
+    print(f"{yellow}[*] Error message ==> {ex}")
     sleep(2)
-    print("[1] Return to menu")
-    print("[2] Exit")
-    num=int(input("[::] Please enter a number (from the above ones): "))
-    while num < 1 or num > 2 or num == None:
-        if num == None:
-            print("[!] This field can't be empty !")
-        else:
-            print("[!] Invalid number !")
-            sleep(1)
-            print("[*] Acceptable numbers: [1/2]")
+    print(f"{yellow}[1] Return to menu")
+    print(f"{yellow}[2] Exit")
+    num=int(input(f"{yellow}[::] Number (from the above ones) >>> "))
+    while num < 1 or num > 2:
+        print(f"{red}[!] Invalid number !")
         sleep(1)
-        print("[1] Return to menu")
-        print("[2] Exit")
-        num=int(input("[::] Please enter a number (from the above ones): "))
+        print(f"{green}[*] Acceptable numbers: [1/2]")
+        sleep(1)
+        print(f"{yellow}[1] Return to menu")
+        print(f"{yellow}[2] Exit")
+        num=int(input(f"{yellow}[::] Number (from the above ones) >>> "))
     if num == 1:
+        clear()
         main()
     else:
-        print("[+] Exiting...")
+        print(f"{yellow}[+] Exiting...")
         sleep(1)
-        print("[+] See you next time 👋")
+        print(f"{yellow}[+] See you next time 👋")
         sleep(1)
-        quit(0)
+        exit(0)
 
 def checkOpt(opt,data):
     if data == "username":
-        if opt == None:
-            print("[!] This field can't be empty !")
-        else:
-            print("[!] Invalid length !")
-            sleep(1)
-            print("[*] Acceptable length: less than or equal to 30 characters")
+        print(f"{red}[!] Invalid length !")
+        sleep(1)
+        print(f"{green}[*] Acceptable length: less than or equal to 30 characters")
     elif data == "id":
-        if opt == None:
-            print("[!] This field can't be empty !")
-        else:
-            print("[!] Invalid length !")
-            sleep(1)
-            print("[*] Acceptable length: greater than 3")
+        print(f"{red}[!] Invalid length !")
+        sleep(1)
+        print(f"{green}[*] Acceptable length: greater than 3")
     elif data == "path":
-        if opt == None:
-            print("[!] This field can't be empty !")
-        else:
-            print("[!] Path must contain: / or \ ")
+        print(f"{green}[*] Path must contain: / or \ ")
     else:
-        if opt == None:
-            print("[!] This field can't be empty !")
-        else:
-            print("[!] Invalid number !")
+        print(f"{red}[!] Invalid number !")
 
 def valOpt(opt:int,x:int,y:int):
-    return opt < x or opt > y or opt == None
+    return opt < x or opt > y
 
 def CheckVal() -> str:
-    print("[!] User not found !")
+    print(f"{red}[!] User not found !")
     sleep(1)
-    print("[1] Try with another username")
-    print("[2] Return to menu")
-    print("[3] Exit")
-    opt=int(input("[::] Please enter a number (from the above ones): "))
+    print(f"{yellow}[1] Try with another username")
+    print(f"{yellow}[2] Return to menu")
+    print(f"{yellow}[3] Exit")
+    opt=int(input(f"{yellow}[::] Number (from the above ones) >>> "))
     while valOpt(opt,1,3):
         checkOpt(opt, 'other')
         sleep(1)
-        print("[1] Try with another username")
-        print("[2] Return to menu")
-        print("[3] Exit")
-        opt=int(input("[::] Please enter again a number (from the above ones): "))
+        print(f"{yellow}[1] Try with another username")
+        print(f"{yellow}[2] Return to menu")
+        print(f"{yellow}[3] Exit")
+        opt=int(input(f"{yellow}[::] Number (from the above ones) >>> "))
     if opt == 1:
-        username=str(input("[::] Please enter the username: "))
+        username=input(f"{yellow}[::] Username >>> ")
         while checkUser(username):
             checkOpt(opt, 'username')
         sleep(1)
-        username=str(input("[::] Please enter again the username: "))
+        username=input(f"{yellow}[::] Username >>> ")
         return username
     elif opt == 2:
+        clear()
         main()
     else:
-        print("[+] Thank you for using my script 😁")
-        sleep(2)
-        print("[+] See you next time 👋")
-        sleep(1)
-        quit(0)
+        print(f"{yellow}[+] Thank you for using IAM 😁")
+        sleep(0.8)
+        print(f"{yellow}[+] See you next time 👋")
+        sleep(0.8)
+        exit(0)
     return False
     
+ANS = ['yes', 'no']
+NULL = ['', ' ']
+
 def Uninstall() -> str:
     def rmdir(dire):
         DIRS = []
@@ -246,104 +248,79 @@ def Uninstall() -> str:
             os.rmdir(DIRS[i])
         os.rmdir(dire)
     rmdir(fpath('IAM'))
-    return "[✓] Files and dependencies uninstalled successfully !"
+    return f"{green}[✓] Files and dependencies uninstalled successfully !"
 
 def Next() -> int:
     sleep(1)
-    print("[1] Return to menu")
-    print("[2] Exit")
-    opt=int(input("[::] Please enter a number (from the above ones): "))
+    print(f"{yellow}[1] Return to menu")
+    print(f"{yellow}[2] Exit")
+    opt=int(input(f"{yellow}[::] Number (from the above ones) >>> "))
     while valOpt(opt,1,2):
-        if opt == None:
-            print("[!] This field can't be blank !")
-        else:
-            print("[!] Invalid number !")
-            sleep(1)
-            print("[*] Acceptable numbers: [1/2]")
+        print(f"{red}[!] Invalid number !")
         sleep(1)
-        opt=int(input("[::] Please enter a number (from the above ones): "))
+        print(f"{green}[*] Acceptable numbers: [1/2]")
+        sleep(1)
+        opt=int(input(f"{yellow}[::] Number (from the above ones) >>> "))
     return opt
 
 def Class():
     main() if Next() == 1 else Exiting()
 
 def Exiting():
-    print("[+] Exiting...")
+    print(f"{yellow}[+] Exiting...")
     sleep(1)
-    print("[+] See you next time 👋")
+    print(f"{yellow}[+] See you next time 👋")
     sleep(1)
-    quit(0)
+    exit(0)
     
 def checkCount(num: int) -> bool:
-    return num == None or num < 1
+    return num < 1
     
 def checkTag(tag: str) -> bool:
-    return "#" in tag or tag == None or tag == ''
+    return "#" not in tag or tag in NULL
 
 def checkPath(path: str) -> bool:
-    return path == None or "/" not in path or "\\" not in path or path == ''
+    return path in NULL or "/" not in path or "\\" not in path
 
-def Av_Acts() -> str:
-    return """
+def AvActs() -> str:
+    return f"""{yellow}
     1) Publish post(s)
     2) Change profile pic
     3) Upload story with pic
     4) Publish IGTV video
     5) Follow user(s)
     6) Unfollow user(s)
-    7) Accept follow request(s)
-    8) Reject follow request(s)
-    9) Follow user's followers
-    10) Follow user's following
-    11) Send DM (Direct Message)
-    12) Send file
-    13) Send photo
-    14) Send video
-    15) Like the posts from hashtag(s)
-    16) Like the posts from user(s)
-    17 Like the posts from location(s)
-    18) Like the posts from feed
-    19) Comment by user
-    20) Set default reply to comments
-    21) Do comment
-    22) Block user(s)
-    23) Delete story
-    24) Like/Unlike (post(s), reel(s), igtv(s) etc.)
-    25) Delete your (post(s), reel(s), igtv(s) etc.)
-    26) Save/Unsave (post(s), reel(s), igtv(s) etc.)
     """
 
 def ScriptInfo():
-    with open('config.json') as config:
+    with open('IAM/config.json') as config:
         conf = json.load(config)
-    f = conf['name'] + '.py'
-    if os.path.exists(fpath(f)):
-        fsize = os.stat(fpath(f)).st_size
-    else:
-        fsize = 0
-    print(f"[+] Author ==> {conf['author']}")
-    print(f"[+] Github ==> @{conf['author']}")
-    print(f"[+] License ==> {conf['lice']}")
-    print(f"[+] Script's name ==> {conf['name']}")
-    print(f"[+] Script's version ==> {conf['version']}")
-    print(f"[+] Programming language(s) used ==> {conf['lang']}")
-    print(f"[+] Natural language ==> {conf['language']}")
-    print(f"[+] File size ==> {fsize} bytes")
-    print(f"[+] File path ==> {fpath(f)}")
-    print(f"[+] Number of lines ==> {conf['lines']}")
-    print(f"[+] API(s) used ==> {conf['api']}")
-    print("|======|GITHUB REPO INFO|======|")
-    print(f"[+] Stars ==> {conf['stars']}")
-    print(f"[+] Forks ==> {conf['forks']}")
-    print(f"[+] Open issues ==> {conf['issues']}")
-    print(f"[+] Closed issues ==> {conf['clissues']}")
-    print(f"[+] Open pull requests ==> {conf['prs']}")
-    print(f"[+] Closed pull requests ==> {conf['clprs']}")
-    print(f"[+] Discussions ==> {conf['discs']}")
+    f = f"{conf['name']}.py"
+    fp = fpath(f) is None
+    fsize = os.stat(fpath(f).st_size if fp else 0)
+    print(f"{yellow}[+] Author ==> {conf['author']}")
+    print(f"{yellow}[+] Github ==> @{conf['author']}")
+    print(f"{yellow}[+] License ==> {conf['lice']}")
+    print(f"{yellow}[+] Script's name ==> {conf['name']}")
+    print(f"{yellow}[+] Script's version ==> {conf['version']}")
+    print(f"{yellow}[+] Programming language(s) used ==> {conf['lang']}")
+    print(f"{yellow}[+] Natural language ==> {conf['language']}")
+    print(f"{yellow}[+] File size ==> {fsize} bytes")
+    print(f"{yellow}[+] File path ==> {fpath(f)}")
+    print(f"{yellow}[+] Number of lines ==> {conf['lines']}")
+    print(f"{yellow}[+] API(s) used ==> {conf['api']}")
+    print(f"{yellow}|======|GITHUB REPO INFO|======|")
+    print(f"{yellow}[+] Stars ==> {conf['stars']}")
+    print(f"{yellow}[+] Forks ==> {conf['forks']}")
+    print(f"{yellow}[+] Open issues ==> {conf['issues']}")
+    print(f"{yellow}[+] Closed issues ==> {conf['clissues']}")
+    print(f"{yellow}[+] Open pull requests ==> {conf['prs']}")
+    print(f"{yellow}[+] Closed pull requests ==> {conf['clprs']}")
+    print(f"{yellow}[+] Discussions ==> {conf['discs']}")
 
 
 def checkUser(username: str) -> bool:
-    return username == None or len(username) > 30 or username == ''
+    return username in NULL or len(username) > 30
 
 def GetID(username: str) -> int:
     return loader.check_profile_id(username)
@@ -351,8 +328,29 @@ def GetID(username: str) -> int:
 def checkID(id: int) -> bool:
     return id == None or len(id) < 3
 
+TABLE = [
+    [
+        "[b white]Author[/]: [i light_green]new92[/]",
+        "[green]https://new92.github.io/[/]"
+    ],
+    [
+        "[b white]Github[/]: [i light_green]@new92[/]",
+        "[green]https://github.com/new92[/]"
+    ],
+    [
+        "[b white]Leetcode[/]: [i light_green]@new92[/]",
+        "[green]https://leetcode.com/new92[/]"
+    ],
+    [
+        "[b white]PyPI[/]: [i light_green]@new92[/]",
+        "[green]https://pypi.org/user/new92[/]"
+    ]
+]
 
-ANS = ['yes','no']
+console = Console()
+table = Table(show_footer=False)
+centered = Align.center(table)
+
 TaggedUsers=[]
 Location=[]
 Locations=[]
@@ -384,197 +382,203 @@ count = 0
 
 def main():
     print(banner())
-    print("\n")
-    print("[+] IAM: Instagram Account Manager")
-    print("\n")
-    print("[+] Script for Managing your Instagram Account Remotely")
-    print("\n")
-    print("[+] Author: new92")
-    print("[+] Github: @new92")
-    print("\n")
-    print("[1] Display your profile ID")
-    print("[2] Display your security information")
-    print("[3] Display your account info")
-    print("[4] Display your pending follow requests")
-    print("[5] Display your followers")
-    print("[6] Display the users you Follow")
-    print("\n")
-    print("[7] Download your highlights")
-    print("[8] Download anonymous stories of other users")
-    print("[9] Download your saved posts")
-    print("[10] Download posts from your feed")
-    print("\n")
-    print("[11] Publish post(s)")
-    print("[12] Enable/Disable your notifications")
-    print("[13] Change profile pic")
-    print("[14] Upload story with pic")
-    print("[15] Publish IGTV video")
-    print("\n")
-    print("[16] Follow user(s)")
-    print("[17] Unfollow user(s)")
-    print("[18] Accept follow request(s)")
-    print("[19] Reject follow request(s)")
-    print("[20] Follow user's followers")
-    print("[21] Follow user's following")
-    print("\n")
-    print("[22] Send DM (Direct Message)")
-    print("[23] Send file")
-    print("[24] Send photo")
-    print("[25] Send video")
-    print("\n")
-    print("[26] Like the posts from hashtag(s)")
-    print("[27] Like the posts from user(s)")
-    print("[28] Like the posts from location(s)")
-    print("[29] Like the posts from feed")
-    print("\n")
-    print("[30] Comment by user")
-    print("[31] Set default reply to comments")
-    print("[32] Do comment")
-    print("\n")
-    print("[33] Block User(s)")
-    print("[34] Get username from user ID")
-    print("[35] Get a list of all users you have blocked")
-    print("\n")
-    print("[36] Create highlight(s)")
-    print("[37] Delete highlight(s)")
-    print("[38] Change the cover of highlight(s)")
-    print("[39] Display the highlights of user(s)")
-    print("[40] Retrieve information from highlight(s)")
-    print("\n")
-    print("[41] Delete story")
-    print("[42] Get story viewers")
-    print("[43] Get stories by hashtags")
-    print("[44] Get stories by users")
-    print("[45] Retrieve information of a story")
-    print("\n")
-    print("[46] Set country")
-    print("[47] Set bio")
-    print("[48] Gather information for a user (works better on public accounts)")
-    print("[49] Get information about posts where user is tagged")
-    print("[50] Reset your password")
-    print("\n")
-    print("[51] Edit profile")
-    print("[52] Like/Unlike (post(s), reel(s), igtv(s) etc.)")
-    print("[53] Delete your (post(s), reel(s), igtv(s) etc.)")
-    print("[54] Save/Unsave (post(s), reel(s), igtv(s) etc.)")
-    print("\n")
-    print("[55] Set a specific time (from the current day) to execute an action")
-    print("\n")
-    print("[56] Hide your stories from a specific user")
-    print("\n")
-    print("[57] Uninstall script")
-    print("\n")
-    print("[999] Show program info and exit")
-    print("\n")
-    print("[0] Exit") 
-    print("\n")
-    option=int(input("[::] Please enter a number (from the above ones): "))
+    print(f"\n")
+    print(f"{yellow}[+] IAM: Instagram Account Manager")
+    print(f"\n")
+    print(f"{yellow}[+] Python script for Managing your Instagram Account Remotely")
+    print(f"\n")
+    with Live(centered, console=console, screen=False):
+        table.add_column('Socials', no_wrap=False)
+        table.add_column('Url', no_wrap=False)
+        for row in TABLE:
+            table.add_row(*row)
+    print(f"\n")
+    print(f"{yellow}[1] Display profile ID")
+    print(f"{yellow}[2] Display security information")
+    print(f"{yellow}[3] Display account info")
+    print(f"{yellow}[4] Display pending follow requests")
+    print(f"{yellow}[5] Display followers")
+    print(f"{yellow}[6] Display the users you Follow")
+    print(f"\n")
+    print(f"{yellow}[7] Download my highlights")
+    print(f"{yellow}[8] Download anonymous stories of other users")
+    print(f"{yellow}[9] Download my saved posts")
+    print(f"{yellow}[10] Download posts from my feed")
+    print(f"\n")
+    print(f"{yellow}[11] Publish post(s)")
+    print(f"{yellow}[12] Enable/Disable notifications")
+    print(f"{yellow}[13] Change profile pic")
+    print(f"{yellow}[14] Upload story with pic")
+    print(f"{yellow}[15] Publish IGTV video")
+    print(f"\n")
+    print(f"{yellow}[16] Follow user(s)")
+    print(f"{yellow}[17] Unfollow user(s)")
+    print(f"{yellow}[18] Accept follow request(s)")
+    print(f"{yellow}[19] Reject follow request(s)")
+    print(f"{yellow}[20] Follow user's followers")
+    print(f"{yellow}[21] Follow user's following")
+    print(f"\n")
+    print(f"{yellow}[22] Send DM (Direct Message)")
+    print(f"{yellow}[23] Send file")
+    print(f"{yellow}[24] Send photo")
+    print(f"{yellow}[25] Send video")
+    print(f"\n")
+    print(f"{yellow}[26] Like the posts from hashtag(s)")
+    print(f"{yellow}[27] Like the posts from user(s)")
+    print(f"{yellow}[28] Like the posts from location(s)")
+    print(f"{yellow}[29] Like the posts from feed")
+    print(f"\n")
+    print(f"{yellow}[30] Comment by user")
+    print(f"{yellow}[31] Set default reply to comments")
+    print(f"{yellow}[32] Comment {red}<== CURRENTLY UNAVAILABLE")
+    print(f"\n")
+    print(f"{yellow}[33] Block User(s)")
+    print(f"{yellow}[34] Get username from user ID")
+    print(f"{yellow}[35] Get a list of all users you have blocked")
+    print(f"\n")
+    print(f"{yellow}[36] Create highlight(s)")
+    print(f"{yellow}[37] Delete highlight(s)")
+    print(f"{yellow}[38] Change the cover of highlight(s)")
+    print(f"{yellow}[39] Display the highlights of user(s)")
+    print(f"{yellow}[40] Retrieve information from highlight(s)")
+    print(f"\n")
+    print(f"{yellow}[41] Delete story")
+    print(f"{yellow}[42] Get story viewers")
+    print(f"{yellow}[43] Get stories by hashtags")
+    print(f"{yellow}[44] Get stories by users")
+    print(f"{yellow}[45] Retrieve information of a story")
+    print(f"\n")
+    print(f"{yellow}[46] Change country")
+    print(f"{yellow}[47] Change bio")
+    print(f"{yellow}[48] Gather information for a user")
+    print(f"{yellow}[49] Get information about posts where user is tagged")
+    print(f"{yellow}[50] Reset password")
+    print(f"\n")
+    print(f"{yellow}[51] Edit profile")
+    print(f"{yellow}[52] Like/Unlike (post(s), reel(s), igtv(s) etc.)")
+    print(f"{yellow}[53] Delete (post(s), reel(s), igtv(s) etc.)")
+    print(f"{yellow}[54] Save/Unsave (post(s), reel(s), igtv(s) etc.)")
+    print(f"\n")
+    print(f"{yellow}[55] Set a specific time (from the current day) to execute an action")
+    print(f"\n")
+    print(f"{yellow}[56] Hide stories from a specific user")
+    print(f"\n")
+    print(f"{yellow}[57] Uninstall script")
+    print(f"\n")
+    print(f"{yellow}[999] Show script's info")
+    print(f"\n")
+    print(f"{yellow}[0] Exit")
+    print(f"\n")
+    option=int(input(f"{yellow}[::] Please enter a number (from the above ones): "))
     while valOpt(option,1,57) and opt != 999:
         checkOpt(option, "other")
         sleep(2)
-        print("[1] Display your profile ID")
-        print("[2] Display your security information")
-        print("[3] Display your account info")
-        print("[4] Display your pending follow requests")
-        print("[5] Display your followers")
-        print("[6] Display the users you Follow")
-        print("\n")
-        print("[7] Download your highlights")
-        print("[8] Download anonymous stories of other users")
-        print("[9] Download your saved posts")
-        print("[10] Download posts from your feed")
-        print("\n")
-        print("[11] Publish post(s)")
-        print("[12] Enable/Disable your notifications")
-        print("[13] Change profile pic")
-        print("[14] Upload story with pic")
-        print("[15] Publish IGTV video")
-        print("\n")
-        print("[16] Follow user(s)")
-        print("[17] Unfollow user(s)")
-        print("[18] Accept follow request(s)")
-        print("[19] Reject follow request(s)")
-        print("[20] Follow user's followers")
-        print("[21] Follow user's following")
-        print("\n")
-        print("[22] Send DM (Direct Message)")
-        print("[23] Send file")
-        print("[24] Send photo")
-        print("[25] Send video")
-        print("\n")
-        print("[26] Like the posts from hashtag(s)")
-        print("[27] Like the posts from user(s)")
-        print("[28] Like the posts from location(s)")
-        print("[29] Like the posts from feed")
-        print("\n")
-        print("[30] Comment by user")
-        print("[31] Set default reply to comments")
-        print("[32] Do comment")
-        print("\n")
-        print("[33] Block User(s)")
-        print("[34] Get username from user ID")
-        print("[35] Get a list of all users you have blocked")
-        print("\n")
-        print("[36] Create highlight(s)")
-        print("[37] Delete highlight(s)")
-        print("[38] Change the cover of highlight(s)")
-        print("[39] Display the highlights of user(s)")
-        print("[40] Retrieve information from highlight(s)")
-        print("\n")
-        print("[41] Delete story")
-        print("[42] Get story viewers")
-        print("[43] Get stories by hashtags")
-        print("[44] Get stories by users")
-        print("[45] Retrieve information of a story")
-        print("\n")
-        print("[46] Set country")
-        print("[47] Set bio")
-        print("[48] Gather information for a user (works better on public accounts)")
-        print("[49] Get information about posts where user is tagged")
-        print("[50] Reset your password")
-        print("\n")
-        print("[51] Edit profile")
-        print("[52] Like/Unlike (post(s), reel(s), igtv(s) etc.)")
-        print("[53] Delete your (post(s), reel(s), igtv(s) etc.)")
-        print("[54] Save/Unsave (post(s), reel(s), igtv(s) etc.)")
-        print("\n")
-        print("[55] Set a specific time (from the current day) to execute an action")
-        print("\n")
-        print("[56] Hide your stories from a specific user")
-        print("\n")
-        print("[57] Uninstall script")
-        print("\n")
-        print("[999] Show program info and exit")
-        print("\n")
-        print("[0] Exit")
-        option=int(input("[::] Please enter again a number (from the above ones): "))
+        print(f"{yellow}[1] Display profile ID")
+        print(f"{yellow}[2] Display security information")
+        print(f"{yellow}[3] Display account info")
+        print(f"{yellow}[4] Display pending follow requests")
+        print(f"{yellow}[5] Display followers")
+        print(f"{yellow}[6] Display the users you Follow")
+        print(f"\n")
+        print(f"{yellow}[7] Download my highlights")
+        print(f"{yellow}[8] Download anonymous stories of other users")
+        print(f"{yellow}[9] Download my saved posts")
+        print(f"{yellow}[10] Download posts from my feed")
+        print(f"\n")
+        print(f"{yellow}[11] Publish post(s)")
+        print(f"{yellow}[12] Enable/Disable notifications")
+        print(f"{yellow}[13] Change profile pic")
+        print(f"{yellow}[14] Upload story with pic")
+        print(f"{yellow}[15] Publish IGTV video")
+        print(f"\n")
+        print(f"{yellow}[16] Follow user(s)")
+        print(f"{yellow}[17] Unfollow user(s)")
+        print(f"{yellow}[18] Accept follow request(s)")
+        print(f"{yellow}[19] Reject follow request(s)")
+        print(f"{yellow}[20] Follow user's followers")
+        print(f"{yellow}[21] Follow user's following")
+        print(f"\n")
+        print(f"{yellow}[22] Send DM (Direct Message)")
+        print(f"{yellow}[23] Send file")
+        print(f"{yellow}[24] Send photo")
+        print(f"{yellow}[25] Send video")
+        print(f"\n")
+        print(f"{yellow}[26] Like the posts from hashtag(s)")
+        print(f"{yellow}[27] Like the posts from user(s)")
+        print(f"{yellow}[28] Like the posts from location(s)")
+        print(f"{yellow}[29] Like the posts from feed")
+        print(f"\n")
+        print(f"{yellow}[30] Comment by user")
+        print(f"{yellow}[31] Set default reply to comments")
+        print(f"{yellow}[32] Comment {red}<== CURRENTLY UNAVAILABLE")
+        print(f"\n")
+        print(f"{yellow}[33] Block User(s)")
+        print(f"{yellow}[34] Get username from user ID")
+        print(f"{yellow}[35] Get a list of all users you have blocked")
+        print(f"\n")
+        print(f"{yellow}[36] Create highlight(s)")
+        print(f"{yellow}[37] Delete highlight(s)")
+        print(f"{yellow}[38] Change the cover of highlight(s)")
+        print(f"{yellow}[39] Display the highlights of user(s)")
+        print(f"{yellow}[40] Retrieve information from highlight(s)")
+        print(f"\n")
+        print(f"{yellow}[41] Delete story")
+        print(f"{yellow}[42] Get story viewers")
+        print(f"{yellow}[43] Get stories by hashtags")
+        print(f"{yellow}[44] Get stories by users")
+        print(f"{yellow}[45] Retrieve information of a story")
+        print(f"\n")
+        print(f"{yellow}[46] Change country")
+        print(f"{yellow}[47] Change bio")
+        print(f"{yellow}[48] Gather information for a user")
+        print(f"{yellow}[49] Get information about posts where user is tagged")
+        print(f"{yellow}[50] Reset password")
+        print(f"\n")
+        print(f"{yellow}[51] Edit profile")
+        print(f"{yellow}[52] Like/Unlike (post(s), reel(s), igtv(s) etc.)")
+        print(f"{yellow}[53] Delete (post(s), reel(s), igtv(s) etc.)")
+        print(f"{yellow}[54] Save/Unsave (post(s), reel(s), igtv(s) etc.)")
+        print(f"\n")
+        print(f"{yellow}[55] Set a specific time (from the current day) to execute an action")
+        print(f"\n")
+        print(f"{yellow}[56] Hide stories from a specific user")
+        print(f"\n")
+        print(f"{yellow}[57] Uninstall script")
+        print(f"\n")
+        print(f"{yellow}[999] Show script's info")
+        print(f"\n")
+        print(f"{yellow}[0] Exit") 
+        print(f"\n")
+        option=int(input(f"{yellow}[::] Please enter again a number (from the above ones): "))
     if option != 0:
         clear()
-        print("\n")
-        print("|--------------------|LOGIN|--------------------|")
-        print("\n")
-        username=str(input("[::] Please enter your username: "))
+        print(f"\n")
+        print(f"|--------------------|LOGIN|--------------------|")
+        print(f"\n")
+        username=input(f"{yellow}[::] Please enter your username: ")
         while checkUser(username):
             checkOpt(username, "username")
             sleep(1)
-            username=str(input("[::] Please enter again your username: "))
+            username=input(f"{yellow}[::] Please enter again your username: ")
         while valUser(username):
             if type(CheckVal()) == bool:
                 CheckVal()
             else:
                 username = CheckVal()
         username = username.lower().strip()
-        password=str(input("[::] Please enter your password: "))
-        while password == None or password == ''    :
-            print("[!] This field can't be blank !")
+        global globalu
+        globalu = username
+        password=input(f"{yellow}[::] Please enter your password: ")
+        while password in NULL:
+            print(f"{red}[✕] This field can't be blank !")
             sleep(1)
-            password=input("[::] Please enter again your password: ")
+            password=input(f"{yellow}[::] Please enter again your password: ")
         password = password.strip()
         try:
-            loginl = loader.login(username,password)
-            loginc = client.login(username,password,True)
-            logini = instapy.InstaPy(username,password)
-            api = instagram_private_api.Client(username,password)
+            loader.login(username,password)
+            client.login(username,password,True)
+            api = instagram_private_api.Client(username, password)
+            bot = instapy.InstaPy(username, password)
         except Exception as ex:
             Except(ex)
 
@@ -582,19 +586,18 @@ def main():
         clear()
         ScriptInfo()
     
-    if option == 0:
+    elif option == 0:
         clear()
-        print("[+] Thank you for using my script 😁")
+        print(f"{yellow}[+] Thank you for using IAM 😁")
         sleep(2)
-        print("[+] See you next time 👋")
+        print(f"{yellow}[+] See you next time 👋")
         sleep(1)
-        quit(0)
+        exit(0)
 
     elif option == 1:
         clear()
         try:
-            print(f"[+] Your ID: {GetID(username)}")
-            Class()
+            print(f"{yellow}[+] Your ID >>> {GetID(username)}")
         except Exception as ex:
             Except(ex)
 
@@ -602,27 +605,26 @@ def main():
         clear()
         try:
             sec=client.account_security_info()
-            print(f"[+] Is phone confirmed ? {sec['is_phone_confirmed']}")
-            print(f"[+] Is 2 factor authentication enabled ? {sec['is_two_factor_enabled']}")
-            print(f"[+] Is Time-based One-Time Passwords (TOTP) 2 factor authentication enabled ? {sec['is_totp_two_factor_enabled']}")
-            print(f"[+] Is trusted notifications enabled ? {sec['is_trusted_notifications_enabled']}")
-            print(f"[+] Is eligible for Whatsapp 2 factor authentication ? {sec['is_eligible_for_whatsapp_two_factor']}")
-            print(f"[+] Is Whatsapp 2 factor authentication enabled ? {sec['is_whatsapp_two_factor_enabled']}")
-            print(f"[+] Backup codes: {sec['backup_codes']}")
-            print(f"[+] Trusted devices: {sec['trusted_devices']}")
-            print(f"[+] Has reachable email ? {sec['has_reachable_email']}")
-            print(f"[+] Is eligible for trusted notifications ? {sec['eligible_for_trusted_notifications']}")
-            print(f"[+] Is eligible for multiple TOTP ? {sec['is_eligible_for_multiple_totp']}")
-            print(f"[+] TOTP seeds: {sec['totp_seeds']}")
-            print(f"[+] Can add additional TOTP seed ? {sec['can_add_additional_totp_seed']}")
-            Class()
+            print(f"{yellow}[+] Phone number confirmed >>> {sec['is_phone_confirmed']}")
+            print(f"{yellow}[+] 2FA (2 factor authentication) enabled >>> {sec['is_two_factor_enabled']}")
+            print(f"{yellow}[+] Time-based One-Time Passwords (TOTP) authentication enabled >>> {sec['is_totp_two_factor_enabled']}")
+            print(f"{yellow}[+] Trusted notifications enabled >>> {sec['is_trusted_notifications_enabled']}")
+            print(f"{yellow}[+] Eligible for Whatsapp 2 factor authentication >>> {sec['is_eligible_for_whatsapp_two_factor']}")
+            print(f"{yellow}[+] Whatsapp 2FA >>> {sec['is_whatsapp_two_factor_enabled']}")
+            print(f"{yellow}[+] Backup codes >>> {sec['backup_codes']}")
+            print(f"{yellow}[+] Trusted devices >>> {sec['trusted_devices']}")
+            print(f"{yellow}[+] Reachable email >>> {sec['has_reachable_email']}")
+            print(f"{yellow}[+] Eligible for trusted notifications >>> {sec['eligible_for_trusted_notifications']}")
+            print(f"{yellow}[+] Eligible for multiple TOTP >>> {sec['is_eligible_for_multiple_totp']}")
+            print(f"{yellow}[+] TOTP seeds >>> {sec['totp_seeds']}")
+            print(f"{yellow}[+] Can add additional TOTP seed >>> {sec['can_add_additional_totp_seed']}")
         except Exception as ex:
             Except(ex)
 
     elif option == 3:
         clear()
         try:
-            print(f"[+] Your account information: {client.account_info()}")
+            print(f"{yellow}[+] Your account info >>> {client.account_info()}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -638,11 +640,11 @@ def main():
     elif option == 5:
         clear()
         print(GetID(username))
-        id=int(input("[::] Please enter your id as shown above: "))
+        id=int(input(f"{yellow}[::] ID >>> "))
         while checkID(id):
             checkOpt(id, "id")
             sleep(1)
-            id=int(input("[::] Please enter again your ID as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
         try:
             print(client.user_followers(id))
             Class()
@@ -652,11 +654,11 @@ def main():
     elif option == 6:
         clear()
         print(GetID(username))
-        id=int(input("[::] Please enter your id (as shown above): "))
+        id=int(input(f"{yellow}[::] ID >>> "))
         while checkID(id):
             checkOpt(id,"id")
             sleep(1)
-            id=input("[::] Please enter again your id (as shown above): ")
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
         try:
             print(client.user_following(id))
             Class()
@@ -666,32 +668,36 @@ def main():
     elif option == 7:
         clear()
         print(GetID(username))
-        id=int(input("[::] Please enter your id as shown above: "))
+        id=int(input(f"{yellow}[::] ID >>> "))
         while checkID(id):
             checkOpt(id,"id")
             sleep(1)
-            id=int(input("[::] Please enter again your id as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
         try:
+            print(f"{yellow}[+] Fetching highlights...")
+            sleep(1)
             highlights=loader.download_highlights(id)
             sleep(1)
-            print(f"[+] Highlights folder path: {fpath(highlights)}")
+            print(f"{green}[✓] Fetch complete.")
+            sleep(0.7)
+            print(f"{yellow}[+] Highlights saved at >>> {fpath(highlights)}")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 8:
         clear()
-        count=int(input("[+] Number of accounts (to get their stories): "))
+        count=int(input(f"{yellow}[+] Number of accounts >>> "))
         while valOpt(count,1,999):
             checkOpt(count,'other')
             sleep(1)
-            count=int(input("[::] Please enter again the number of accounts (to get their stories): "))
+            count=int(input(f"{yellow}[::] Number of accounts >>> "))
         for i in range(count):
-            username=str(input("[::] Please enter the username: "))
+            username=input(f"{yellow}[::] Username >>> ")
             while checkUser(username):
                 checkOpt(username, "username")
                 sleep(1)
-                username=str(input("[::] Please enter again the username: "))
+                username=input(f"{yellow}[::] Username >>> ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
@@ -699,101 +705,116 @@ def main():
                     username = CheckVal()
             username = username.lower().strip()
             print(GetID(username))
-            id=int(input("[::] Please enter the ID as shown above: "))
+            id=int(input(f"{yellow}[::] ID >>> "))
             while checkID(id):
                 checkOpt(id,"id")
                 sleep(1)
-                id=int(input("[::] Please enter again the ID as shown above: "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             IDS.append(id)
         try:
+            print(f"{yellow}[+] Fetching stories...")
+            sleep(1)
             loader.download_stories(IDS)
-            sleep(2)
-            print(f"[+] Path to folder containing the stories: {fpath(':stories')}")
+            sleep(1)
+            print(f"{green}[✓] Fetch complete.")
+            sleep(0.7)
+            print(f"{yellow}[+] Stories saved at >>> {fpath(':stories')}")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 9:
         clear()
-        count=int(input("[?] How many of your saved posts do you want to download ? "))
+        count=int(input(f"{yellow}[?] Number of saved posts to download >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[?] How many of your saved posts do you want to download ? "))
+            count=int(input(f"{yellow}[?] Number of saved posts to download >>> "))
         try:
+            print(f"{yellow}[+] Fetching posts...")
+            sleep(1)
             loader.download_saved_posts(count)
-            print(f"[+] Path to folder containing saved posts: {fpath(':saved')}")
+            sleep(1)
+            print(f"{green}[✓] Fetch complete.")
+            sleep(0.7)
+            print(f"{yellow}[+] Saved posts at >>> {fpath(':saved')}")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 10:
         clear()
-        count=int(input("[?] How many posts do you want to download ? "))
+        count=int(input(f"{yellow}[?] Number of posts to download >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[?] How many posts do you want to download ? "))
+            count=int(input(f"{yellow}[?] Number of posts to download >>> "))
         try:
+            print(f"{yellow}[+] Fetching posts...")
+            sleep(1)
             loader.download_feed_posts(count)
-            print(f"[+] Path to folder containing feed posts: {fpath(':feed')}")
+            sleep(1)
+            print(f"{green}[✓] Fetch complete.")
+            sleep(0.7)
+            print(f"{yellow}[+] Feed posts at >>> {fpath(':feed')}")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 11:
         clear()
-        count=int(input("[::] Please enter the number of posts to post: "))
+        count=int(input(f"{yellow}[::] Number of posts to post >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please enter again the number of posts to post: "))
+            count=int(input(f"{yellow}[::] Number of posts to post >>> "))
+        default = 'Check out my new post !'
         for i in range(count):
-            path=str(input("[::] Please enter the path to the photo to be uploaded: "))
+            path=input(f"{yellow}[::] Path to photo >>> ")
             while checkPath(path):
                 checkOpt(path, "path")
                 sleep(1)
-                path=str(input("[::] Please enter again the path to the photo to be uploaded: "))
+                path=input(f"{yellow}[::] Path to photo (to be uploaded) >>> ")
             sleep(2)
-            print(">>>CAPTION<<<")
+            print(f"{yellow}>>>CAPTION<<<")
             sleep(1)
-            print("[+] Default: \"Check out my new post !\"")
+            print(f"{yellow}[+] Default: {default}")
             sleep(2)
-            print("[*] Hit <Tab> and <Enter> to apply the default caption")
+            print(f"{yellow}[*] Hit <Enter> to apply the default caption")
             sleep(2)
-            caption=str(input("[::] Please enter the caption: "))
-            if caption == "\t":
-                caption = "Check out my new post !"
-            print(">>>TAGS<<<")
+            caption=input(f"{yellow}[::] Caption >>> ")
+            if caption == '':
+                caption = default
+            print(f"{yellow}>>>TAGS<<<")
             sleep(2)
-            print("[+] Default: [No]")
+            print(f"{yellow}[+] Default: {ANS[1]}")
             sleep(2)
-            print("[*] Hit <Tab> and <Enter> to apply the default option")
+            print(f"{yellow}[*] Hit <Enter> to apply the default option")
             sleep(2)
-            print("[*] Acceptable answers: [yes/no]")
+            print(f"{green}[*] Acceptable answers: {ANS}")
             sleep(2)
-            tags=str(input("[?] Do you want to include other users to your post by tagging them ? "))
-            while tags.lower() not in ANS or tags == None or tags == '':
-                if tags == None or tags == '':
-                    print("[!] This field can't be empty !")
+            tags=input(f"{yellow}[?] Tag users >>> ")
+            while tags.lower() not in ANS or tags in NULL:
+                if tags in NULL:
+                    print(f"{red}[!] This field can't be empty !")
                 else:
-                    print("[!] Invalid answer !")
+                    print(f"{red}[!] Invalid answer !")
                     sleep(1)
-                    print("[*] Acceptable answers: [yes/no]")
+                    print(f"{green}[*] Acceptable answers: {ANS}")
                 sleep(1)
-                tags=str(input("[?] Do you want to include other users to your post by tagging them ? "))
+                tags=input(f"{yellow}[?] Tag users >>> ")
             if tags.lower() == ANS[0]:
-                print("[+] Default: 1")
+                print(f"{yellow}[+] Default: 1")
                 sleep(2)
-                print("[*] Please enter 'def' to apply the default option")
+                print(f"{yellow}[*] Hit <Enter> to apply the default option")
                 sleep(1)
-                count=input("[?] How many users do you want to include ? ")
-                if count == 'def':
-                    username=str(input("[::] Please enter the username: "))
+                count=input(f"{yellow}[?] Number of users to tag >>> ")
+                if count == '':
+                    username=input(f"{yellow}[::] Username >>> ")
                     while checkUser(username):
                         checkOpt(username, "username")
                         sleep(1)
-                        username=str(input("[::] Please enter again the username: "))
+                        username=input(f"{yellow}[::] Username >>> ")
                     while valUser(username):
                         CheckVal()
                     username = username.lower().strip()
@@ -801,62 +822,52 @@ def main():
                     while checkCount(count):
                         checkOpt(count,"other")
                         sleep(1)
-                        count=int(input("[?] How many users do you want to tag ? "))
+                        count=int(input(f"{yellow}[?] Number of users to tag >>> "))
                     for i in range(count):
-                        utag=str(input(f"[::] Please enter the username No{i+1}: "))
+                        utag=input(f"{yellow}[::] Username No{i+1} >>> ")
                         while checkUser(utag):
                             checkOpt(utag,"username")
                             sleep(1)
-                            utag=str(input(f"[::] Please enter again the username No{i+1}: "))
+                            utag=input(f"{yellow}[::] Username No{i+1} >>> ")
                         while valUser(utag):
                             CheckVal()
                         utag = utag.strip().lower()
                         TaggedUsers.append(utag)
-            print(">>>LOCATION<<<")
+            print(f"{yellow}>>>LOCATION<<<")
             sleep(2)
-            print("[+] Default: [No]")
+            print(f"{yellow}[+] Default: {ANS[1]}")
             sleep(1)
-            print("[*] Please enter 'def' to apply the default option")
+            print(f"{yellow}[*] Hit <Enter> to apply the default option")
             sleep(2)
-            print("[*] Acceptable answers: [yes/no]")
+            print(f"{green}[*] Acceptable answers: {ANS}")
             sleep(1)
-            loc=str(input("[?] Do you want to include location(s) ? "))
-            while (loc.lower() not in ANS or loc == None or loc == '') and loc != 'def':
-                if loc == None or loc == '':
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid location !")
-                sleep(1)
-                print("[*] Acceptable answers: [yes/no]")
-                sleep(1)
-                loc=str(input("[?] Do you want to include location(s) ? "))
+            loc=input(f"{yellow}[?] Include location(s) >>> ")
             if loc.lower() == ANS[0]:
-                count=int(input("[?] How many ? "))
+                count=int(input(f"{yellow}[?] Number >>> "))
                 while checkCount(count):
                     checkOpt(count,"other")
                     sleep(1)
-                    count=int(input("[?] How many locations do you want to include ? "))
+                    count=int(input(f"{yellow}[?] Number >>> "))
                 for i in range(count):
-                    location=str(input(f"[::] Please enter location No{i+1}: "))
-                    while location == None or location == '':
-                        print("[!] This field can't be blank !")
+                    location=input(f"{yellow}[::]Location No{i+1}: ")
+                    while location in NULL:
+                        print(f"{red}[✕] This field can't be blank !")
                         sleep(1)
-                        location=str(input(f"[::] Please enter again location No{i+1}: "))
+                        location=input(f"{yellow}[::] Location No{i+1}: ")
                     LOCATIONS.append(location)
-                    print("[✓] Location added !")
+                    print(f"{green}[✓] Location added !")
                 try:
                     client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
                     sleep(2)
-                    print("[✓] Photo uploaded !")
+                    print(f"{green}[✓] Photo uploaded !")
                     Class()
                 except Exception as ex:
                     Except(ex)
-
             if tags.lower() in ANS and loc.lower() in ANS:
                 try:
                     client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
                     sleep(2)
-                    print("[✓] Photo uploaded !")
+                    print(f"{green}[✓] Photo uploaded !")
                     Class()
                 except Exception as ex:
                     Except(ex)
@@ -865,7 +876,7 @@ def main():
                 try:
                     client.photo_upload(path=path,caption=caption,tags=TaggedUsers)
                     sleep(2)
-                    print("[✓] Photo uploaded !")
+                    print(f"{green}[✓] Photo uploaded !")
                     Class()
                 except Exception as ex:
                     Except(ex)
@@ -874,7 +885,7 @@ def main():
                 try:
                     client.photo_upload(path=path,caption=caption,location=LOCATIONS)
                     sleep(2)
-                    print("[✓] Photo uploaded !")
+                    print(f"{green}[✓] Photo uploaded !")
                     Class()
                 except Exception as ex:
                     Except(ex)
@@ -883,605 +894,317 @@ def main():
                 try:
                     client.photo_upload(path=path,caption=caption)
                     sleep(2)
-                    print("[✓] Photo uploaded !")
+                    print(f"{green}[✓] Photo uploaded !")
                     Class()
                 except Exception as ex:
                     Except(ex)
 
     elif option == 12:
         clear()
-        username=str(input("[::] Please enter your username: "))
-        while checkUser(username):
-            checkOpt(username, "username")
-            sleep(1)
-            username=str(input("[::] Please enter again your username: "))
-        while valUser(username):
-            CheckVal()
-        username = username.lower().strip()
         EN = ["enable","disable"]
-        print("[*] Acceptable answers: [enable/disable]")
+        print(f"{green}[*] Acceptable answers: {EN}")
         sleep(1)
-        endis=str(input("[?] Do you want to enable or disable your notifications ? "))
-        while endis.lower() not in EN or endis == None or endis == '':
-            if endis == None or endis == '':
-                print("[!] This field can't be blank !")
+        endis=input(f"{yellow}[?] ENTER >>> ")
+        while endis.lower() not in EN or endis in NULL:
+            if endis in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{red}[!] Invalid input !")
             sleep(1)
-            print("[*] Acceptable answers: [enable/disable]")
+            print(f"{green}[*] Acceptable answers: {EN}")
             sleep(1)
-            endis=input("[?] Do you want to enable or disable your notifications ? ")
+            endis=input(f"{yellow}[?] Notifications to enable >>> ")
         if endis.lower() == EN[0]:
-            username=str(input("[::] Please enter your username: "))
-            while checkUser(username):
-                checkOpt(username, "username")
-                sleep(1)
-                username=str(input("[::] Please enter again your username: "))
-            while valUser(username):
-                CheckVal()
-            username = username.lower().strip()
-            print("[*] Notifications available for: [posts/reels/stories/videos]")
+            noti = ['posts', 'reels', 'stories', 'videos']
+            print(f"{green}[*] Notifications available for: {noti}")
             sleep(2)
-            action=str(input("[?] Which notifications do you want to enable ?"))
-            while action.lower() not in ["posts","reels","stories","videos"] or action == None or action == '':
-                if action == None or action == '':
-                    print("[!] This field can't be blank !")
+            action=input(f"{yellow}[?] Notifications to enable >>> ")
+            while action.lower() not in noti or action in NULL:
+                if action in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                 else:
-                    print("[!] Invalid input !")
+                    print(f"{red}[!] Invalid input !")
                 sleep(1)
-                print("[*] Acceptable answers: [posts/reels/stories/videos]")
+                print(f"{green}[*] Acceptable answers: {noti}")
                 sleep(1)
-                action=input("[?] Please enter again the notifications to enable: ")
+                action=input(f"{yellow}[?] Please enter again the notifications to enable: ")
             if action.lower() == "posts":
-                username=str(input("[::] Please enter your username: "))
-                while checkUser(username):
-                    checkOpt(username, "username")
-                    sleep(1)
-                    username=str(input("[::] Please enter again your username: "))
-                while valUser(username):
-                    CheckVal()
-                username = username.lower().strip()
-                print(GetID(username))
-                uid=int(input("[::] Please enter the ID as shown above: "))
+                print(GetID(globalu))
+                uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 while checkID(uid):
                     checkOpt(uid, "id")
                     sleep(1)
-                    uid=int(input("[::] Please enter again the ID as shown above: "))
+                    uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 try:
-                    enabled = client.enable_posts_notifications(uid)
-                    if enabled:
-                        print("[✓] Post notifications enabled !")
-                    else:
-                        print("[✕] Can't enable post notifications !")
+                    print(f"{green}[✓] Post notifications enabled !") if client.enable_posts_notifications(uid) else print(f"{red}[✕] Unable to enable post notifications !")
                     Class()
                 except Exception as ex:
                     Except(ex)
 
             elif action.lower() == "reels":
-                username=str(input("[::] Please enter your username: "))
-                while checkUser(username):
-                    checkOpt(username, "username")
-                    sleep(1)
-                    username=str(input("[::] Please enter again your username: "))
-                while valUser(username):
-                    CheckVal()
-                username = username.lower().strip()
-                print(GetID(username))
-                uid=int(input("[::] Please enter your ID as shown above: "))
+                print(GetID(globalu))
+                uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 while checkID(uid):
                     checkOpt(uid, "id")
                     sleep(1)
-                    uid=int(input("[::] Please enter again your ID as shown above: "))
+                    uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 try:
-                    enabled = client.enable_reels_notifications(uid)
-                    if enabled:
-                        print("[✓] Reels notifications enabled !")
-                    else:
-                        print("[✕] Can't enable reels notifications !")
+                    print(f"{green}[✓] Reels notifications enabled !") if client.enable_reels_notifications(uid) else print(f"{red}[✕] Unable to enable reels notifications !")
                     Class()
                 except Exception as ex:
                     Except(ex)
 
             elif action.lower() == "stories":
-                username=str(input("[::] Please enter your username: "))
-                while checkUser(username):
-                    checkOpt(username, "username")
-                    sleep(1)
-                    username=str(input("[::] Please enter again your username: "))
-                while valUser(username):
-                    CheckVal()
-                username = username.lower().strip()
-                print(GetID(username))
-                uid=int(input("[::] Please enter the ID as shown above: "))
+                print(GetID(globalu))
+                uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 while checkID(uid):
-                    print("[!] Invalid ID !")
+                    checkOpt(uid, 'id')
                     sleep(1)
-                    uid=int(input("[::] Please enter again the ID as shown above: "))
+                    uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 try:
-                    enabled = client.enable_stories_notifications(uid)
-                    if enabled:
-                        print("[✓] Stories notifications enabled !")
-                    else:
-                        print("[✕] Can't enable stories notifications !")
+                    print(f"{green}[✓] Stories notifications enabled !") if client.enable_stories_notifications(uid) else print(f"{yellow}[✕] Unable to enable stories notifications !")
                     Class()
                 except Exception as ex:
                     Except(ex)
 
             else:
-                username=str(input("[::] Please enter your username: "))
-                while checkUser(username):
-                    checkOpt(username, "username")
-                    sleep(1)
-                    username=str(input("[::] Please enter again your username: "))
-                while valUser(username):
-                    CheckVal()
-                username = username.lower().strip()
-                print(GetID(username))
-                uid=int(input("[::] Please enter your ID as shown above: "))
+                print(GetID(globalu))
+                uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 while checkID(uid):
                     checkOpt(uid, "id")
                     sleep(1)
-                    uid=int(input("[::] Please enter again your ID as shown above: "))
+                    uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 try:
-                    enabled = client.enable_videos_notifications(uid)
-                    print(f"[+] Video notifications enabled: {enabled}")
+                    print(f"{green}[✓] Stories video enabled !") if client.enable_video_notifications(uid) else print(f"{yellow}[✕] Unable to enable video notifications !")
                     Class()
                 except Exception as ex:
                     Except(ex)
 
     elif option == 13:
         clear()
-        path=str(input("[::] Please enter the path of the photo for your new profile picture: "))
+        path=input(f"{yellow}[::] Path to pic >>> ")
         while checkPath(path):
             checkOpt(path, "path")
             sleep(1)
-            path=str(input("[::] Please enter again the path of the photo for your new profile picture: "))
+            path=input(f"{yellow}[::] Path to pic >>> ")
         try:
             client.account_change_picture(path)
-            print("[✓] Your profile pic changed !")
+            print(f"{green}[✓] Your profile pic changed !")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 14:
         clear()
-        path=str(input("[::] Please enter the path to the photo to be uploaded: "))
+        path=input(f"{yellow}[::] Path to photo >>> ")
         while checkPath(path):
             checkOpt(path, "path")
             sleep(1)
-            path=str(input("[::] Please enter again the path to the photo to be uploaded: "))
+            path=input(f"{yellow}[::] Path to photo >>> ")
         sleep(2)
-        print("[*] Acceptable answers: [yes/no]")
+        print(f"{green}[*] Acceptable answers: {ANS}")
         sleep(1)
-        AddCaption=str(input("[?] Do you want to add caption ? "))
-        while AddCaption.lower() not in ANS or AddCaption == None or AddCaption == '':
-            if AddCaption == None or AddCaption == '':
-                print("[!] This field can't be blank !")
+        AddCaption=input(f"{yellow}[?] Add caption >>> ")
+        while AddCaption.lower() not in ANS or AddCaption in NULL:
+            if AddCaption in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{red}[!] Invalid input !")
                 sleep(1)
-                print("[*] Acceptable answers: [yes/no]")
+                print(f"{green}[*] Acceptable answers: {ANS}")
             sleep(1)
-            AddCaption=str(input("[?] Do you want to add caption ? "))
+            AddCaption=input(f"{yellow}[?] Add caption >>> ")
         if AddCaption.lower() == ANS[0]:
-            print("[+] Default: \"Check out my new story !\"")
+            default = 'Check out my new story !'
+            print(f"{yellow}[+] Default: {default}")
             sleep(1)
-            print("[*] Enter >>> 'def' for the default option to be applied")
+            print(f"{yellow}[*] Hit <Enter> to apply the default option")
             sleep(2)
-            caption=str(input("[::] Please enter the caption: "))
-            while caption == '' or caption == None or caption == ' ':
-                print("[!] This field can't be blank !")
+            caption=input(f"{yellow}[::] Caption >>> ")
+            while caption in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                caption=str(input("[::] Please enter again the caption: "))
-            if caption == "def":
-                caption = "Check out my new story !"
+                caption=input(f"{yellow}[::] Caption >>> ")
+            if caption == '':
+                caption = default
             else:
-                caption=str(input("[::] Please enter a caption to include to your story: "))
-                while caption == None or caption == '' or caption == ' ':
-                    print("[!] This field can't be blank !")
+                caption=input(f"{yellow}[::] Caption >>> ")
+                while caption in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                     sleep(1)
-                    caption=str(input("[::] Please enter again a caption to include to your story: "))
+                    caption=input(f"{yellow}[::] Caption >>> ")
         sleep(1)
-        print("[*] Acceptable answers: [yes/no]")
+        print(f"{green}[*] Acceptable answers: {ANS}")
         sleep(1)
-        AddMention=str(input("[?] Do you want to add mention ? "))
-        while AddMention.lower() not in ANS or AddMention == None or AddMention == '':
-            if AddMention == None or AddMention == '':
-                print("[!] This field can't be blank !")
+        AddMention=input(f"{yellow}[?] Tag other users >>> ")
+        while AddMention.lower() not in ANS or AddMention in NULL:
+            if AddMention in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{red}[!] Invalid input !")
             sleep(1)
-            print("[*] Acceptable answers: [yes/no]")
+            print(f"{green}[*] Acceptable answers: {ANS}")
             sleep(1)
-            mention=str(input("[?] Do you want to mention other user(s) ? "))
+            mention=input(f"{yellow}[?] Tag other users >>> ")
         if AddMention.lower() == ANS[0]:
             MENTIONS = []
-            count=int(input("[?] How many ? "))
+            count=int(input(f"{yellow}[?] Number >>> "))
             while checkCount(count):
                 checkOpt(count,"other")
                 sleep(1)
-                count=int(input("[?] How many ? "))
+                count=int(input(f"{yellow}[?] Number >>> "))
             for i in range(count):
-                mention=str(input(f"[::] Please enter the username No{i+1}: "))
+                mention=input(f"{yellow}[::] Username No{i+1} >>> ")
                 while checkUser(mention):
                     checkOpt(mention, "username")
                     sleep(1)
-                    mention=str(input(f"[::] Please enter again the username No{i+1}: "))
-                while valUser(mention):
-                    checkVal()
-                if not mention.islower():
-                    mention = mention.lower().strip()
-                MENTIONS.append(mention)
+                    mention=input(f"{yellow}[::] Username No{i+1} >>> ")
+                MENTIONS.append(mention.lower().strip())
         sleep(1)
-        print("[*] Acceptable answers: [yes/no]")
+        print(f"{green}[*] Acceptable answers: {ANS}")
         sleep(1)
-        AddLoc=str(input("[?] Do you want to add location ? "))
-        while AddLoc.lower() not in ANS or AddLoc == None or AddLoc == '':
-            if AddLoc == None or AddLoc == '':
-                print("[!] This field can't be blank !")
+        AddLoc=input(f"{yellow}[?] Add location >>> ")
+        while AddLoc.lower() not in ANS or AddLoc in NULL:
+            if AddLoc in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{red}[!] Invalid input !")
             sleep(1)
-            print("[*] Acceptable answers: [yes/no]")
+            print(f"{green}[*] Acceptable answers: {ANS}")
             sleep(1)
-            AddLoc=str(input("[?] Do you want to add location ? "))
+            AddLoc=input(f"{yellow}[?] Add location >>> ")
         if AddLoc.lower() == ANS[0]:
-            count=int(input("[?] How many locations do you want to add ? "))
+            count=int(input(f"{yellow}[?] Number of locations >>> "))
             while checkCount(count):
                 checkOpt(count, "other")
                 sleep(1)
-                count=int(input("[?] How many locations do you want to add ? "))
+                count=int(input(f"{yellow}[?] Number >>> "))
             for i in range(count):
-                loc=str(input(f"[::] Please enter location No{i+1}: "))
+                loc=input(f"{yellow}[::] Location No{i+1} >>> ")
                 while loc == None:
-                    print("[!] This field can't be blank !")
+                    print(f"{red}[✕] This field can't be blank !")
                     sleep(1)
-                    loc=str(input(f"[::] Please enter again location No{i+1}: "))
+                    loc=input(f"{yellow}[::] Location No{i+1} >>> ")
                 LOCATIONS.append(loc)
         sleep(1)
-        print("[*] Acceptable answers: [yes/no]")
+        print(f"{green}[*] Acceptable answers: {ANS}")
         sleep(1)
-        AddLinks=str(input("[?] Do you want to include urls ? "))
-        while AddLinks.lower() not in ANS or AddLinks == None or AddLinks == '':
-            if AddLinks == None or AddLinks == '':
-                print("[!] This field can't be blank !")
+        AddLinks=input(f"{yellow}[?] Include url(s) >>> ")
+        while AddLinks.lower() not in ANS or AddLinks in NULL:
+            if AddLinks in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{red}[!] Invalid input !")
             sleep(1)
-            AddLinks=str(input("[?] Do you want to include urls ? "))
+            AddLinks=input(f"{yellow}[?] Include url(s) >>> ")
         if AddLinks.lower() == ANS[0]:
-            count=int(input("[?] How many ? "))
+            count=int(input(f"{yellow}[?] Number >>> "))
             while checkCount(count):
                 checkOpt(count, "other")
                 sleep(1)
-                count=int(input("[?] How many urls do you want to include ? "))
+                count=int(input(f"{yellow}[?] Number >>> "))
             for i in range(count):
-                url=str(input(f"[::] Please enter the url No{i+1}: "))
-                while url == None or "/" not in url and ("https" not in url or "http" not in url):
-                    print("[!] Invalid URL !")
+                url=input(f"{yellow}[::] Url No{i+1} >>> ")
+                while "/" not in url and ("https" not in url or "http" not in url) or url in NULL:
+                    print(f"{red}[!] Invalid URL !")
                     sleep(1)
-                    print("[+] Example of an acceptable URL: https://example.com")
+                    print(f"{green}[+] Acceptable URL format >>> https://example.com")
                     sleep(1)
-                    url=str(input(f"[::] Please enter again the url No{i+1}: "))
-                while re.get(url).status_code == 404 or re.get(url).status_code == 400:
-                    print(f"[+] The URL: {url} doesn't exist")
-                    sleep(1)
-                    url=str(input(f"[::] Please enter again the url No{i+1}: "))
-                LINKS.append(url)
-        AddHash=str(input("[?] Do you want to include hashtags ? [yes/no] "))
-        while AddHash not in ANS or AddHash == None:
-            if AddHash == None:
-                print("[!] This field can't be blank !")
+                    url=input(f"{yellow}[::] Url No{i+1} >>> ")
+                LINKS.append(url.lower().strip())
+        sleep(1)
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(0.8)
+        AddHash=input(f"{yellow}[?] Include hashtags >>> ")
+        while AddHash.lower() not in ANS or AddHash in NULL:
+            if AddHash in NULL:
+                print(f"{yellow}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{yellow}[!] Invalid input !")
             sleep(1)
-            AddHash=str(input("[?] Do you want to include hashtags ? [yes/no] "))
-        if AddHash in ANS[:9]:
-            count=int(input("[?] How many ? "))
+            AddHash=input(f"{yellow}[?] Include hashtags >>> ")
+        if AddHash.lower() in ANS[0]:
+            count=int(input(f"{yellow}[?] Number >>> "))
             while checkCount(count):
                 checkOpt(count,"other")
                 sleep(1)
-                count=int(input("[?] How many hashtags do you want to include ? "))
+                count=int(input(f"{yellow}[?] Number >>> "))
             for i in range(count):
-                hashtag=str(input(f"[::] Please enter the hashtag No{i+1}: "))
-                while hashtag == None or "#" not in hashtag:
-                    print("[!] This field can't be blank !")
+                hashtag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
+                while hashtag in NULL or "#" not in hashtag:
+                    print(f"{red}[✕] This field can't be blank !")
                     sleep(1)
-                    hashtag=str(input(f"[::] Please enter again the hashtag No{i+1}: "))
+                    hashtag=input(f"{yellow}[::] Please enter again the hashtag No{i+1}: ")
                 HASHTAGS.append(hashtag)
-        if AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
+        if AddCaption and AddMention and AddLoc and AddLinks and AddHash:
             try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
+                client.photo_upload_to_story(path, caption, mentions=MENTIONS, locations=LOCATIONS, links=LINKS, hashtags=HASHTAGS)
                 sleep(2)
-                print("[✓] Story uploaded !")
+                print(f"{green}[✓] Story uploaded.")
                 Class()
             except Exception as ex:
                 Except(ex)
-        elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks == None and AddHash == None:
+        elif not AddCaption and not AddMention and not AddLoc and not AddLinks and not AddHash:
             try:
                 client.photo_upload_to_story(path)
                 sleep(2)
-                print("[✓] Story uploaded !")
+                print(f"{green}[✓] Story uploaded.")
                 Class()
             except Exception as ex:
                 Except(ex)
-        elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
+        elif not AddCaption and AddMention and AddLoc and AddLinks and AddHash:
             try:
-                client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
+                client.photo_upload_to_story(path, mentions=MENTIONS, locations=LOCATIONS, links=LINKS, hashtags=HASHTAGS)
                 sleep(2)
-                print("[✓] Story uploaded !")
+                print(f"{green}[✓] Story uploaded.")
                 Class()
             except Exception as ex:
                 Except(ex)
-        elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks != None and AddHash != None:
+        elif AddCaption and not AddMention and AddLoc and AddLinks and AddHash:
             try:
-                client.photo_upload_to_story(path,caption,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
+                client.photo_upload_to_story(path, caption, locations=LOCATIONS, links=LINKS, hashtags=HASHTAGS)
                 sleep(2)
-                print("[✓] Story uploaded !")
+                print(f"{green}[✓] Story uploaded.")
                 Class()
             except Exception as ex:
                 Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks != None and AddHash != None:
+        elif AddCaption and AddMention and not AddLoc and AddLinks and AddHash:
             try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS,links=LINKS,hashtags=HASHTAGS)
+                client.photo_upload_to_story(path, caption, mentions=MENTIONS, links=LINKS, hashtags=HASHTAGS)
                 sleep(2)
-                print("[✓] Story uploaded !")
+                print(f"{green}[✓] Story uploaded.")
                 Class()
             except Exception as ex:
                 Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash != None:
+        elif AddCaption and AddMention and AddLoc and not AddLinks and AddHash:
             try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,hashtags=HASHTAGS)
+                client.photo_upload_to_story(path, caption, mentions=MENTIONS, locations=LOCATIONS, hashtags=HASHTAGS)
                 sleep(2)
-                print("[✓] Story uploaded !")
+                print(f"{green}[✓] Story uploaded.")
                 Class()
             except Exception as ex:
                 Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
+        elif AddCaption and AddMention and AddLoc and AddLinks and not AddHash:
             try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
+                client.photo_upload_to_story(path, caption, mentions=MENTIONS, locations=LOCATIONS)
                 sleep(2)
-                print("[✓] Story uploaded !")
+                print(f"{green}[✓] Story uploaded.")
                 Class()
             except Exception as ex:
                 Except(ex)
-        elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks != None and AddHash != None:
+        elif not AddCaption and not AddMention and AddLoc and AddLinks and AddHash:
             try:
                 client.photo_upload_to_story(path,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
                 sleep(2)
-                print("[✓] Story uploaded !")
+                print(f"{green}[✓] Story uploaded.")
                 Class()
             except Exception as ex:
                 Except(ex)
-        elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks != None and AddHash != None:
+        elif AddCaption and not AddMention and not AddLoc and AddLinks and AddHash:
             try:
-                client.photo_upload_to_story(path,caption,links=LINKS,hashtags=HASHTAGS)
-                slee(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash != None:
-            try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS,hashtags=HASHTAGS)
+                client.photo_upload_to_story(path, caption, links=LINKS, hashtags=HASHTAGS)
                 sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,mentions=MENTIONS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,locations=LOCATIONS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks != None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,links=LINKS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
-            try:
-                client.photo_upload_to_story(path,hashtags=HASHTAGS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=AddLinks)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
-            try:
-                client.photo_upload_to_story(path,caption,hashtags=HASHTAGS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks != None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,mentions=MENTIONS,links=LINKS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks == None and AddHash != None:
-            try:
-                client.photo_upload_to_story(path,caption,locations=LOCATIONS,hashtags=HASHTAGS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=LINKS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
-            try:
-                client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption,mentions=MENTIONS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption,locations=LOCATIONS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks != None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,caption,links=LINKS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
-            try:
-                client.photo_upload_to_story(path,caption,hashtags=HASHTAGS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks != None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,mentions=MENTIONS,links=LINKS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks == None and AddHash != None:
-            try:
-                client.photo_upload_to_story(path,mentions=MENTIONS,hashtags=HASHTAGS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks != None and AddHash == None:
-            try:
-                client.photo_upload_to_story(path,locations=LOCATIONS,links=LINKS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks == None and AddHash != None:
-            try:
-                client.photo_upload_to_story(path,locations=LOCATIONS,hashtags=HASHTAGS)
-                sleep(2)
-                print("[✓] Story uploaded !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-        elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks != None and AddHash != None:
-            try:
-                client.photo_upload_to_story(path,links=LINKS,hashtags=HASHTAGS)
-                sleep(2)
-                print("[✓] Story uploaded !")
+                print(f"{green}[✓] Story uploaded.")
                 Class()
             except Exception as ex:
                 Except(ex)
@@ -1490,95 +1213,105 @@ def main():
         clear()
         hashtag = None
         location = None
-        path=str(input("[::] Please enter the path to the video: "))
+        path=input(f"{yellow}[::] Path to video >>> ")
         while checkPath(path):
             checkOpt(path, "path")
             sleep(1)
-            path=str(input("[::] Please enter again the to the video: "))
-        incap=str(input("[?] Do you want to include caption ? [yes/no] "))
-        while incap not in ANS or incap == None:
-            if incap == None:
-                print("[!] This field can't be blank !")
+            path=input(f"{yellow}[::] Path to video >>> ")
+        sleep(0.5)
+        print(f"{yellow}[+] Acceptable answers >>> {ANS}")
+        sleep(0.8)
+        incap=input(f"{yellow}[?] Include caption >>> ")
+        while incap.lower() not in ANS or incap in NULL:
+            if incap in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{red}[!] Invalid input !")
             sleep(1)
-            incap=str(input("[?] Do you want to include caption ? [yes/no] "))
-        if incap in ANS[:9]:
+            incap=input(f"{yellow}[?] Include caption >>> ")
+        if incap.lower() == ANS[0]:
+            default = 'Check out my new video !'
             sleep(1)
-            print("[+] Default: \"Check out my new video !\"")
+            print(f"{yellow}[+] Default: {default}")
             sleep(2)
-            print("[*] Hit <Tab> and <Enter> to apply the default option")
+            print(f"{yellow}[*] Hit <Enter> to apply the default caption")
             sleep(2)
-            caption=str(input("[::] Please enter the caption: "))
-            if caption == "\t":
-                caption = "Check out my new video !"
-        intag=str(input("[?] Do you want to include hashtag(s) ? [yes/no] "))
-        while intag not in ANS or intag == None:
-            if intag == None:
-                print("[!] This field can't be blank !")
+            caption=input(f"{yellow}[::] Caption ")
+            if caption == '':
+                caption = default
+        sleep(0.5)
+        print(f"{yellow}[+] Acceptable answers: {ANS}")
+        sleep(0.8)
+        intag=input(f"{yellow}[::] Include hashtags >>> ")
+        while intag.lower() not in ANS or intag in NULL:
+            if intag in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{red}[!] Invalid input !")
             sleep(1)
-            intag=str(input("[?] Do you want to include hashtag(s) ? [yes/no] "))
-        if intag in ANS[:9]:
-            count=int(input("[?] How many ? "))
+            intag=input(f"{yellow}[::] Include hashtags >>> ")
+        if intag.lower() == ANS[0]:
+            count=int(input(f"{yellow}[?] Number >>> "))
             while checkCount(count):
                 checkOpt(count, "other")
                 sleep(1)
-                count=int(input("[?] How many hashtags to include ? "))
+                count=int(input(f"{yellow}[?] Number >>> "))
             for i in range(count):
-                hashtag=str(input(f"[::] Please enter the hashtag No{i+1}: "))
+                hashtag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
                 while checkTag(hashtag):
-                    if hashtag == None:
-                        print("[!] This field can't be blank !")
+                    if hashtag in NULL:
+                        print(f"{red}[✕] This field can't be blank !")
                     else:
-                        print("[!] Invalid hashtag !")
+                        print(f"{red}[!] Invalid hashtag !")
                     sleep(1)
-                    hashtag=str(input(f"[::] Please enter again hashtag No{i+1}: "))
+                    hashtag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
                 HASHVID.append(hashtag)
                 sleep(1)
-                print("[✓] Hashtag added !")
-        inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-        while inloc not in ANS or inloc == None:
-            if inloc == None:
-                print("[!] This field can't be blank !")
+                print(f"{green}[✓] Hashtag added.")
+        sleep(1)
+        inloc=input(f"{yellow}[?] Include location(s) >>> ")
+        while inloc.lower() not in ANS or inloc in NULL:
+            if inloc in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid location !")
+                print(f"{red}[!] Invalid answer !")
             sleep(1)
-            inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
+            print(f"{green}[+] Acceptable answers: {ANS}")
+            sleep(0.8)
+            inloc=input(f"{yellow}[?] Include location(s) >>> ")
         if inloc in ANS[:9]:
-            count=int(input("[?] How many ? "))
+            count=int(input(f"{yellow}[?] Number >>> "))
             while checkCount(count):
                 checkOpt(count, "other")
                 sleep(1)
-                count=int(input("[?] How many locations to include ? "))
+                count=int(input(f"{yellow}[?] Number >>> "))
             for i in range(count):
-                location=str(input(f"[::] Please enter location No{i+1} : "))
-                while location == None:
-                    print("[!] This field can't be blank !")
+                location=input(f"{yellow}[::] Location No{i+1} >>> ")
+                while location in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                     sleep(1)
-                    location=str(input(f"[::] Please enter again location No{i+1} : "))
+                    location=input(f"{yellow}[::] Location No{i+1} >>> ")
         try:
             client.video_upload(path,caption,usertags=HASHVID,location=location)
             sleep(2)
-            print("[✓] Video uploaded !")
+            print(f"{green}[✓] Video uploaded.")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 16:
         clear()
-        count=int(input("[?] How many accounts do you want to follow ? "))
+        count=int(input(f"{yellow}[::] Number of accounts to follow >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[?] How many accounts do you want to follow ? "))
+            count=int(input(f"{yellow}[::] Number of accounts to follow >>> "))
         if count == 1:
-            username=str(input("[::] Please enter the username: "))
+            username=input(f"{yellow}[::] Username >>> ")
             while checkUser(username):
                 checkOpt(username, "username")
                 sleep(1)
-                username=str(input("[::] Please enter again the username: "))
+                username=input(f"{yellow}[::] Username >>> ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
@@ -1586,84 +1319,86 @@ def main():
                     username = CheckVal()
             username = username.lower().strip()
             print(GetID(username))
-            id=int(input("[::] Please enter the user's ID as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             while checkID(id):
                 checkOpt(id, "id")
                 sleep(1)
-                id=int(input("[::] Please enter again the user's ID as shown above: "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             try:
                 client.user_follow(id)
                 sleep(2)
-                print(f"[✓] Followed {username} !")
+                print(f"{green}[✓] Followed {username}.")
                 Class()
             except Exception as ex:
+                print(f"{red}[✕] Unable to follow {username}")
                 Except(ex)
         else:
             for i in range(count):
-                username=str(input(f"[::] Please enter the username No{i+1} :"))
+                username=input(f"{yellow}[::] Username No{i+1} >>> ")
                 while checkUser(username):
                     checkOpt(username, "username")
                     sleep(1)
-                    username=str(input(f"[::] Please enter again username No{i+1} : "))
+                    username=input(f"{yellow}[::] Username No{i+1} >>> ")
                 while valUser(username):
                     if type(CheckVal()) == bool:
                         CheckVal()
                     else:
                         username = CheckVal()
                 username = username.lower().strip()
+                sleep(0.5)
                 print(GetID(username))
-                id=int(input("[::] Please enter the user's ID as shown above: "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 while checkID(id):
                     checkOpt(id, "id")
                     sleep(1)
-                    id=int(input("[::] Please enter again the user's ID as shown above: "))
+                    id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 try:
                     client.user_follow(id)
                     sleep(2)
-                    print(f"[✓] Followed {username} !")
+                    print(f"{green}[✓] Followed {username}.")
                 except Exception as ex:
                     Except(ex)
             Class()
 
     elif option == 17:
         clear()
-        count=int(input("[?] How many accounts do you want to unfollow ? "))
+        count=int(input(f"{yellow}[::] Number of accounts to unfollow >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[?] How many accounts do you want to unfollow ? "))
+            count=int(input(f"{yellow}[::] Number of accounts to unfollow >>> "))
         if count == 1: 
-            username=str(input("[::] Please enter the username: "))
+            username=input(f"{yellow}[::] Username >>> ")
             while checkUser(username):
                 checkOpt(username, username)
                 sleep(1)
-                username=str(input("[::] Please enter again the username: "))
+                username=input(f"{yellow}[::] Username >>> ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
                 else:
                     username = CheckVal()
             username = username.lower().strip()
+            sleep(0.5)
             print(GetID(username))
-            id=int(input("[::] Please enter the user's ID as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             while checkID(id):
                 checkOpt(id, "id")
                 sleep(1)
-                id=int(input("[::] Please enter again the user's ID as shown above: "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             try:
                 client.user_unfollow(id)
                 sleep(1)
-                print(f"[✓] unfollowed {username} !")
-                Class()
+                print(f"{green}[✓] unfollowed {username}.")
             except Exception as ex:
-                print(f"[!] Can't unfollow {username} !")
+                print(f"{red}[✕] Unable to unfollow {username}.")
         else:
             for i in range(count):
-                username=str(input(f"[::] Please enter username No{i+1}: "))
+                username=input(f"{yellow}[::] Username No{i+1} >>> ")
                 while checkUser(username):
                     checkOpt(username, "username")
                     sleep(1)
-                    username=str(input("[::] Please enter again the username: "))
+                    username=input(f"{yellow}[::] Username No{i+1} >>> ")
                 while valUser(username):
                     if type(CheckVal()) == bool:
                         CheckVal()
@@ -1673,57 +1408,59 @@ def main():
                 try:
                     client.user_unfollow(uid)
                     sleep(2)
-                    print(f"[✓] unfollowed {username} !")
+                    print(f"{green}[✓] unfollowed {username}.")
                 except Exception as e:
-                    print(f"[!] Can't unfollow {username} !")
-            Class()
+                    print(f"{red}[✕] Unable to unfollow {username}.")
+                    Except(ex)
+        Class()
 
     elif option == 18:
         clear()
-        count=int(input("[::] Please enter the number of the follow requests to accept: "))
+        count=int(input(f"{yellow}[::] Follow requests to accept (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please enter again the number of the follow requests to accept: "))
+            count=int(input(f"{yellow}[::] Follow requests to accept (num) >>> "))
         try:
-            logini.accept_follow_requests(count,3)
-            print("[✓] Follow requests accepted !")
+            bot.accept_follow_requests(count,3)
+            print(f"{green}[✓] Follow requests accepted.")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 19:
         clear()
-        count=int(input("[::] Please enter the number of the follow requests to remove: "))
+        count=int(input(f"{yellow}[::] Follow requests to remove (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please enter again the number of the follow requests to remove: "))
+            count=int(input(f"{yellow}[::] Follow requests to remove (num) >>> "))
         try:
-            logini.remove_follow_requests(count,3)
-            print("[✓] Follow requests removed !")
+            bot.remove_follow_requests(count,3)
+            print(f"{green}[✓] Follow requests removed !")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 20:
         clear()
-        count=int(input("[::] Please enter the number of users to follow:  "))
+        count=int(input(f"{yellow}[::] Users to follow (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please enter again the number of users to follow: "))
-        countu=int(input("[?] From how many users do you want to follow their followers ? "))
+            count=int(input(f"{yellow}[::] Users to follow (num) >>> "))
+        sleep(0.9)
+        countu=int(input(f"{yellow}[?] Users to follow their followers (num) >>> "))
         while checkCount(countu):
             checkOpt(countu, "other")
             sleep(1)
-            countu=int(input("[?] From how many users do you want to follow their followers ? "))
+            countu=int(input(f"{yellow}[?] Users to follow their followers (num) >>> "))
         for i in range(countu):
-            username=str(input("[::] Please enter the username of the user (to follow their followers): "))
+            username=input(f"{yellow}[::] Username No{i+1} >>> ")
             while checkUser(username):
                 checkOpt(username, "username")
                 sleep(1)
-                username=str(input("[::] Please enter again the username: "))
+                username=input(f"{yellow}[::] Username No{i+1} >>> ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
@@ -1731,21 +1468,25 @@ def main():
                     username = CheckVal()
             username = username.lower().strip()
             FUFERS.append(username)
+            print(f"{green}[✓] User added.")
+            sleep(0.5)
         try:
-            logini.follow_user_followers(FUFERS,count)
+            print(f"{yellow}[+] Initiating following process...")
+            sleep(0.5)
+            bot.follow_user_followers(FUFERS,count)
             sleep(2)
-            print("[✓] Followed users !")
+            print(f"{green}[✓] Users followed.")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 21:
         clear()
-        username=str(input("[::] Please enter the first username: "))
+        username=input(f"{yellow}[::] Target username >>> ")
         while checkUser(username):
             checkOpt(username, "username")
             sleep(1)
-            username=str(input("[::] Please enter again the first username: "))
+            username=input("[::] Target username >>> ")
         while valUser(username):
             if type(CheckVal()) == bool:
                 CheckVal()
@@ -1756,242 +1497,259 @@ def main():
         L = [following.username for following in profile.get_followees()]
         for i in range(len(L)):
             print(GetID(L[i]))
-            id=int(input("[::] Please enter the user's ID as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             while checkID(id):
                 checkOpt(id, "id")
                 sleep(1)
-                id=int(input("[::] Please enter again the user's ID as shown above: "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             try:
                 client.user_follow(id)
                 sleep(2)
-                print(f"[✓] Followed {L[i]} !")
+                print(f"{green}[✓] Followed {L[i]}.")
             except Exception as ex:
-                Except(ex)
+                print(f"{red}[✕] Unable to follow {L[i]}")
             Class()
 
     elif option == 22:
         clear()
-        count=int(input("[?] How many messages do you want to send ? "))
+        count=int(input(f"{yellow}[::] Messages to send (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[?] How many messages do you want to send ? "))
+            count=int(input(f"{yellow}[::] Messages (num) >>> "))
         for i in range(count):
-            text=str(input("[::] Please enter the message to send >>>  "))
-            while text == None:
-                print("[!] This field can't be blank !")
+            text=input(f"{yellow}[::] Text >>>  ")
+            while text in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                text=str(input("[::] Please enter again the text to send >>>  "))
-            count=int(input("[?] In how many users do you want to send it ? "))
+                text=input(f"{yellow}[::] Text >>>  ")
+            sleep(0.5)
+            count=int(input(f"{yellow}[::] Receivers (num) >>> "))
             while checkCount(count):
                 checkOpt(count, "other")
                 sleep(1)
-                count=int(input("[?] In how many users do you want to send it ? "))
+                count=int(input(f"{yellow}[::] Receivers (num) >>> "))
             for j in range(count):
-                username=str(input(f"[::] Please enter the username No{j+1} : "))
+                username=input(f"{yellow}[::] Username No{j+1} >>> ")
                 while checkUser(username):
                     checkOpt(username, "username")
                     sleep(1)
-                    username=str(input(f"[::] Please enter again the username No{j+1} : "))
+                    username=input(f"{yellow}[::] Username No{j+1} >>> ")
                 while valUser(username):
                     if type(CheckVal()) == bool:
                         CheckVal()
                     else:
                         username = CheckVal()
                 username = username.lower().strip()
+                sleep(0.5)
                 print(GetID(username))
-                id=int(input("[::] Please enter the ID of the user as shown above: "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 while checkID(id):
                     checkOpt(id, "id")
                     sleep(1)
-                    id=int(input("[::] Please enter again the ID of the user as shown above: "))
+                    id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 MSGIDS.append(id)
                 try:
                     client.direct_send(text,MSGIDS)
                     sleep(1)
-                    print("[✓] Message sent !")
+                    print(f"{green}[✓] Message sent.")
                 except Exception as ex:
-                    Except(ex)
+                    print(f"{red}[✕] Unable to send message to {MSGIDS[j]}")
         Class()
 
     elif option == 23:
         clear()
-        path=str(input("[::] Please enter the path to the file: "))
+        path=input(f"{yellow}[::] Path to file >>> ")
         while checkPath(path):
             checkOpt(path, "path")
             sleep(1)
-            path=str(input("[::] Please enter again the path to the file: "))
-        count=int(input("[?] In how many users do you want to send it ? "))
+            path=input(f"{yellow}[::] Path to file >>> ")
+        sleep(0.8)
+        count=int(input(f"{yellow}[::] Receivers (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[?] In how many users do you want to send it ? "))
+            count=int(input(f"{yellow}[::] Receivers (num) >>>  "))
         for i in range(count):
-            username=str(input(f"[::] Please enter the username No{i+1}: "))
+            username=input(f"{yellow}[::] Username No{i+1} >>> ")
             while checkUser(username):
                 checkOpt(username, "username")
                 sleep(1)
-                username=str(input(f"[::] Please enter again the username No{i+1} : "))
+                username=input(f"{yellow}[::] Username No{i+1} >>> ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
                 else:
                     username = CheckVal()
             username = username.lower().strip()
+            sleep(0.8)
             print(GetID(username))
-            id=int(input("[::] Please enter the ID of the user as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             while checkID(id):
                 checkOpt(id, "id")
                 sleep(1)
-                id=int(input("[::] Please enter again the ID of the user as shown above: "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             FILEIDS.append(id)
             try:
                 client.direct_send_file(path,FILEIDS)
-                sleep(2)
-                print("[✓] File sent !")
+                sleep(1.5)
+                print(f"{green}[✓] File sent.")
             except Exception as ex:
-                Except(ex)
+                print(f"{red}[✕] Unable to send photo to {FILEIDS[i]}...")
+                sleep(1)
         Class()
 
     elif option == 24:
         clear()
-        path=str(input("[::] Please enter the path to the photo: "))
+        path=input(f"{yellow}[::] Path to photo >>> ")
         while checkPath(path):
             checkOpt(path, "path")
             sleep(1)
-            path=str(input("[::] Please enter again the path to the photo: "))
-        count=int(input("[?] In how many users do you want to send it ? "))
+            path=input(f"{yellow}[::] Path to photo >>> ")
+        sleep(0.7)
+        count=int(input(f"{yellow}[::] Receivers (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[?] In how many users do you want to send it ? "))
+            count=int(input(f"{yellow}[::] Receivers (num) >>> "))
         for i in range(count):
-            username=str(input(f"[::] Please enter the username No{i+1} : "))
+            username=input(f"{yellow}[::] Username No{i+1} >>> ")
             while checkUser(username):
                 checkOpt(username, "username")
                 sleep(1)
-                username=str(input(f"[::] Please enter again the username No{i+1} : "))
+                username=input(f"{yellow}[::] Username No{i+1} >>> ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
                 else:
                     username = CheckVal()
             username = username.lower().strip()
+            sleep(0.8)
             print(GetID(username))
-            id=int(input("[::] Please enter the ID of the user as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             while checkID(id):
                 checkOpt(id, "id")
                 sleep(1)
-                id=int(input("[::] Please enter again the ID of the user as shown above: "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             PHOTOIDS.append(id)
             try:
-                client.direct_send_photo(path,PHOTOIDS)
+                client.direct_send_photo(path, PHOTOIDS)
                 sleep(2)
-                print("[✓] Photo sent !")
+                print(f"{green}[✓] Photo sent.")
             except Exception as ex:
-                Except(ex)
+                print(f"{red}[✕] Unable to send photo to {PHOTOIDS[i]}...")
+                sleep(1)
         Class()
 
     elif option == 25:
         clear()
-        path=str(input("[::] Please enter the path to the video: "))
+        path=input(f"{yellow}[::] Path to video >>> ")
         while checkPath(path):
             checkOpt(path, "path")
             sleep(1)
-            path=str(input("[::] Please enter again the path to the video: "))
-        count=int(input("[?] In how many users do you want to send it ? "))
+            path=input(f"{yellow}[::] Path to video >>> ")
+        sleep(0.7)
+        count=int(input(f"{yellow}[::] Receivers (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[?] In how many users do you want to send it ? "))
+            count=int(input(f"{yellow}[::] Receivers (num) >>> "))
         for i in range(count):
-            username=str(input(f"[::] Please enter the username No{i+1} : "))
+            username=input(f"{yellow}[::] Username No{i+1} >>> ")
             while checkUser(username):
                 checkOpt(username, "username")
                 sleep(1)
-                username=str(input(f"[::] Please enter again the username No{i+1} : "))
+                username=input(f"{yellow}[::] Username No{i+1} >>> ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
                 else:
                     username = CheckVal()
             username = username.lower().strip()
+            sleep(0.8)
             print(GetID(username))
-            id=int(input("[::] Please enter the ID of the user as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             while checkID(id):
                 checkOpt(id, "id")
                 sleep(1)
-                id=int(input("[::] Please enter again the ID of the user as shown above: "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             VIDEOIDS.append(id)
             try:
                 client.direct_send_video(path,VIDEOIDS)
                 sleep(2)
-                print("[✓] Video sent !")
+                print(f"{green}[✓] Video sent.")
             except Exception as ex:
-                Except(ex)
+                print(f"{red}[✕] Unable to send video to {VIDEOIDS[i]}...")
+                sleep(1)
         Class()
 
     elif option == 26:
         clear()
-        count=int(input("[::] Please enter the number of hashtags: "))
+        count=int(input(f"{yellow}[::] Hashtags (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please enter again the number of hashtags: "))
-        nump=int(input("[::] Please enter the number of the posts to like: "))
+            count=int(input(f"{yellow}[::] Hashtags (num) >>> "))
+        sleep(0.5)
+        nump=int(input(f"{yellow}[::] Posts (num) >>> "))
         while checkCount(nump):
             checkOpt(nump, "other")
             sleep(1)
-            nump=int(input("[::] Please enter again the number of the posts to like: "))
+            nump=int(input(f"{yellow}[::] Posts (num) >>> "))
         for i in range(count):
-            hashtag=str(input(f"[::] Please enter the hashtag No{i+1} : "))
+            hashtag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
             while checkTag(hashtag):
-                print("[!] Invalid hashtag !")
+                print(f"[!] Invalid hashtag !")
                 sleep(1)
                 if "#" not in hashtag:
-                    print("[+] Please include the   #   symbol")
+                    print(f"{yellow}[+] Please include the   #   symbol")
                 sleep(1)
-                hashtag=str(input(f"[::] Please enter again the hashtag No{i+1} : "))
+                hashtag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
             LTAGS.append(hashtag)
-            print("[!] Hashtag added !")
-        rtags=str(input("[?] Do you want to like random tags ? [yes/no] "))
-        while rtags not in ANS or rtags == None:
-            if rtags == None:
-                print("[!] This field can't be blank !")
+            print(f"{green}[✓] Hashtag added.")
+            sleep(0.5)
+        sleep(0.6)
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(0.9)
+        rtags=input(f"{yellow}[::] Like random hashtags >>> ")
+        while rtags.lower() not in ANS or rtags in NULL:
+            if rtags in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{red}[!] Invalid answer !")
+                sleep(0.9)
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
             sleep(1)
-            rtags=input("[?] Do you want to like random hashtags ? [yes/no] ")
-        if rtags in ANS[:9]:
-            random = True
-        else:
-            random = False
+            rtags=input(f"{yellow}[::] Like random hashtags >>> ")
+        random = rtags.lower() == ANS[0]
         try:
-            logini.like_by_tags(LTAGS,random,count)
+            bot.like_by_tags(LTAGS, random, count)
             sleep(2)
-            print("[✓] Posts liked !")
+            print(f"{green}[✓] Posts liked.")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 27:
         clear()
-        countu=int(input("[::] Please enter the number of accounts: "))
+        countu=int(input(f"{yellow}[::] Accounts (num) >>> "))
         while checkCount(countu):
             checkOpt(countu, "other")
             sleep(1)
-            countu=int(input("[::] Please enter again the number of accounts: "))
-        count=int(input("[::] Please enter the number of posts to like: "))
+            countu=int(input(f"{yellow}[::] Accounts >>> "))
+        sleep(0.9)
+        count=int(input(f"{yellow}[::] Posts to like (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please enter again the number of posts to like: "))
+            count=int(input(f"{yellow}[::] Posts to like >>> "))
+        sleep(0.5)
         if countu == 1:
-            username=str(input("[::] Please enter the username: "))
+            username=input(f"{yellow}[::] Username >>> ")
             while checkUser(username):
                 checkOpt(username, "username")
                 sleep(1)
-                username=str(input("[::] Please enter again the username: "))
+                username=input(f"{yellow}[::] Username >>> ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
@@ -1999,20 +1757,13 @@ def main():
                     username = CheckVal()
             username = username.lower().strip()
             LBU.append(username)
-            try:
-                logini.like_by_users(LBU,count)
-                sleep(2)
-                print("[✓] Posts liked !")
-                Class()
-            except Exception as ex:
-                Except(ex)
         else:
             for i in range(countu):
-                username=str(input(f"[::] Please enter the username No{i+1} : "))
+                username=input(f"{yellow}[::] Username No{i+1} >>> ")
                 while checkUser(username):
                     checkOpt(username, "username")
                     sleep(1)
-                    username=str(input(f"[::] Please enter again the username No{i+1} : "))
+                    username=input(f"{yellow}[::] Username No{i+1} >>> ")
                 while valUser(username):
                     if type(CheckVal()) == bool:
                         CheckVal()
@@ -2020,264 +1771,221 @@ def main():
                         username = CheckVal()
                 username = username.lower().strip()
                 LBU.append(username)
-            try:
-                logini.like_by_users(LBU,count)
-                sleep(2)
-                print("[✓] Posts liked !")
-                Class()
-            except Exception as ex:
-                Except(ex)
+        try:
+            bot.like_by_users(LBU, count)
+            sleep(2)
+            print(f"{green}[✓] Posts liked.")
+            Class()
+        except Exception as ex:
+            Except(ex)
 
     elif option == 28:
         clear()
-        rand=str(input("[?] Do you want to like the posts with random order ? [yes/no] "))
-        while rand not in ANS or rand == None:
-            if rand == None:
-                print("[!] This field can't be blank !")
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(1)
+        rand=input(f"{yellow}[::] Like posts randomly >>> ")
+        while rand.lower() not in ANS or rand in NULL:
+            if rand in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{red}[!] Invalid answer !")
+                sleep(1)
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
             sleep(1)
-            rand=str(input("[?] Do you want to like them with random order ? [yes/no] "))
-        if rand in ANS[:9]:
-            random = True
-        else:
-            random = False
-        numloc=int(input("[::] Please enter the number of locations to like their posts: "))
+            rand=input(f"{yellow}[::] Like posts randomly >>> ")
+        random = rand.lower() == ANS[0]
+        sleep(0.5)
+        numloc=int(input(f"{yellow}[::] Locations (num) >>> "))
         while checkCount(numloc):
             checkOpt(numloc, "other")
             sleep(1)
-            numloc=int(input("[::] Please enter again the number of locations to like their posts: "))
+            numloc=int(input(f"{yellow}[::] Locations >>> "))
         sleep(1)
-        countp=int(input("[?] How many posts to like per location ? "))
+        countp=int(input(f"{yellow}[::] Posts per loc (num) >>> "))
         while checkCount(countp):
             checkOpt(countp, "other")
             sleep(1)
-            countp=int(input("[?] How many posts to like per location ? "))
+            countp=int(input(f"{yellow}[::] Posts per loc >>> "))
         for i in range(numloc):
-            location=str(input(f"[::] Please enter location No{i+1} : "))
-            while location == None:
-                print("[!] This field can't be empty !")
+            location=input(f"{yellow}[::] Location No{i+1} >>> ")
+            while location in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                location=str(input(f"[::] Please enter again location No{i+1} : "))
+                location=input(f"{yellow}[::] Location No{i+1} >>> ")
             LOCLIKE.append(location)
         try:
-            logini.like_by_locations(LOCLIKE,number=countp,randomize=random)
+            bot.like_by_locations(LOCLIKE, number=countp, randomize=random)
             sleep(2)
-            print("[✓] Posts liked !")
+            print(f"{green}[✓] Posts liked.")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 29:
         clear()
-        count=int(input("[+] Please enter the number of posts to like: "))
+        count=int(input(f"{yellow}[::] Posts to like (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please enter again the number of posts to like: "))
-        if count == 1:
-            rand=str(input("[?] Do you want to like them with random order ? [yes/no] "))
-            while rand not in ANS or rand == None:
-                if rand == None:
-                    print("[!] This field can't be empty !")
-                else:
-                    print("[!] Invalid input !")
-                sleep(1)
-                rand=str(input("[?] Do you want to like them with random order ? [yes/no] "))
-            if rand in ANS[:9]:
-                rmize = True
+            count=int(input(f"{yellow}[::] Posts to like >>> "))
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(1)
+        rand=input(f"{yellow}[::] Like randomly >>> ")
+        while rand.lower() not in ANS or rand in NULL:
+            if rand in NULL:
+                print(f"{red}[!] This field can't be empty !")
             else:
-                rmize = False
+                print(f"{red}[!] Invalid answer !")
+                sleep(1)
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            rand=input(f"{yellow}[::] Like randomly >>> ")
+        rmize = rand.lower() == ANS[0]
+        if count == 1:
             try:
-                logini.like_by_feed(count,rmize)
+                bot.like_by_feed(count, rmize)
                 sleep(2)
-                print("[✓] Posts liked !")
+                print(f"{green}[✓] Posts liked.")
                 Class()
             except Exception as ex:
                 Except(ex)
         else:
-            rand=str(input("[?] Do you want to like them with random order ? [yes/no] "))
-            while rand not in ANS or rand == None:
-                if rand == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid input !")
-                sleep(1)
-                rand=str(input("[?] Do you want to like them with random order ? [yes/no] "))
-            if rand in ANS[:9]:
-                random = True
-            else:
-                random = False
             for i in range(count):
                 try:
-                    logini.like_by_feed(count,random)
+                    bot.like_by_feed(count, rmize)
                     sleep(1)
-                    print("[✓] Posts liked !")
+                    print(f"{green}[✓] Posts liked.")
                 except Exception as ex:
                     Except(ex)
             Class()
 
     elif option == 30:
         clear()
-        amo=int(input("[::] Please enter the number of posts to like: "))
+        amo=int(input(f"{yellow}[::] Posts to like (num) >>> "))
         while checkCount(amo):
             checkOpt(amo, "other")
             sleep(1)
-            amo=int(input("[::] Please enter again the number of posts to like: "))
-        username=str(input("[::] Please enter the username: "))
+            amo=int(input(f"{yellow}[::] Posts to like >>> "))
+        sleep(0.7)
+        username=input(f"{yellow}[::] Username >>> ")
         while checkUser(username):
             checkOpt(username, "username")
             sleep(1)
-            username=str(input("[::] Please enter again the username: "))
+            username=input(f"{yellow}[::] Username >>> ")
         while valUser(username):
             if type(CheckVal()) == bool:
                     CheckVal()
             else:
                 username = CheckVal()
         username = username.lower().strip()
+        sleep(0.6)
         print(GetID(username))
-        id=int(input("[::] Please enter user's ID as shown above: "))
+        id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
         while checkID(id):
             checkOpt(id, "id")
             sleep(1)
-            id=int(input("[::] Please enter again user's ID as shown above: "))
+            id=int(input(f"{yellow}[::] ID >>> "))
         try:
             bot.comment_user(id,amo)
             sleep(2)
-            print("[✓] Comment made !")
+            print(f"{green}[✓] Commented.")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 31:
         clear()
-        count=int(input("[::] Please enter the number of replies: "))
+        count=int(input(f"{yellow}[::] Replies (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please enter again the number of replies to save: "))
+            count=int(input(f"{yellow}[::] Replies >>> "))
         for i in range(count):
-            reply=str(input(f"[::] Please enter the reply No{i+1}: "))
-            while reply == None:
-                print("[!] This field can't be blank !")
+            reply=input(f"{yellow}[::] Reply No{i+1} >>> ")
+            while reply in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                reply=str(input(f"[::] Please enter again the reply No{i+1}: "))
+                reply=input(f"{yellow}[::] Reply No{i+1} >>> ")
             REPLS.append(reply)
         try:
-            logini.set_comment_replies(REPLS)
+            bot.set_comment_replies(REPLS)
             sleep(2)
-            print("[✓] Default replies applied !")
+            print(f"{green}[✓] Default replies applied.")
             Class()
         except Exception as ex:
             Except(ex)
 
-    elif option == 32:
-        clear()
-        print("[+] Default: \"Love it !\"")
-        com=str(input("[::] Please enter your comment: "))
-        while com == None:
-            print("[!] This field can't be blank !")
-            sleep(1)
-            com=str(input("[::] Please enter again your comment: "))
-        webbrowser.open("https://www.instagram.com")
-        print("[+] Please find the post to comment and wait...")
-        found=str(input("[::] If found enter [yes]: "))
-        while found not in ANS[:9] or found == None:
-            if found == None:
-                print("[!] This field can't be blank !")
-            else:
-                print("[!] Invalid input !")
-            sleep(1)
-            found=str(input("[::] If found enter [yes]: "))
-        if found in ANS[:9]:
-            browser=webdriver.Firefox()
-            link=str(input("[::] Please enter the url for the post: "))
-            while link == None or "https" not in link or "//" not in link or "instagram" not in link or "www" not in link or ".com" not in link:
-                print("[!] Invalid url !")
-                sleep(1)
-                link=str(input("[::] Please enter again the url for the post: "))
-            browser.get(link)
-            try:
-                comment_label = browser.find_element_by_class_name("_ablz _aaoc")
-                comment_label.send_keys(com)
-                publish = browser.find_element_by_class_name("_aacl _aaco _aacw _adda _aad0 _aad6 _aade")
-                publish.click()
-                sleep(2)
-                print("[✓] Comment made !")
-                Class()
-            except Exception as ex:
-                Except(ex)
-
     elif option == 33:
         clear()
-        count=int(input("[::] Please enter the number of users to block: "))
+        count=int(input(f"{yellow}[::] Users to block (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please enter again the number of users to block: "))
+            count=int(input(f"{yellow}[::] Users to block >>> "))
         if count == 1:
-            username=str(input("[::] Please enter the username: "))
+            username=input(f"{yellow}[::] Username >>> ")
             while checkUser(username):
                 checkOpt(username, "username")
                 sleep(1)
-                username=str(input("[::] Please enter again the username: "))
+                username=input(f"{yellow}[::] Username >>> ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
                 else:
                     username = CheckVal()
             username = username.lower().strip()
+            sleep(0.7)
             print(GetID(username))
-            id=int(input("[::] Please enter the ID of the user as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             while checkID(id):
                 checkOpt(id, "id")
                 sleep(1)
-                id=int(input("[::] Please enter again the ID of the user as shown above: "))
-            BLOCKU.append(id)
+                id=int(input(f"{yellow}[::] ID >>> "))
             try:
-                bot.block_users(BLOCKU)
-                sleep(2)
-                print("[✓] User blocked !")
+                bot.block_users([id])
+                sleep(1.5)
+                print(f"{green}[✓] User blocked.")
                 Class()
             except Exception as ex:
                 Except(ex)
         else:
             for i in range(count):
-                username=str(input(f"[::] Please enter the username No{i+1}: "))
+                username=input(f"{yellow}[::] Username No{i+1} >>> ")
                 while checkUser(username):
                     checkOpt(username, "username")
                     sleep(1)
-                    username=str(input(f"[::] Please enter again the username No{i+1}: "))
+                    username=input(f"{yellow}[::] Username No{i+1} >>>  ")
                 while valUser(username):
                     if type(CheckVal()) == bool:
                         CheckVal()
                     else:
                         username = CheckVal()
                 username = username.lower().strip()
+                sleep(0.7)
                 print(GetID(username))
-                id = int(input("[::] Please enter the ID of the user as shown above: "))
-                while checkID(id):
-                    checkOpt(id, "id")
+                uid = int(input(f"{yellow}[::] ID (as shown above) >>> "))
+                while checkID(uid):
+                    checkOpt(uid, "id")
                     sleep(1)
-                    id = int(input("[::] Please enter again the ID of the user as shown above: "))
-                BLOCKU.append(id)
+                    uid = int(input(f"{yellow}[::] ID >>> "))
+                BLOCKU.append(uid)
             try:
                 bot.block_users(BLOCKU)
                 sleep(2)
-                print("[✓] Users blocked !")
+                print(f"{green}[✓] Users blocked.")
                 Class()
             except Exception as ex:
                 Except(ex)
 
     elif option == 34:
         clear()
-        id=int(input("[::] Please enter the ID of the user: "))
-        while checkID(id):
-            checkOpt(id, "id")
+        uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
+        while checkID(uid):
+            checkOpt(uid, "id")
             sleep(1)
-            id=int(input("[::] Please enter again the ID of the user: "))
+            uid=int(input(f"{yellow}[::] ID >>> "))
         try:
-            print("[+] Username: "+client.username_from_user_id(id))
+            print(f"{yellow}[+] Username >>> {client.username_from_user_id(uid)}")
             Class()
         except Exception as ex:
             Except(ex)
@@ -2285,8 +1993,8 @@ def main():
     elif option == 35:
         clear()
         try:
-            print("[+] Blocked users: ")
-            print("\n")
+            print(f"{yellow}[+] Blocked users ")
+            print(f"\n")
             print(api.blocked_user_list())
             Class()
         except Exception as ex:
@@ -2294,498 +2002,492 @@ def main():
 
     elif option == 36:
         clear()
-        counti=int(input("[::] How many highlights do you want to create ? "))
+        counti=int(input(f"{yellow}[::] Highlights (num) >>> "))
         while checkCount(counti):
             checkOpt(counti, "other")
             sleep(1)
-            counti=int(input("[::] How many highlights do you want to create ? "))
+            counti=int(input(f"{yellow}[::] Highlights >>> "))
         if counti == 1:
-            title=str(input("[::] Please enter the title of the highlight: "))
-            while title == None:
-                print("[!] This field can't be blank !")
+            title=input(f"{yellow}[::] Title >>> ")
+            while title in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                title=str(input("[::] Please enter again the title of the highlight: "))
-            count=int(input("[::] Please enter the number of stories to add in the highlight: "))
+                title=input(f"{yellow}[::] Title >>> ")
+            sleep(0.6)
+            count=int(input(f"{yellow}[::] Stories to add (num) >>> "))
             while checkCount(count):
                 checkOpt(count, "other")
                 sleep(1)
-                count=int(input("[::] Please enter again the number of stories to add in the highlight: "))
+                count=int(input(f"{yellow}[::] Stories to add >>> "))
             for i in range(count):
-                story_id=int(input(f"[::] Please enter the story ID No{i+1}: "))
-                while story_id == None:
-                    print("[!] This field can't be blank !")
+                story_id=int(input(f"{yellow}[::] Story ID No{i+1} >>> "))
+                while not story_id:
+                    print(f"{red}[✕] This field can't be blank !")
                     sleep(1)
-                    story_id=int(input(f"[::] Please enter again the story ID No{i+1}: "))
+                    story_id=int(input(f"{yellow}[::] Story ID No{i+1} >>> "))
                 STIDS.append(story_id)
             try:
                 client.highlight_create(title,STIDS)
                 sleep(2)
-                print("[✓] Highlight created !")
+                print(f"{green}[✓] Highlight created.")
                 Class()
             except Exception as ex:
                 Except(ex)
         else:
             for i in range(counti):
-                title=str(input(f"[::] Please enter the title of the highlight No{i+1}: "))
-                while title == None:
-                    print("[!] This field can't be blank !")
+                title=input(f"{yellow}[::] Highlight title No{i+1} >>> ")
+                while title in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                     sleep(1)
-                    title=str(input(f"[::] Please enter again the title of the highlight No{i+1}: "))
-                count=int(input("[::] Please enter the number of stories to add in the highlight: "))
+                    title=input(f"{yellow}[::] Highlight title No{i+1} >>> ")
+                sleep(0.5)
+                count=int(input(f"{yellow}[::] Stories to add (num) >>> "))
                 while checkCount(count):
                     checkOpt(count, "other")
                     sleep(1)
-                    count=int(input("[::] Please enter again the number of stories to add in the highlight: "))
+                    count=int(input(f"{yellow}[::] Stories to add >>> "))
                 for i in range(count):
-                    story_id=int(input(f"[::] Please enter the story ID No{i+1}: "))
-                    while story_id == None:
-                        print("[!] This field can't be blank !")
+                    story_id=int(input(f"{yellow}[::] Story ID No{i+1} >>> "))
+                    while not story_id:
+                        print(f"{red}[✕] This field can't be blank !")
                         sleep(1)
-                        story_id = int(input(f"[::] Please enter again the story ID No{i+1}: "))
+                        story_id=int(input(f"{yellow}[::] Story ID No{i+1} >>> "))
                     STIDS.append(story_id)
                 try:
                     client.highlight_create(title,STIDS)
                     sleep(2)
-                    print("[✓] Highlight created !")
+                    print(f"{green}[✓] Highlight created.")
                     Class()
                 except Exception as ex:
                     Except(ex)
 
     elif option == 37:
         clear()
-        count=int(input("[::] How many highlights do you want to delete ? "))
+        count=int(input(f"{yellow}[::] Highlights to delete (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] How many highlights do you want to delete ? "))
+            count=int(input(f"{yellow}[::] Highlights to delete >>> "))
         if count == 1:
-            hid=int(input("[::] Please enter the highlight ID: "))
-            while hid == None:
-                print("[!] This field can't be blank !")
+            hid=int(input(f"{yellow}[::] Highlight ID >>> "))
+            while not hid:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                hid=int(input("[::] Please enter again the highlight ID: "))
+                hid=int(input(f"{yellow}[::] Highlight ID >>> "))
             try:
                 api.highlight_delete(hid)
                 sleep(2)
-                print("[✓] Highlight deleted !")
+                print(f"{green}[✓] Highlight deleted.")
                 Class()
             except Exception as ex:
                 Except(ex)
         else:
             for i in range(count):
-                hid=int(input(f"[::] Please enter the highlight ID No{i+1}: "))
-                while hid == None:
-                    print("[!] This field can't be blank !")
+                hid=int(input(f"{yellow}[::] Highlight ID No{i+1} >>> "))
+                while not hid:
+                    print(f"{red}[✕] This field can't be blank !")
                     sleep(1)
-                    hid=int(input(f"[::] Please enter again the highlight ID No{i+1}: "))
+                    hid=int(input(f"{yellow}[::] Highlight ID No{i+1} >>> "))
                 try:
                     api.highlight_delete(hid)
                     sleep(2)
-                    print("[!] Highlight deleted !")
+                    print(f"{green}[✓] Highlight deleted.")
                 except Exception as ex:
                     Except(ex)
             Class()
 
     elif option == 38:
         clear()
-        count=int(input("[::] How many covers of highlights do you want to change ? "))
+        count=int(input(f"{yellow}[::] Covers to change (num) >>> "))
         while checkCount(count, "other"):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] How many covers of highlights do you want to change ? "))
+            count=int(input(f"{yellow}[::] Covers to change (num) >>> "))
         if count == 1:
-            url=str(input("[::] Please enter the url to the highlight: "))
-            while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
-                if url == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid url !")
+            url=input(f"{yellow}[::] Highlight URL >>> ")
+            while url in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                url=str(input("[::] Please enter again the url to the highlight: "))
+                url=input(f"{yellow}[::] Highlight URL >>> ")
+            sleep(0.9)
             print(Get_Hpk(url))
-            pk=int(input("[::] Please enter the highlight id as shown above: "))
-            while pk == None:
-                print("[!] This field can't be blank !")
+            pk=int(input(f"{yellow}[::] Highlight ID (as shown above) >>> "))
+            while not pk:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                pk=int(input("[::] Please enter again the highlight id as shown above: "))
-            path=str(input("[::] Please enter the path to the cover for the highlight: "))
+                pk=int(input(f"{yellow}[::] Highlight ID >>> "))
+            sleep(0.8)
+            path=input(f"{yellow}[::] New cover path >>> ")
             while checkPath(path):
                 checkOpt(path, "path")
                 sleep(1)
-                path=str(input("[::] Please enter again the path of the cover for the highlight: "))
+                path=input(f"{yellow}[::] New cover path >>> ")
             try:
                 client.highlight_change_cover(pk,path) 
                 sleep(2)
-                print("[✓] Highlight cover changed !")
+                print(f"{green}[✓] Highlight cover changed.")
                 Class()
             except Exception as ex:
                 Except(ex)
         else:
             for i in range(count):
-                url=str(input("[::] Please enter the url for the highlight: "))
-                while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
-                    print("[!] This field can't be blank !")
+                url=input(f"{yellow}[::] Highlight URL >>> ")
+                while url in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                     sleep(1)
-                    url=str(input("[::] Please enter again the url for the highlight: "))
+                    url=input(f"{yellow}[::] Highlight URL >>> ")
+                sleep(1)
                 print(Get_Hpk(url))
-                pk=int(input("[::] Please enter the highlight id as shown above: "))
-                while pk == None:
-                    print("[!] This field can't be blank !")
+                pk=int(input(f"{yellow}[::] Highlight ID (as shown above) >>> "))
+                while not pk:
+                    print(f"{red}[✕] This field can't be blank !")
                     sleep(1)
-                    pk=int(input("[::] Please enter again the highlight id as shown above: "))
-                path=str(input("[::] Please enter the path of the cover for the highlight: "))
+                    pk=int(input(f"{yellow}[::] Highlight ID (as shown above) >>> "))
+                sleep(0.8)
+                path=input(f"{yellow}[::] New cover path >>> ")
                 while checkPath(path):
                     checkOpt(path, "path")
                     sleep(1)
-                    path=str(input("[::] Please enter again the path of the cover for the highlight: "))
+                    path=input(f"{yellow}[::] New cover path >>> ")
                 try:
                     client.highlight_change_cover(pk,path) 
                     sleep(2)
-                    print("[✓] Highlight cover changed !")
+                    print(f"{green}[✓] Highlight cover changed.")
                 except Exception as ex:
                     Except(ex)
             Class()
 
     elif option == 39:
         clear()
-        countu=int(input("[::] From how many users you want to display their highlights ? "))
+        countu=int(input(f"{yellow}[::] Users (num) >>> "))
         while checkCount(countu):
             checkOpt(countu, "other")
             sleep(1)
-            countu=int(input("[::] From how many users you want to display their highlights ? "))
+            countu=int(input(f"{yellow}[::] Users (num) >>> "))
         if countu == 1:
-            username=str(input("[::] Please enter the username: "))
+            username=input(f"{yellow}[::] Please enter the username: ")
             while checkUser(username):
                 checkOpt(username, "username")
                 sleep(1)
-                username=str(input("[::] Please enter again the username: "))
+                username=input(f"{yellow}[::] Please enter the username: ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
                 else:
                     username = CheckVal()
             username = username.lower().strip()
+            sleep(0.8)
             print(GetID(username))
-            id=int(input("[::] Please enter the ID of the user as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             while checkID(id):
                 checkOpt(id, "id")
                 sleep(1)
-                id=int(input("[::] Please enter again the ID of the user as shown above: "))
-            number=int(input("[::] How many highlights do you want to display ? "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
+            sleep(0.7)
+            number=int(input(f"{yellow}[::] Highlights to print (num) >>> "))
             while checkCount(number):
                 checkOpt(number, "count")
                 sleep(1)
-                number=int(input("[::] How many highlights do you want to display ? "))
+                number=int(input(f"{yellow}[::] Highlights to print >>> "))
             try:
                 HL = client.user_highlights(id,number)
                 for i in range(len(HL)):
-                    print(f"[+] Highlight: {L[i]}")
+                    print(f"{yellow}[+] Highlight >>> {L[i]}")
                 Class()
             except Exception as ex:
                 Except(ex)
         else:
             for i in range(countu):
-                username=str(input("[::] Please enter the username: "))
+                username=input(f"{yellow}[::] Username >>> ")
                 while checkUser(username):
                     checkOpt(username, "username")
                     sleep(1)
-                    username=str(input("[::] Please enter again the username: "))
+                    username=input(f"{yellow}[::] Username >>> ")
                 while valUser(username):
                     if type(CheckVal()) == bool:
                         CheckVal()
                     else:
                         username = CheckVal()
                 username = username.lower().strip()
+                sleep(0.5)
                 print(GetID(username))
-                id=int(input("[::] Please enter the ID of the user as shown above: "))
+                id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 while checkID(id):
                     checkOpt(id, "id")
                     sleep(1)
-                    id=int(input("[::] Please enter again the ID of the user as shown above: "))
-                number=int(input("[::] How many highlights do you want to display ? "))
+                    id=int(input(f"{yellow}[::] ID >>> "))
+                sleep(0.5)
+                number=int(input(f"{yellow}[::] Highlights to print (num) >>> "))
                 while checkCount(number):
                     checkOpt(number, "count")
                     sleep(1)
-                    number=int(input("[::] How many highlights do you want to display ? "))
+                    number=int(input(f"{yellow}[::] Highlights to print >>> "))
                 try:
                     HL = client.user_highlights(id,number)
                     for j in range(len(HL)):
-                        print(f"[+] Highlight: {HL[j]}")
+                        print(f"{yellow}[+] Highlight >>> {HL[j]}")
                     Class()
                 except Exception as ex:
                     Except(ex)
 
     elif option == 40:
         clear()
-        counti=int(input("[::] From how many highlights do you want to retrieve information ? "))
+        counti=int(input(f"{yellow}[::] Highlights (num) >>> "))
         while checkCount(counti):
             checkOpt(counti, "other")
             sleep(1)
-            counti=int(input("[::] From how many highlights do you want to retrieve information ? "))
+            counti=int(input(f"{yellow}[::] Highlights (num) >>> "))
         if counti == 1:
-            url=str(input("[::] Please enter the url for the highlight: "))
-            while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
-                print("[!] This field can't be blank !")
+            url=input(f"{yellow}[::] Highlight URL >>> ")
+            while url in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                url=str(input("[::] Please enter again the url for the highlight: "))
+                url=input(f"{yellow}[::] Highlight URL >>> ")
+            sleep(1)
             print(Get_Hpk(url))
-            pk=int(input("[::] Please enter the highlight id as shown above: "))
-            while pk == None:
-                if pk == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid ID !")
+            pk=int(input(f"{yellow}[::] Highlight ID (as shown above) >>> "))
+            while not pk:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                pk=int(input("[::] Please enter again the highlight id as shown above: "))
+                pk=int(input(f"{yellow}[::] Highlight ID >>> "))
             try:
+                sleep(1)
+                print(f"{green}[✓] Retrieved information.")
+                sleep(0.7)
                 print(client.highlight_info(pk))
-                sleep(2)
-                print("[✓] retrieved information !")
                 Class()
             except Exception as ex:
                 Except(ex)
         else:
             for i in range(counti):
-                url=str(input("[::] Please enter the url for the highlight: "))
-                while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
-                    if url == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid url !")
+                url=input(f"{yellow}[::] Highlight URL >>> ")
+                while url in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                     sleep(1)
-                    url=str(input("[::] Please enter again the url for the highlight: "))
+                    url=input(f"{yellow}[::] Highlight URL >>> ")
+                sleep(0.8)
                 print(Get_Hpk(url))
-                pk=int(input("[::] Please enter the highlight id as shown above: "))
-                while pk == None:
-                    if pk == None:
-                        print("[!] This field can't be blank !")
-                    else:
-                        print("[!] Invalid ID !")
+                pk=int(input(f"{yellow}[::] Highlight ID (as shown above) >>> "))
+                while not pk:
+                    print(f"[✕] This field can't be blank !")
                     sleep(1)
-                    pk=int(input("[::] Please enter again the highlight id as shown above: "))
+                    pk=int(input(f"{yellow}[::] Highlight ID >>> "))
                 try:
+                    sleep(1)
+                    print(f"{green}[✓] Retrieved information.")
+                    sleep(0.8)
                     print(client.highlight_info(pk))
-                    sleep(2)
-                    print("[✓] retrieved information !")
                 except Exception as ex:
                     Except(ex)
             Class()
 
     elif option == 41:
         clear()
-        url=str(input("[::] Please enter the url of the story: "))
-        while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
-            print("[!] This field can't be blank !")
+        url=input(f"{yellow}[::] Story URL >>> ")
+        while url in NULL:
+            print(f"{red}[✕] This field can't be blank !")
             sleep(1)
-            url=str(input("[::] Please enter again the url of the story: "))
+            url=input(f"{yellow}[::] Story URL >>> ")
+        sleep(1)
         print(Get_Spk(url))
-        pk=int(input("[::] Please enter the story ID as shown above: "))
+        pk=int(input(f"{yellow}[::] Story ID (as shown above) >>> "))
         while checkID(id):
             checkOpt(id, "id")
             sleep(1)
-            pk=int(input("[::] Please enter again the story ID as shown above: "))
+            pk=int(input(f"{yellow}[::] Story ID >>> "))
         try:
-            dels = client.story_delete(pk)
-            if dels:
-                print("[✓] Story deleted !")
-            else:
-                print("[!] Can't delete story !")
+            dell = client.story_delete(pk)
+            print(f"{green}[✓] Story deleted." if dell else f"{red}[✕] Unable to delete story.")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 42:
         clear()
-        url=str(input("[::] Please enter the url of the story: "))
-        while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
-            print("[!] This field can't be blank !")
+        url=input(f"{yellow}[::] Story URL >>> ")
+        while url in NULL:
+            print(f"{red}[✕] This field can't be blank !")
             sleep(1)
-            url=str(input("[::] Please enter again the url of the story: "))
+            url=input(f"{yellow}[::] Story URL >>> ")
+        sleep(1)
         print(Get_Spk(url))
-        pk=int(input("[::] Please enter the story ID as shown above: "))
+        pk=int(input(f"{yellow}[::] Story ID (as shown above) >>> "))
         while checkID(id):
             checkOpt(id, "id")
             sleep(1)
-            pk=int(input("[::] Please enter again the story ID as shown above: "))
-        number=int(input("[::] Please enter the number of viewers to display: "))
+            pk=int(input(f"{yellow}[::] Story ID >>> "))
+        sleep(0.8)
+        number=int(input(f"{yellow}[::] Viewers to print (num) >>> "))
         while checkCount(number):
             checkOpt(number, "count")
             sleep(1)
-            number=int(input("[::] Please enter again the number of viewers to display: "))
+            number=int(input(f"{yellow}[::] Viewers to print (num) >>> "))
         try:
             L = client.story_viewers(pk,number)
             for i in range(len(L)):
-                print(f"[+] Viewer No{i+1}: {L[i]}")
+                print(f"{yellow}[+] Viewer No{i+1} >>> {L[i]}")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 43:
         clear()
-        count=int(input("[::] Please specify the number of hashtags: "))
+        count=int(input(f"{yellow}[::] Hashtags (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please specify again the number of hashtags: "))
+            count=int(input(f"{yellow}[::] Hashtags >>> "))
         for i in range(count):
-            tag=input(f"[::] Please enter the hashtag No{i+1} (include the  #  symbol): ")
+            tag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
             while checkTag(tag):
-                if tag == None:
-                    print("[!] This field can't be blank !")
+                if not tag:
+                    print(f"{red}[✕] This field can't be blank !")
                 else:
-                    print("[!] Invalid hashtag !")
+                    print(f"{red}[!] Invalid hashtag !")
                 sleep(1)
-                tag=input(f"[::] Please enter again the hashtag No{i+1}: ")
+                tag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
             STBTGS.append(tag)
         try:
-            print(logini.story_by_tags(STBTGS))
-            sleep(2)
-            print("[✓] Request successful !")
+            sleep(1)
+            print(f"{green}[✓] Action successful.")
+            sleep(0.8)
+            print(bot.story_by_tags(STBTGS))
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 44:
         clear()
-        count=int(input("[::] Please specify the number of users: "))
+        count=int(input(f"{yellow}[::] Users (num) >>> "))
         while checkCount(count):
             checkOpt(count, "other")
             sleep(1)
-            count=int(input("[::] Please specify again the number of users: "))
+            count=int(input(f"{yellow}[::] Users >>> "))
         for i in range(count):
-            username=str(input(f"[::] Please enter the username No{i+1}: "))
+            username=input(f"{yellow}[::] Username No{i+1} >>> ")
             while checkUser(username):
                 checkOpt(username, "username")
                 sleep(1)
-                username=str(input(f"[::] Please enter again the username No{i+1}: "))
+                username=input(f"{yellow}[::] Username No{i+1} >>> ")
             while valUser(username):
                 if type(CheckVal()) == bool:
                     CheckVal()
                 else:
                     username = CheckVal()
             username = username.lower().strip()
+            sleep(0.9)
             print(GetID(username))
-            id=int(input("[::] Please enter the ID as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
             while checkID(id):
                 checkOpt(id, "id")
                 sleep(1)
-                id=int(input("[::] Please enter again the ID as shown above: "))
+                id=int(input(f"{yellow}[::] ID >>> "))
             GTST.append(id)
         try:
+            sleep(1)
+            print(f"{green}[✓] Action successful !")
+            sleep(0.8)
             print(loader.get_stories(GTST))
-            sleep(2)
-            print("[✓] Request successful !")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 45:
         clear()
-        url=str(input("[::] Please enter the url of the story: "))
-        while url == None or "https" not in url or "//" not in url or "instagram" not in url or ".com" not in url:
-            print("[!] This field can't be blank !")
+        url=input(f"{yellow}[::] Story URL >>> ")
+        while url in NULL:
+            print(f"{red}[✕] This field can't be blank !")
             sleep(1)
-            url=str(input("[::] Please enter again the url of the story: "))
+            url=input(f"{yellow}[::] Story URL >>> ")
+        sleep(1)
         print(Get_Spk(url))
-        pk=int(input("[::] Please enter the story ID as shown above: "))
+        pk=int(input(f"{yellow}[::] Story ID (as shown above) >>> "))
         while checkID(id):
             checkOpt(id, "id")
             sleep(1)
-            pk=int(input("[::] Please enter again the story ID as shown above: "))
+            pk=int(input(f"{yellow}[::] Story ID >>> "))
         try:
+            sleep(1)
+            print(f"{green}[✓] Action successfull.")
+            sleep(0.8)
             print(client.story_info_v1(pk))
-            sleep(2)
-            print("[✓] Request successful !")
         except Exception as ex:
             Except(ex)
 
     elif option == 46:
         clear()
-        print("[+] Countries example: US, BR, CZ")
+        print(f"{yellow}[+] Country example: US, BR, CZ")
         sleep(1)
-        fcodes=str(input("[?] Do you want to display full list of country codes ? [yes/no] "))
-        while fcodes not in ANS or fcodes == None:
-            if fcodes == None:
-                print("[!] This field can't be blank !")
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(1)
+        fcodes=input(f"{yellow}[::] Print full list >>> ")
+        while fcodes.lower() not in ANS or fcodes in NULL:
+            if fcodes in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
+                print(f"{red}[!] Invalid input !")
             sleep(1)
-            fcodes=str(input("[?] Do you want to display full list of country codes ? [yes/no] "))
-        if fcodes in ANS[:9]:
+            fcodes=input(f"{yellow}[::] Print full list >>> ")
+        if fcodes == ANS[0]:
             webbrowser.open("https://www.iban.com/country-codes")
-        country=str(input("[::] Please enter the country: "))
-        while country == None:
-            print("[!] This field can't be blank !")
+        sleep(1)
+        country=input(f"{yellow}[::] Country >>> ")
+        while country in NULL or not country:
+            print(f"{red}[✕] This field can't be blank !")
             sleep(1)
-            country=str(input("[::] Please enter again the country: "))
+            country=input(f"{yellow}[::] Country >>> ")
         try:
             client.set_country(country)
             sleep(2)
-            print("[✓] Country applied !")
+            print(f"{green}[✓] Country applied.")
         except Exception as ex:
             Except(ex)
 
     elif option == 47:
         clear()
-        bio=str(input("[::] Please enter the text for the bio: "))
-        while bio == None:
-            print("[!] This field can't be blank !")
+        bio=input(f"{yellow}[::] Bio >>> ")
+        while bio in NULL or not bio:
+            print(f"{red}[✕] This field can't be blank !")
             sleep(1)
-            bio=str(input("[::] Please enter again the text for the bio: "))
+            bio=input(f"{yellow}[::] Bio >>> ")
         try:
             client.account_set_biography(bio)
             sleep(2)
-            print("[✓] Bio applied !")
+            print(f"{green}[✓] Bio changed.")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 48:
         clear()
-        username=str(input("[::] Please enter your username: "))
-        while checkUser(username):
-            checkOpt(username, "username")
-            sleep(1)
-            username=str(input("[::] Please enter again your username: "))
-        while valUser(username):
-            if type(CheckVal()) == bool:
-                CheckVal()
-            else:
-                username = CheckVal()
-        username = username.lower().strip()
-        try:
-            info = client.user_info_by_username_v1(username)
-            sleep(1)
-            print("[✓] Information gathering successful !")
-            sleep(2)
-            print(info)
-            Class()
-        except Exception as ex:
-            Except(ex)
+        """
+        SAME METHOD AS POIROT
+        """
 
     elif option == 49:
         clear()
-        username=str(input("[::] Please enter the username: "))
+        username=input(f"{yellow}[::] Username >>> ")
         while checkUser(username):
             checkOpt(username, "username")
             sleep(1)
-            username=str(input("[::] Please enter again the username: "))
+            username=input(f"{yellow}[::] Username >>> ")
         while valUser(username):
             if type(CheckVal()) == bool:
                 CheckVal()
             else:
                 username = CheckVal()
         username = username.lower().strip()
+        sleep(1)
         print(GetID(username))
-        id=int(input("[::] Please enter the ID as shown above: "))
+        id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
         while checkID(id):
             checkOpt(id, "id")
             sleep(1)
-            id=int(input("[::] Please enter again the ID as shown above: "))
+            id=int(input(f"{yellow}[::] ID >>> "))
         try:
             posts=client.usertag_medias_v1(id)
             sleep(2)
-            print("[✓] Request successful !")
+            print(f"{green}[✓] Action successful.")
             sleep(1)
             for i in range(len(posts)):
                 print(posts[i])
@@ -2795,11 +2497,11 @@ def main():
 
     elif option == 50:
         clear()
-        username=str(input("[::] Please enter your username: "))
+        username=input(f"{yellow}[::] Username (your) >>> ")
         while checkUser(username):
             checkOpt(username, "username")
             sleep(1)
-            username=str(input("[::] Please enter again your username: "))
+            username=input(f"{yellow}[::] Username (your) >>> ")
         while valUser(username):
             if type(CheckVal()) == bool:
                 CheckVal()
@@ -2809,146 +2511,184 @@ def main():
         try:
             dictr = client.reset_password(username)
             sleep(2)
-            print("[✓] Password reset successfull !")
+            print(f"{green}[✓] Password reset.")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 51:
         clear()
-        set_first_name=str(input("[?] Do you want to set a first name ? [yes/no] "))
-        while set_first_name == None or set_first_name not in ANS:
-            if set_first_name == None:
-                print("[!] This field can't be blank !")
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(1)
+        set_first_name=input(f"{yellow}[::] Set first name >>> ")
+        while set_first_name in NULL or set_first_name.lower() not in ANS:
+            if set_first_name in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
-            sleep(1)
-            set_first_name=str(input("[?] Do you want to set a first name ? [yes/no] "))
-        if set_first_name in ANS[:9]:
-            first_name=str(input("[::] Please enter your first name: "))
-            while first_name == None:
-                print("[!] This field can't be blank !")
+                print(f"{red}[!] Invalid answer !")
                 sleep(1)
-                first_name=str(input("[::] Please enter again your first name: "))
-        set_bio=str(input("[?] Do you want to set a bio ? [yes/no] "))
-        while set_bio == None or set_bio not in ANS:
-            if set_bio == None:
-                print("[!] This field can't be blank !")
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            set_first_name=input(f"{yellow}[::] Set first name >>> ")
+        if set_first_name.lower() == ANS[0]:
+            first_name=input(f"{yellow}[::] First name >>> ")
+            while first_name in NULL or not first_name:
+                print(f"{red}[✕] This field can't be blank !")
+                sleep(1)
+                first_name=input(f"{yellow}[::] First name >>> ")
+        else:
+            first_name = ''
+        sleep(1)
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(1)
+        set_bio=input(f"{yellow}[::] Set bio >>> ")
+        while set_bio in NULL or set_bio.lower() not in ANS:
+            if set_bio in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
-            sleep(1)
-            set_bio=str(input("[?] Do you want to set a bio ? [yes/no] "))
-        if set_bio in ANS[:9]:
-            bio=str(input("[::] Please enter the bio: "))
-            while bio == None:
-                print("[!] This field can't be blank !")
+                print(f"{red}[!] Invalid answer !")
                 sleep(1)
-                bio=str(input("[::] Please enter again the bio: "))
-        set_ex_url=str(input("[?] Do you want to add an external url ? [yes/no] "))
-        while set_ex_url == None or set_ex_url not in ANS:
-            if set_ex_url == None:
-                print("[!] This field can't be blank !")
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            set_bio=input(f"{yellow}[::] Set bio >>> ")
+        if set_bio.lower() == ANS[0]:
+            bio=input(f"{yellow}[::] Bio >>> ")
+            while bio in NULL:
+                print(f"{red}[✕] This field can't be blank !")
+                sleep(1)
+                bio=input(f"{yellow}[::] Bio >>> ")
+        else:
+            bio = ''
+        sleep(1)
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(1)
+        set_ex_url=input(f"{yellow}[::] Add external URL >>> ")
+        while set_ex_url in NULL or set_ex_url.lower() not in ANS:
+            if set_ex_url in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
-            sleep(1)
-            set_ex_url=str(input("[?] Do you want to set an external url ? [yes/no] "))
-        if set_ex_url in ANS[:9]:
-            url=str(input("[::] Please enter the url: "))
-            while url == None or "/" not in url or "//" not in url:
-                print("[!] This field can't be blank !")
+                print(f"{red}[!] Invalid answer !")
                 sleep(1)
-                url=str(input("[::] Please enter again the url: "))
-        set_email=str(input("[?] Do you want to add an email ? [yes/no] "))
-        while set_email == None or set_email not in ANS:
-            if set_email == None:
-                print("[!] This field can't be blank !")
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            set_ex_url=input(f"{yellow}[::] Add external URL >>> ")
+        if set_ex_url.lower() == ANS[0]:
+            url=input(f"{yellow}[::] URL >>> ")
+            while url in NULL:
+                print(f"{red}[✕] This field can't be blank !")
+                sleep(1)
+                url=input(f"{yellow}[::] URL >>> ")
+        else:
+            url = ''
+        sleep(1)
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(1)
+        set_email=input(f"{yellow}[::] Add email >>> ")
+        while set_email in NULL or set_email.lower() not in ANS:
+            if set_email in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
-            sleep(1)
-            set_email=str(input("[?] Do you want to set an email ? [yes/no] "))
-        if set_email in ANS[:9]:
-            email=str(input("[::] Please enter the email address: "))
-            while email == None or "@" not in email or "gmail" not in email or ".com" not in email:
-                if email == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid email address !")
+                print(f"{red}[!] Invalid answer !")
                 sleep(1)
-                email=str(input("[::] Please enter again the email address: "))
-        set_phone_number=str(input("[?] Do you want to add a phone number ? [yes/no] "))
-        while set_phone_number == None or set_phone_number not in ANS:
-            if set_phone_number == None:
-                print("[!] This field can't be blank !")
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            set_email=input(f"{yellow}[::] Add email >>> ")
+        if set_email.lower() == ANS[0]:
+            email=input(f"{yellow}[::] Email >>> ")
+            while email in NULL:
+                print(f"{red}[✕] This field can't be blank !")
+                sleep(1)
+                email=input(f"{yellow}[::] Email >>> ")
+        else:
+            email = ''
+        sleep(1)
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(1)
+        set_phone_number=input(f"{yellow}[::] Add phone >>> ")
+        while set_phone_number in NULL or set_phone_number.lower() not in ANS:
+            if set_phone_number in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
-            sleep(1)
-            set_phone_number=str(input("[?] Do you want to set a phone number ? [yes/no] "))
-        if set_phone_number in ANS[:9]:
-            phone_number=int(input("[::] Please enter the phone number: "))
-            while phone_number == None:
-                print("[!] This field can't be blank !")
+                print(f"{red}[!] Invalid answer !")
                 sleep(1)
-                phone_number=int(input("[::] Please enter again the phone number: "))
-        set_gender=str(input("[?] Do you want to set a gender ? [yes/no] "))
-        while set_gender == None or set_gender not in ANS:
-            if set_gender == None:
-                print("[!] This field can't be blank !")
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            set_phone_number=input(f"{yellow}[::] Add phone >>> ")
+        if set_phone_number == ANS[0]:
+            phone_number=int(input(f"{yellow}[::] Phone >>> "))
+            while not phone_number:
+                print(f"{red}[✕] This field can't be blank !")
+                sleep(1)
+                phone_number=int(input(f"{yellow}[::] Phone >>> "))
+        else:
+            phone_number = 00000000
+        sleep(1)
+        print(f"{green}[+] Acceptable answers >>> {ANS}")
+        sleep(1)
+        set_gender=input(f"{yellow}[::] Set a gender >>> ")
+        while set_gender in NULL or set_gender.lower() not in ANS:
+            if set_gender in NULL:
+                print(f"{red}[✕] This field can't be blank !")
             else:
-                print("[!] Invalid input !")
-            sleep(1)
-            set_gender=str(input("[?] Do you want to set a gender ? [yes/no] "))
-        if set_gender in ANS[:9]:
-            gender=str(input("[::] Please enter the gender: "))
-            while gender == None:
-                print("[!] This field can't be blank !")
+                print(f"{red}[!] Invalid input !")
                 sleep(1)
-                gender=str(input("[::] Please enter again the gender: "))
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            set_gender=input(f"{yellow}[::] Set a gender >>> ")
+        if set_gender == ANS[0]:
+            gender=input(f"{yellow}[::] Gender >>> ")
+            while gender in NULL:
+                print(f"[✕] This field can't be blank !")
+                sleep(1)
+                gender=input(f"{yellow}[::] Gender >>> ")
+        else:
+            gender = ''
         try:
-            api.edit_profile(first_name,bio,url,email,phone_number,gender)
+            api.edit_profile(first_name, bio, url, email, phone_number, gender)
             sleep(2)
-            print("[✓] Profile edited !")
+            print(f"{green}[✓] Profile edited.")
             Class()
         except Exception as ex:
             Except(ex)
 
     elif option == 52:
         clear()
-        count=int(input("[::] How many posts do you want to like/unlike ? "))
+        count=int(input(f"{yellow}[::] Posts to like/unlike (num) >>> "))
         while checkCount(count):
             checkOpt(count, "count")
             sleep(1)
-            count=int(input("[::] How many posts do you want to like/unlike ? "))
+            count=int(input(f"{yellow}[::] Posts to like/unlike (num) >>> "))
         browser = webdriver.Chrome()
         for i in range(count):
-            url=str(input("[::] Please enter the url of the post: "))
-            while url == None or "https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url:
-                print("[!] This field can't be blank !")
+            url=input(f"{yellow}[::] Post url >>> ")
+            while url in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                url=str(input("[::] Please enter again the url of the post: "))
+                url=input(f"{yellow}[::] Post url >>> ")
             try:
                 browser.get(url)
                 like = browser.find_element_by_id("mount_0_0_Cs")
                 like.click()
                 sleep(2)
-                print("[✓] Posts liked !")
+                print(f"{green}[✓] Post liked.")
                 Class()
             except Exception as ex:
                 Except(ex)
 
     elif option == 53:
         clear()
-        count=int(input("[::] Please enter the number of deletes to make: "))
+        count=int(input(f"{yellow}[::] Deletes (num) >>> "))
         while checkCount(count):
             checkOpt(count, "count")
             sleep(1)
-            count=int(input("[::] Please enter again the number of deletes to make: "))
+            count=int(input(f"{yellow}[::] Deletes (num) >>> "))
         browser = webdriver.Chrome()
         for i in range(count):
-            url=str(input("[::] Please enter the url of the post, igtv, reel etc. : "))
-            while url == None or "https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url:
-                print("[!] This field can't be blank !")
+            url=input(f"{yellow}[::] URL >>> ")
+            while url in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                url=str(input("[::] Please enter again the url of the post, igtv, reel etc. : "))
+                url=input(f"{yellow}[::] URL >>> ")
             try:
                 browser.get(url)
                 menu = browser.find_element_by_class_name("_ab6-")
@@ -2956,104 +2696,117 @@ def main():
                 delete = browser.find_element_by_class_name("_a9-- _a9-_")
                 delete.click()
                 sleep(2)
-                print("[✓] Deleted !")
+                print(f"{green}[✓] Element deleted.")
                 Class()
             except Exception as ex:
                 Except(ex)
 
     elif option == 54:
-        count=int(input("[::] Please enter the number of the posts, igtv, reels etc. to save: "))
+        count=int(input(f"{yellow}[::] Elements to save (num) >>> "))
         while checkCount(count):
             checkOpt(count, "count")
             sleep(1)
-            count=int(input("[::] Please enter again the number of the posts to save: "))
+            count=int(input(f"{yellow}[::] Elements to save >>> "))
         browser = webdriver.Chrome()
         for i in range(count):
-            url=str(input("[::] Please enter the url of the post, igtv, reel etc. : "))
-            while url == None or "https" not in url and "instagram" not in url and "//" not in url and ".com" not in url and "/" not in url:
-                print("[!] This field can't be blank !")
+            url=input(f"{yellow}[::] URL >>> ")
+            while url in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                url=str(input("[::] Please enter again the url of the post, igtv, reel etc. : "))
+                url=input(f"{yellow}[::] URL >>> ")
             try:
                 browser.get(url)
                 save = browser.find_element_by_class_name("_abm0 _abm1")
                 save.click()
                 sleep(2)
-                print("[✓] Saved !")
+                print(f"{green}[✓] Element saved.")
                 Class()
             except Exception as ex:
                 Except(ex)
 
     elif option == 55:
         clear()
-        __time__=str(input("[::] Please enter the time (example: 15:06:10): "))
-        while __time__ == None or ":" not in __time__:
-            print("[!] This field can't be blank !")
+        print(f"{green}[+] Acceptable time format >>> 15:06:10")
+        sleep(1)
+        tm=input(f"{yellow}[::] Time >>> ")
+        while tm in NULL or ":" not in tm:
+            if tm in NULL:
+                print(f"{red}[✕] This field can't be blank !")
+            else:
+                print(f"{red}[!] Missing : from time.")
+                sleep(1)
+                print(f"{green}[+] Acceptable time format >>> 15:06:10")
             sleep(1)
-            __time__=str(input("[::] Please enter again the time (example: 15:06:10): "))
-        Av_Acts()
+            tm=input(f"{yellow}[::] Time >>> ")
+        AvActs()
         cur_time = datetime.now()
         current_time = cur_time.now("%H:%M:%S")
-        action=int(input("[::] Please enter the number of the action: "))
+        action=int(input(f"{yellow}[::] Num (from the above ones) >>> "))
         while valOpt(action, 1, 26):
-            if action == None:
-                print("[!] This field can't be blank !")
-            else:
-                print("[!] Invalid number !")
+            print(f"{red}[!] Invalid number !")
             sleep(1)
-            action=int(input("[::] Please enter again the number of the action: "))
+            print(f"{green}[+] Acceptable numbers >>> [1-26]")
+            sleep(1)
+            action=int(input(f"{yellow}[::] Num (from the above ones) >>> "))
         if action == 1:
-            count=int(input("[::] Please enter the number of posts to post: "))
+            clear()
+            count=int(input(f"{yellow}[::] Posts to make (num) >>> "))
             while checkCount(count):
                 checkOpt(count, "count")
                 sleep(1)
-                count=int(input("[::] Please enter again the number of posts to post: "))
+                count=int(input(f"{yellow}[::] Posts to make >>> "))
+            sleep(0.5)
             for i in range(count):
-                path=str(input("[::] Please enter the path to the photo: "))
+                path=input(f"{yellow}[::] Path to photo >>> ")
                 while checkPath(path):
                     checkOpt(path, "path")
                     sleep(1)
-                    path=str(input("[::] Please enter again the path to the photo: "))
-                sleep(2)
-                print(">>>CAPTION<<<")
+                    path=input(f"{yellow}[::] Path to photo >>> ")
+                sleep(1.5)
+                print(f"{yellow}>>>CAPTION<<<")
+                sleep(0.5)
+                default = 'Check out my new post !'
+                print(f"{yellow}[+] Default: \"{default}\"")
+                sleep(0.6)
+                print(f"{yellow}[*] Hit <Enter> to apply the default caption.")
+                sleep(0.7)
+                cap = input(f"{yellow}[::] Caption >>> ")
+                cap = default if cap == '' else cap
+                print(f"{yellow}>>>TAGS<<<")
+                sleep(0.5)
+                print(f"{yellow}[+] Default: [No]")
                 sleep(1)
-                print("[+] Default: \"Check out my new post !\"")
-                sleep(2)
-                print("[*] Hit <Tab> and <Enter> to apply the default option")
-                sleep(2)
-                caption=str(input("[::] Please enter the caption: "))
-                if caption == "\t":
-                    caption = "Check out my new post !"
-                print(">>>TAGS<<<")
-                sleep(2)
-                print("[+] Default: [No]")
-                sleep(2)
-                print("[*] Hit <Tab> and <Enter> to apply the default option")
-                sleep(2)
-                tags=str(input("[?] Do you want to tag other users ? [yes/no] "))
-                while tags not in ANS or tags == None:
-                    if tags == None:
-                        print("[!] This field can't be blank !")
+                print(f"{yellow}[*] Hit <Enter> to apply the default option.")
+                sleep(0.8)
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
+                sleep(1)
+                tags=input(f"{yellow}[::] Tag user(s) >>> ")
+                while tags.lower() not in ANS or tags in NULL:
+                    if tags in NULL:
+                        print(f"{red}[✕] This field can't be blank !")
                     else:
-                        print("[!] Invalid input !")
+                        print(f"{red}[!] Invalid answer !")
+                        sleep(1)
+                        print(f"{green}[+] Acceptable answers >>> {ANS}")
                     sleep(1)
-                    tags=str(input("[?] Do you want to tag other users ? [yes/no] "))
-                if tags == "\t":
-                    tags = "no"
-                if tags in ANS[:9]:
-                    print("[+] Default: 1")
-                    sleep(2)
-                    print("[*] Hit <Tab> and <Enter> to apply the default option")
-                    count=int(input("[?] How many users do you want to include ? "))
+                    tags=input(f"{yellow}[::] Tag user(s) >>> ")
+                tags = tags == ANS[0]
+                if tags:
+                    print(f"{yellow}[+] Default: 1")
+                    sleep(0.5)
+                    print(f"{yellow}[*] Hit <Enter> to apply the default option.")
+                    sleep(0.7)
+                    count=int(input(f"{yellow}[::] Users to tag (num) >>> "))
                     while checkCount(count):
                         checkOpt(count, "count")
                         sleep(1)
-                        count=int(input("[?] How many users do you want to tag ? "))
-                    utag=str(input("[::] Please enter the username: "))
+                        count=int(input(f"{yellow}[::] Users to tag (num) >>> "))
+                    sleep(0.8)
+                    utag=input(f"{yellow}[::] Username >>> ")
                     while checkUser(username):
                         checkOpt(username, "username")
                         sleep(1)
-                        utag=str(input("[::] Please enter again the username: "))
+                        utag=input(f"{yellow}[::] Username >>> ")
                     while valUser(utag):
                         if type(CheckVal()) == bool:
                             CheckVal()
@@ -3062,11 +2815,11 @@ def main():
                     utag = utag.lower().strip()
                     TaggedUsers.append(utag)
                     for i in range(count):
-                        utag=str(input(f"[::] Please enter the username No{i+1}: "))
+                        utag=input(f"{yellow}[::] Username No{i+1} >>> ")
                         while checkUser(utag):
                             checkOpt(utag, "username")
                             sleep(1)
-                            utag=str(input(f"[::] Please enter again the username No{i+1}: "))
+                            utag=input(f"{yellow}[::] Username No{i+1} >>> ")
                         while valUser(utag):
                             if type(CheckVal()) == bool:
                                 CheckVal()
@@ -3074,166 +2827,175 @@ def main():
                                 utag = CheckVal()
                         utag = utag.strip().lower()
                         TaggedUsers.append(utag)
-                print(">>>LOCATION<<<")
-                sleep(2)
-                print("[+] Default: [No]")
+                sleep(0.7)
+                print(f"{yellow}>>>LOCATION<<<")
+                sleep(0.5)
+                print(f"{yellow}[+] Default: [No]")
+                sleep(0.5)
+                print(f"{yellow}[*] Hit <Enter> to apply the default option.")
+                sleep(0.7)
+                print(f"{green}[+] Acceptable answers >>> {ANS}")
                 sleep(1)
-                print("[*] Hit <Tab> and <Enter> to apply the default option")
-                sleep(2)
-                loc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-                while loc not in ANS or loc == None:
-                    if loc == None:
-                        print("[!] This field can't be blank !")
+                loc=input(f"{yellow}[::] Include location >>> ")
+                while loc.lower() not in ANS or loc in NULL:
+                    if loc in NULL:
+                        print(f"{red}[✕] This field can't be blank !")
                     else:
-                        print("[!] Invalid input !")
+                        print(f"[!] Invalid answer !")
+                        sleep(1)
+                        print(f"{green}[+] Acceptable answers >>> {ANS}")
                     sleep(1)
-                    loc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-                if loc == "\t":
-                    loc = "no"
-                if loc in ANS[:9]:
-                    count=int(input("[?] How many ? "))
+                    loc=input(f"{yellow}[::] Include location >>> ")
+                loc = loc == ANS[0]
+                if loc:
+                    count=int(input(f"{yellow}[::] Number >>> "))
                     while checkCount(count):
                         checkOpt(count, "count")
                         sleep(1)
-                        count=int(input("[?] How many locations do you want to include ? "))
+                        count=int(input(f"{yellow}[::] Number >>> "))
                     for i in range(count):
-                        location1=str(input(f"[::] Please enter location No{i+1}: "))
-                        while location1 == None:
-                            print("[!] This field can't be blank !")
+                        location=input(f"{yellow}[::] Location No{i+1} >>> ")
+                        while location in NULL:
+                            print(f"{red}[✕] This field can't be blank !")
                             sleep(1)
-                            location1=str(input(f"[::] Please enter again location No{i+1}: "))
-                        LOCATIONS.append(location1)
-                        print("[✓] Location added !")
-                    if current_time == __time__:
+                            location=input(f"{yellow}[::] Location No{i+1} >>> ")
+                        LOCATIONS.append(location)
+                        print(f"{green}[✓] Location added.")
+                    if current_time == tm:
                         try:
                             client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
                             sleep(2)
-                            print("[✓] Photo uploaded !")
+                            print(f"{green}[✓] Photo uploaded.")
                             Class()
                         except Exception as ex:
                             Except(ex)
                     else:
-                        print(f"[+] Current time: {current_time}")
+                        print(f"{yellow}[+] Current time: {current_time}")
                         sleep(1)
-                        print(f"[+] Waiting for time: {__time__}")
+                        print(f"{yellow}[+] Waiting for time: {tm}...")
                         Class()
 
-                if tags in ANS[:9] and loc in ANS[:9]:
-                    if current_time == __time__:
+                if tags and loc:
+                    if current_time == tm:
                         try:
                             client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
-                            print("[✓] Photo uploaded !")
+                            print(f"{green}[✓] Photo uploaded.")
                             Class()
                         except Exception as ex:
                             Except(ex)
                     else:
-                        print(f"[+] Current time: {current_time}")
+                        print(f"{yellow}[+] Current time: {current_time}")
                         sleep(1)
-                        print(f"[+] Waiting for time: {__time__}")
+                        print(f"{yellow}[+] Waiting for time: {tm}...")
                         Class()
-                elif tags in ANS[:9] and loc in ANS[9:]:
-                    if current_time == __time__:
+                elif tags and loc:
+                    if current_time == tm:
                         try:
                             client.photo_upload(path=path,caption=caption,tags=TaggedUsers)
-                            print("[✓] Photo uploaded !")
+                            print(f"{green}[✓] Photo uploaded.")
                             Class()
                         except Exception as ex:
                             Except(ex)
                     else:
-                        print(f"[+] Current time: {current_time}")
+                        print(f"{yellow}[+] Current time: {current_time}")
                         sleep(1)
-                        print(f"[+] Waiting for time: {__time__}")
+                        print(f"{yellow}[+] Waiting for time: {tm}...")
                         Class()
-                elif tags in ANS[9:] and loc in ANS[:9]:
-                    if current_time == __time__:
+                elif not tags and loc:
+                    if current_time == tm:
                         try:
                             client.photo_upload(path=path,caption=caption,location=LOCATIONS)
-                            print("[✓] Photo uploaded !")
+                            print(f"{green}[✓] Photo uploaded.")
                             Class()
                         except Exception as ex:
                             Except(ex)
                     else:
-                        print(f"[+] Current time: {current_time}")
+                        print(f"{yellow}[+] Current time: {current_time}")
                         sleep(1)
-                        print(f"[+] Waiting for time: {__time__}")
+                        print(f"{yellow}[+] Waiting for time: {tm}...")
                         Class()
-                elif tags in ANS[9:] and loc in ANS[9:]:
-                    if current_time == __time__:
+                elif not tags and not loc:
+                    if current_time == tm:
                         try:
                             client.photo_upload(path=path,caption=caption)
-                            print("[✓] Photo uploaded !")
+                            print(f"{green}[✓] Photo uploaded.")
                             Class()
                         except Exception as ex:
                             Except(ex)
                     else:
-                        print(f"[+] Current time: {current_time}")
+                        print(f"{yellow}[+] Current time: {current_time}")
                         sleep(1)
-                        print(f"[+] Waiting for time: {__time__}")
+                        print(f"{yellow}[+] Waiting for time: {tm}...")
                         Class()
 
         elif action == 2:
-            path=str(input("[::] Please enter the path to the picture: "))
+            clear()
+            path=input(f"{yellow}[::] Path to pic >>> ")
             while checkPath(path):
                 checkOpt(path, "path")
                 sleep(1)
-                path=str(input("[::] Please enter again the path to the picture: "))
+                path=input(f"{yellow}[::] Path to pic >>> ")
             try:
                 client.account_change_picture(path)
                 sleep(2)
-                print("[✓] Profile picture changed !")
+                print(f"{green}[✓] Profile pic changed.")
                 Class()
             except Exception as ex:
                 Except(ex)
 
         elif action == 3:
-            path=str(input("[::] Please enter the path to the photo: "))
+            path=input(f"{yellow}[::] Path to photo >>> ")
             while checkPath(path):
                 checkOpt(path, "path")
                 sleep(1)
-                path=str(input("[::] Please enter again the path to the photo: "))
-            AddCaption=str(input("[?] Do you want to add caption ? [yes/no] "))
-            while AddCaption not in ANS or AddCaption == None:
-                if AddCaption == None:
-                    print("[!] This field can't be blank !")
+                path=input(f"{yellow}[::] Path to photo >>> ")
+            sleep(0.5)
+            print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            AddCaption=input(f"{yellow}[::] Add caption >>> ")
+            while AddCaption.lower() not in ANS or AddCaption in NULL:
+                if AddCaption in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                 else:
-                    print("[!] Invalid input !")
+                    print(f"{red}[!] Invalid answer !")
+                    sleep(1)
+                    print(f"{green}[+] Acceptable answers >>> {ANS}")
                 sleep(1)
-                AddCaption=str(input("[?] Do you want to add caption ? [yes/no] "))
-            if AddCaption in ANS[:9]:
-                print("[+] Default: \"Check out my new story !\"")
-                sleep(2)
-                print("[*] Hit <Tab> and <Enter> for the default option to be applied")
-                sleep(2)
-                caption=str(input("[::] Please enter the caption: "))
-                if caption == "\t":
-                    caption = "Check out my new story !"
-                else:
-                    caption=str(input("[::] Please enter a caption to include: "))
-                    while caption == None:
-                        print("[!] This field can't be blank !")
-                        sleep(1)
-                        caption=str(input("[::] Please enter again a caption to include: "))
-            AddMention=str(input("[?] Do you want to add mention ? [yes/no] "))
-            while AddMention not in ANS or AddMention == None:
-                if AddMention == None:
-                    print("[!] This field can't be blank !")
-                else:
-                    print("[!] Invalid input !")
+                AddCaption=input(f"{yellow}[::] Add caption >>> ")
+            caption = ''
+            if AddCaption == ANS[0]:
+                print(f"{yellow}[+] Default: \"{default}\"")
                 sleep(1)
-                mention=str(input("[?] Do you want to mention user(s) ? [yes/no] "))
-            if AddMention in ANS[:9]:
+                print(f"{yellow}[*] Hit <Enter> to apply the default caption.")
+                sleep(1)
+                caption=input(f"{yellow}[::] Caption >>> ")
+            caption = default if caption == NULL[0] else caption
+            sleep(1)
+            print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            AddMention=input(f"{yellow}[?] Add mention >>> ")
+            while AddMention.lower() not in ANS or AddMention in NULL:
+                if AddMention in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
+                else:
+                    print(f"{red}[!] Invalid answer !")
+                    sleep(1)
+                    print(f"{green}[+] Acceptable answers >>> {ANS}")
+                sleep(1)
+                AddMention=input(f"{yellow}[?] Add mention >>> ")
+            if AddMention == ANS[0]:
                 MENTIONS = []
-                count=int(input("[?] How many ? "))
+                count=int(input(f"{yellow}[::] Number >>> "))
                 while checkCount(count):
                     checkOpt(count, "count")
                     sleep(1)
-                    count=int(input("[?] How many users do you want to mention ? "))
+                    count=int(input(f"{yellow}[::] Number >>> "))
                 for i in range(count):
-                    mention=str(input(f"[::] Please enter the username No{i+1}: "))
+                    mention=input(f"{yellow}[::] Username No{i+1} >>> ")
                     while checkUser(mention):
                         checkOpt(mention, "username")
                         sleep(1)
-                        mention=str(input(f"[::] Please enter again the username No{i+1}: "))
+                        mention=input(f"{yellow}[::] Username No{i+1} >>> ")
                     while valUser(mention):
                         if type(CheckVal()) == bool:
                             CheckVal()
@@ -3242,788 +3004,317 @@ def main():
                     mention = mention.lower().strip()
                     MENTIONS.append(mention)
                     sleep(1)
-                    print("[✓] Mention added !")
-            AddLoc=str(input("[?] Do you want to add location ? [yes/no] "))
-            while AddLoc not in ANS or AddLoc == None:
-                if AddLoc == None:
-                    print("[!] This field can't be blank !")
+                    print(f"{green}[✓] Mention added.")
+            sleep(1)
+            print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            AddLoc=input(f"{yellow}[::] Add location >>> ")
+            while AddLoc.lower() not in ANS or AddLoc in NULL:
+                if AddLoc in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                 else:
-                    print("[!] Invalid input !")
+                    print(f"{red}[!] Invalid answer !")
+                    sleep(1)
+                    print(f"{green}[+] Acceptable answers >>> {ANS}")
                 sleep(1)
-                AddLoc=str(input("[?] Do you want to add location ? [yes/no] "))
-            if AddLoc in ANS[:9]:
-                count=int(input("[?] How many locations do you want to add ? "))
+                AddLoc=input(f"{yellow}[::] Add location >>> ")
+            if AddLoc == ANS[0]:
+                count=int(input(f"{yellow}[::] Number >>> "))
                 while checkCount(count):
                     checkOpt(count, "count")
                     sleep(1)
-                    count=int(input("[?] How many locations do you want to add ? "))
+                    count=int(input(f"{yellow}[::] Number >>> "))
                 for i in range(count):
-                    loc=str(input(f"[::] Please enter location No{i+1}: "))
-                    while loc == None:
-                        print("[!] This field can't be blank !")
+                    loc=input(f"{yellow}[::] Location No{i+1} >>> ")
+                    while loc in NULL:
+                        print(f"{yellow}[✕] This field can't be blank !")
                         sleep(1)
-                        loc=str(input(f"[::] Please enter again location No{i+1}: "))
+                        loc=input(f"{yellow}[::] Location No{i+1} >>> ")
                     LOCATIONS.append(loc)
                     sleep(1)
-                    print("[✓] Location added !")
-            AddLinks=str(input("[?] Do you want to include urls ? [yes/no] "))
-            while AddLinks not in ANS or AddLinks == None:
-                if AddLinks == None:
-                    print("[!] This field can't be blank !")
+                    print(f"{green}[✓] Location added.")
+            sleep(1)
+            print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            AddLinks=input(f"{yellow}[::] Include urls >>> ")
+            while AddLinks.lower() not in ANS or AddLinks in NULL:
+                if AddLinks in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                 else:
-                    print("[!] Invalid input !")
+                    print(f"{red}[!] Invalid answer !")
+                    sleep(1)
+                    print(f"{green}[+] Acceptable answers >>> {ANS}")
                 sleep(1)
-                AddLinks=str(input("[?] Do you want to include urls ? [yes/no] "))
-            if AddLinks in ANS[:9]:
-                count=int(input("[?] How many ? "))
+                AddLinks=input(f"{yellow}[::] Include urls >>> ")
+            if AddLinks == ANS[0]:
+                count=int(input(f"{yellow}[::] Number >>> "))
                 while checkCount(count):
                     checkOpt(count, "other")
                     sleep(1)
-                    count=int(input("[?] How many urls do you want to include ? "))
+                    count=int(input(f"{yellow}[::] Number >>> "))
                 for i in range(count):
-                    link=str(input(f"[::] Please enter the url No{i+1}: "))
-                    while link == None or "/" not in link or "https" not in link:
-                        print("[!] This field can't be blank !")
+                    link=input(f"{yellow}[::] Url No{i+1} >>> ")
+                    while link in NULL:
+                        print(f"{red}[✕] This field can't be blank !")
                         sleep(1)
-                        link=str(input(f"[::] Please enter again the url No{i+1}: "))
+                        link=input(f"{yellow}[::] Url No{i+1} >>> ")
                     LINKS.append(link)
                     sleep(1)
-                    print("[✓] URL added !")
-            AddHash=str(input("[?] Do you want to include hashtags ? [yes/no] "))
-            while AddHash not in ANS or AddHash == None:
-                if AddHash == None:
-                    print("[!] This field can't be blank !")
+                    print(f"{green}[✓] URL added.")
+            sleep(1)
+            print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            AddHash=input(f"{yellow}[::] Include hashtags >>> ")
+            while AddHash.lower() not in ANS or AddHash in NULL:
+                if AddHash in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                 else:
-                    print("[!] Invalid input !")
+                    print(f"{red}[!] Invalid answer !")
+                    sleep(1)
+                    print(f"{green}[+] Acceptable answers >>> {ANS}")
                 sleep(1)
-                AddHash=str(input("[?] Do you want to include hashtags ? [yes/no] "))
-            if AddHash in ANS[:9]:
-                count=int(input("[?] How many ? "))
+                AddHash=input(f"{yellow}[::] Include hashtags >>> ")
+            if AddHash == ANS[0]:
+                count=int(input(f"{yellow}[::] Number >>> "))
                 while checkCount(count):
                     checkOpt(count, "count")
                     sleep(1)
-                    count=int(input("[?] How many hashtags do you want to include ? "))
+                    count=int(input(f"{yellow}[::] Number >>> "))
                 for i in range(count):
-                    hashtag=str(input(f"[::] Please enter the hashtag No{i+1}: "))
-                    while hashtag == None or "#" not in hashtag:
-                        print("[!] This field can't be blank !")
+                    hashtag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
+                    while hashtag in NULL or "#" not in hashtag:
+                        if hashtag in NULL:
+                            print(f"{red}[✕] This field can't be blank !")
+                        else:
+                            print(f"{red}[!] Hashtag must include: #")
                         sleep(1)
-                        hashtag=str(input(f"[::] Please enter again the hashtag No{i+1}: "))
+                        hashtag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
                     HASHTAGS.append(hashtag)
                     sleep(1)
-                    print("[✓] Hashtag added !")
-            if AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks != None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks != None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS,links=LINKS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks != None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks != None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,links=LINKS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for the time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,mentions=MENTIONS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,locations=LOCATIONS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for the time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks != None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,links=LINKS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=AddLinks)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks != None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,mentions=MENTIONS,links=LINKS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks == None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,locations=LOCATIONS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS)
-                        sleep(2)
-                        print("[!] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc != None and AddLinks != None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=LINKS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks != None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention != None and AddLoc == None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,mentions=MENTIONS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention == None and AddLoc != None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,locations=LOCATIONS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks != None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,links=LINKS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption != None and AddMention == None and AddLoc == None and AddLinks == None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,caption,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention != None and AddLoc != None and AddLinks == None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,mentions=MENTIONS,locations=LOCATIONS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks != None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,mentions=MENTIONS,links=LINKS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention != None and AddLoc == None and AddLinks == None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,mentions=MENTIONS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks != None and AddHash == None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,locations=LOCATIONS,links=LINKS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention == None and AddLoc != None and AddLinks == None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,locations=LOCATIONS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
-            elif AddCaption == None and AddMention == None and AddLoc == None and AddLinks != None and AddHash != None:
-                if current_time == __time__:
-                    try:
-                        client.photo_upload_to_story(path,links=LINKS,hashtags=HASHTAGS)
-                        sleep(2)
-                        print("[✓] Story uploaded !")
-                        Class()
-                    except Exception as ex:
-                        Except(ex)
-                else:
-                    print(f"[+] Current time: {current_time}")
-                    sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
-                    Class()
+                    print(f"{green}[✓] Hashtag added.")
+            while current_time != tm:
+                print(f"{yellow}[+] Current time: {current_time}")
+                sleep(1)
+                print(f"{yellow}[+] Waiting for time: {tm}...")
+            try:
+                client.photo_upload_to_story(path,caption,mentions=MENTIONS,locations=LOCATIONS,links=LINKS,hashtags=HASHTAGS)
+                sleep(2)
+                print(f"{green}[✓] Story uploaded.")
+                Class()
+            except Exception as ex:
+                Except(ex)
 
         elif action == 4:
-            hashtag = None
-            location = None
-            path=str(input("[::] Please enter the path to the video: "))
+            hashtag = location = ''
+            path=input(f"{yellow}[::] Path to video >>> ")
             while checkPath(path):
                 checkOpt(path, "path")
                 sleep(1)
-                path=str(input("[::] Please enter again the path to the video: "))
-            incap=str(input("[?] Do you want to include caption ? [yes/no] "))
-            while incap not in ANS or incap == None:
-                if incap == None:
-                    print("[!] This field can't be blank !")
+                path=input(f"{yellow}[::] Path to video >>> ")
+            sleep(0.7)
+            print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            incap=input(f"{yellow}[::] Include caption >>> ")
+            while incap.lower() not in ANS or incap in NULL:
+                if incap in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                 else:
-                    print("[!] Invalid input !")
+                    print(f"{red}[!] Invalid answer !")
+                    sleep(1)
+                    print(f"{green}[+] Acceptable answers >>> {ANS}")
                 sleep(1)
-                incap=str(input("[?] Do you want to include caption ? [yes/no] "))
-            if incap in ANS[:9]:
+                incap=input(f"{yellow}[::] Include caption >>> ")
+            caption = ''
+            if incap.lower() == ANS[0]:
+                default = 'Check out my new video !'
                 sleep(1)
-                print("[+] Default: \"Check out my new video !\"")
-                sleep(2)
-                print("[*] Hit <Tab> and <Enter> to apply the default caption")
-                sleep(2)
-                caption=str(input("[::] Please enter the caption: "))
-                if caption == "\t":
-                    caption = "Check out my new video !"
-            intag=str(input("[?] Do you want to include hashtag(s) ? [yes/no] "))
-            while intag not in ANS or intag == None:
-                if intag == None:
-                    print("[!] This field can't be blank !")
+                print(f"{yellow}[+] Default: \"{default}\"")
+                sleep(1)
+                print(f"{yellow}[*] Hit <Enter> to apply the default caption.")
+                sleep(0.8)
+                caption=input(f"{yellow}[::] Caption >>> ")
+                if caption == '':
+                    caption = default
+            sleep(1)
+            print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            intag=input(f"{yellow}[::] Include hashtags >>> ")
+            while intag.lower() not in ANS or intag in NULL:
+                if intag in NULL:
+                    print(f"{red}[✕] This field can't be blank !")
                 else:
-                    print("[!] Invalid input !")
+                    print(f"{red}[!] Invalid answer !")
+                    sleep(1)
+                    print(f"{green}[+] Acceptable answers >>> {ANS}")
                 sleep(1)
-                intag=str(input("[?] Do you want to include hashtag(s) ? [yes/no] "))
-            if intag in ANS[:9]:
-                count=int(input("[?] How many ? "))
+                intag=input(f"{yellow}[::] Include hashtags >>> ")
+            if intag.lower() == ANS[0]:
+                count=int(input(f"{yellow}[::] Number >>> "))
                 while checkCount(count):
                     checkOpt(count, "count")
                     sleep(1)
-                    count=int(input("[?] How many hashtags to include ? "))
+                    count=int(input(f"{yellow}[::] Number >>> "))
                 for i in range(count):
-                    hashtag=str(input(f"[::] Please enter the hashtag No{i+1} : "))
+                    hashtag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
                     while checkTag(hashtag):
-                        if hashtag == None:
-                            print("[!] This field can't be blank !")
+                        if hashtag in NULL:
+                            print(f"{red}[✕] This field can't be blank !")
                         else:
-                            print("[!] Invalid hashtag !")
-                        sleep(2)
-                        print("[+] You must include the: \"#\" symbol !")
-                        sleep(2)
-                        hashtag=str(input(f"[::] Please enter again hashtag No{i+1}: "))
+                            print(f"{red}[!] Invalid hashtag !")
+                            sleep(0.5)
+                            print(f"{green}[+] Acceptable hashtag format >>> #random")
+                        sleep(1)
+                        hashtag=input(f"{yellow}[::] Hashtag No{i+1} >>> ")
                     HASHVID.append(hashtag)
                     sleep(1)
-                    print("[✓] Hashtag added !")
-            inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-            while inloc not in ANS or inloc == None:
-                print("[!] This field can't be blank !")
+                    print(f"{green}[✓] Hashtag added.")
+            sleep(1)
+            print(f"{green}[+] Acceptable answers >>> {ANS}")
+            sleep(1)
+            inloc=input(f"{yellow}[::] Include location(s) >>> ")
+            while inloc.lower() not in ANS or inloc in NULL:
+                print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
-                inloc=str(input("[?] Do you want to include location(s) ? [yes/no] "))
-            if inloc in ANS[:9]:
-                count=int(input("[?] How many ? "))
+                inloc=input(f"{yellow}[::] Include location(s) >>> ")
+            location = ''
+            if inloc == ANS[0]:
+                count=int(input(f"{yellow}[::] Number >>> "))
                 while checkCount(count):
                     checkOpt(count, "other")
                     sleep(1)
-                    count=int(input("[?] How many locations to include ? "))
+                    count=int(input(f"{yellow}[::] Number >>> "))
                 for i in range(count):
-                    location=str(input(f"[::] Please enter location No{i+1} : "))
-                    while location == None:
-                        print("[!] This field can't be blank !")
+                    location=input(f"{yellow}[::] Location No{i+1} >>> ")
+                    while location in NULL:
+                        print(f"{red}[✕] This field can't be blank !")
                         sleep(1)
-                        location=str(input(f"[::] Please enter again location No{i+1}: "))
-            if current_time == __time__:
+                        location=input(f"{yellow}[::] Location No{i+1} >>> ")
+            if current_time == tm:
                 try:
                     client.video_upload(path,caption,usertags=HASHVID,location=location)
-                    sleep(2)
-                    print("[✓] Video uploaded !")
+                    sleep(1.5)
+                    print(f"{green}[✓] Video uploaded.")
                     Class()
                 except Exception as ex:
                     Except(ex)
             else:
-                print(f"[+] Current time: {current_time}")
+                print(f"{yellow}[+] Current time: {current_time}")
                 sleep(1)
-                print(f"[+] Waiting for time: {__time__}")
+                print(f"{yellow}[+] Waiting for time: {tm}...")
                 Class()
 
         elif action == 5:
-            count=int(input("[?] How many accounts do you want to follow ? "))
+            count=int(input(f"{yellow}[::] Number >>> "))
             while checkCount(count):
                 checkOpt(count, "count")
                 sleep(1)
-                count=int(input("[?] How many accounts do you want to follow ? "))
+                count=int(input(f"{yellow}[::] Number >>> "))
             if count == 1:
-                username=str(input("[::] Please enter the username: "))
+                username=input(f"{yellow}[::] Please enter the username: ")
                 while checkUser(username):
                     checkOpt(username, "username")
                     sleep(1)
-                    username=str(input("[::] Please enter again the username: "))
+                    username=input(f"{yellow}[::] Please enter the username: ")
                 while valUser(username):
                     if type(CheckVal()) == bool:
                         CheckVal()
                     else:
                         username = CheckVal()
                 username = username.lower().strip()
+                sleep(0.8)
                 print(GetID(username))
-                uid=int(input("[::] Please enter the user's ID as shown above: "))
+                uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 while checkID(uid):
                     checkOpt(uid, "id")
                     sleep(1)
-                    uid=int(input("[::] Please enter again the user's ID as shown above: "))
-                if current_time == __time__:
+                    uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
+                if current_time == tm:
                     try:
                         client.user_follow(uid)
                         sleep(2)
-                        print(f"[✓] Followed {username} !")
+                        print(f"{green}[✓] Followed {username}.")
                         Class()
                     except Exception as ex:
                         Exception(ex)
                 else:
-                    print(f"[+] Current time: {current_time}")
+                    print(f"{yellow}[+] Current time: {current_time}")
                     sleep(1)
-                    print(f"[+] Waiting for time: {__time__}")
+                    print(f"{yellow}[+] Waiting for time: {tm}...")
                     Class()
             else:
                 for i in range(count):
-                    username=str(input(f"[::] Please enter the username No{i+1}: "))
+                    username=input(f"{yellow}[::] Username No{i+1} >>> ")
                     while checkUser(username):
                         checkOpt(username, "username")
                         sleep(1)
-                        username=str(input(f"[::] Please enter again username No{i+1}: "))
+                        username=input(f"{yellow}[::] Username No{i+1} >>> ")
                     while valUser(username):
                         if type(CheckVal()) == bool:
                             CheckVal()
                         else:
                             username = CheckVal()
                     username = username.lower().strip()
+                    sleep(0.8)
                     print(GetID(username))
-                    id=int(input("[::] Please enter the user's ID as shown above: "))
-                    while checkID(id):
-                        checkOpt(id, "id")
+                    uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
+                    while checkID(uid):
+                        checkOpt(uid, "id")
                         sleep(1)
-                        uid=int(input("[::] Please enter again the user's ID as shown above: "))
-                    if current_time == __time__:
+                        uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
+                    if current_time == tm:
                         try:
                             client.user_follow(id)
                             sleep(2)
-                            print(f"[✓] Followed {username} !")
+                            print(f"{green}[✓] Followed {username}.")
                             Class()
                         except Exception as ex:
                             Exception(ex)
                     else:
-                        print(f"[+] Current time: {current_time}")
+                        print(f"{yellow}[+] Current time: {current_time}")
                         sleep(1)
-                        print(f"[+] Waiting for time: {__time__}")
+                        print(f"{yellow}[+] Waiting for time: {tm}...")
                         Class()
      
         elif action == 6:
-            if current_time == __time__:
-                count=int(input("[?] How many accounts do you want to unfollow ? "))
+            if current_time == tm:
+                count=int(input(f"{yellow}[::] Number >>> "))
                 while checkCount(count):
                     checkOpt(count, "other")
                     sleep(1)
-                    count=int(input("[?] How many accounts do you want to unfollow ? "))
+                    count=int(input(f"{yellow}[::] Number >>> "))
                 if count == 1: 
-                    username=str(input("[::] Please enter the username: "))
+                    username=input(f"{yellow}[::] Username >>> ")
                     while checkUser(username):
                         checkOpt(username, "username")
                         sleep(1)
-                        username=str(input("[::] Please enter again the username: "))
+                        username=input(f"{yellow}[::] Username >>> ")
                     while valUser(username):
                         if type(CheckVal()) == bool:
                             CheckVal()
                         else:
                             username = CheckVal()
                     username = username.lower().strip()
+                    sleep(1)
                     print(GetID(username))
-                    uid=int(input("[::] Please enter the user's ID as shown above: "))
+                    uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                     while checkID(uid):
                         checkOpt(uid, "id")
                         sleep(1)
-                        uid=int(input("[::] Please enter again the user's ID as shown above: "))
+                        uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                     try:
                         client.user_unfollow(uid)
                         sleep(2)
-                        print(f"[✓] Unfollowed {username} !")
+                        print(f"{green}[✓] Unfollowed {username}.")
                         Class()
                     except Exception as ex:
                         Except(ex)
                 else:
                     for i in range(count):
-                        username=str(input(f"[::] Please enter the username No{i+1}: "))
+                        username=input(f"{yellow}[::] Username No{i+1} >>> ")
                         while checkUser(username):
-                            checkOpt(usernmame, "username")
+                            checkOpt(username, "username")
                             sleep(1)
-                            username=str(input("[::] Please enter again the username: "))
+                            username=input(f"{yellow}[::] Username No{i+1} >>> ")
                         while valUser(username):
                             if type(CheckVal()) == bool:
                                 CheckVal()
@@ -4033,40 +3324,41 @@ def main():
                         try:
                             client.user_unfollow(uid)
                             sleep(2)
-                            print(f"[✓] Unfollowed {username} !")
+                            print(f"{green}[✓] Unfollowed {username}.")
                         except Exception as e:
                             Except(ex)
                     Class()
             else:
-                print(f"[+] Current time: {current_time}")
-                sleep(1)
-                print(f"[+] Waiting for time: {__time__}")
-                sleep(1)
+                print(f"{yellow}[+] Current time: {current_time}")
+                sleep(0.8)
+                print(f"{yellow}[+] Waiting for time: {tm}...")
+                sleep(0.8)
                 Class()
 
     elif option == 56:
         clear()
-        user=str(input("[::] Please enter the username: "))
+        user=input(f"{yellow}[::] Username >>> ")
         while checkUser(user):
             checkOpt(user, "username")
             sleep(1)
-            user=str(input("[::] Please enter again the username: "))
+            user=input(f"{yellow}[::] Username >>> ")
         while valUser(user):
             if type(CheckVal()) == bool:
                 CheckVal()
             else:
                 user = CheckVal()
         user = user.lower().strip()
+        sleep(1)
         print(GetID(user))
-        id=int(input("[::] Please enter the user's ID as shown above: "))
+        id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
         while checkID(id):
             checkOpt(id, "id")
             sleep(1)
-            id=int(input("[::] Please enter again the user's ID as shown above: "))
+            id=int(input(f"{yellow}[::] ID (as shown above) >>> "))
         try:
             api.block_friend_reel(id)
             sleep(2)
-            print(f"[✓] User: {user} blocked from watching your stories")
+            print(f"{green}[✓] User: {user} blocked from watching your stories.")
             Class()
         except Exception as ex:
             Except(ex)
@@ -4075,15 +3367,15 @@ def main():
         clear()
         print(Uninstall())
         sleep(2)
-        print("[+] Thank you for choosing to use my script 😀😁")
+        print(f"{yellow}[+] Thank you for choosing IAM 😀😁")
         sleep(2)
-        print("[+] Hope you enjoyed it 🤗")
+        print(f"{yellow}[+] Hope you enjoyed it 🤗")
         sleep(1)
-        print("[+] If you have any suggestions or found a bug or need help feel free to contact me anytime, at this email address: new92github@gmail.com")
+        print(f"{yellow}[+] Found a bug ? Report it here ==> https://github.com/new92/IAM/issues/new/choose")
         sleep(3)
-        print("[+] Until we meet again 🫡")
+        print(f"{yellow}[+] Until we meet again 🫡")
         sleep(1)
-        quit(0)
+        exit(0)
 
 if __name__ == '__main__':
     main()
