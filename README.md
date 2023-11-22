@@ -179,7 +179,6 @@ Answers:
   git clone https://github.com/new92/IAM
   cd IAM
   sudo pip install -r requirements.txt
-  python3 cookies.py
   python3 IAM.py
 ```
 
@@ -189,7 +188,6 @@ Answers:
   git clone https://github.com/new92/IAM
   cd IAM
   pip install -r requirements.txt
-  python3 cookies.py
   python3 IAM.py
 ```
 
@@ -199,7 +197,6 @@ Answers:
   git clone https://github.com/new92/IAM
   cd IAM
   python -m pip install requirements.txt
-  python cookies.py
   python IAM.py
 ```
 
