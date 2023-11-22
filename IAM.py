@@ -55,7 +55,6 @@ try:
     import os
     from colorama import init, Fore
     from tkinter import *
-    from selenium import webdriver
 except ImportError or ModuleNotFoundError:
     print("[!] WARNING: Not all packages used in IAM have been installed !")
     sleep(2)
@@ -194,7 +193,7 @@ def checkOpt(opt,data):
         sleep(1)
         print(f"{green}[*] Acceptable length: greater than 3")
     elif data == "path":
-        print(f"{green}[*] Path must contain: / or \ ")
+        print(f"{green}[*] Path must contain: / or \\ ")
     else:
         print(f"{red}[!] Invalid number !")
 
