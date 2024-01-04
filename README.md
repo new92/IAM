@@ -106,6 +106,46 @@ You can use the IAM script to perform the following actions:
 [![Contributors](https://img.shields.io/github/contributors/new92/IAM?style=for-the-badge)](https://img.shields.io/github/contributors/new92/IAM)
 
 
+## Installation 📥
+
+### Linux 🐧
+
+```bash
+  sudo su
+  git clone https://github.com/new92/IAM
+  cd IAM
+  sudo pip install -r requirements.txt
+  python3 cookies.py
+  python3 IAM.py
+```
+
+### Windows 🪟
+
+```bash
+  git clone https://github.com/new92/IAM
+  cd IAM
+  pip install -r requirements.txt
+  python3 cookies.py
+  python3 IAM.py
+```
+
+### MacOS 🍎
+
+```bash
+  git clone https://github.com/new92/IAM
+  cd IAM
+  python -m pip install requirements.txt
+  python3 cookies.py
+  python3 IAM.py
+```
+
+## Update 🔄️
+
+```bash
+   cd IAM
+   git pull
+```
+
 ## Contributing 🤝
 
 Contributions are always welcome!
@@ -169,46 +209,6 @@ Answers:
     
     ➡️ And finally the error while setting a specific time to execute an action can be resolved by 
 
-
-## Installation 📥
-
-### Linux 🐧
-
-```bash
-  sudo su
-  git clone https://github.com/new92/IAM
-  cd IAM
-  sudo pip install -r requirements.txt
-  python3 cookies.py
-  python3 IAM.py
-```
-
-### Windows 🪟
-
-```bash
-  git clone https://github.com/new92/IAM
-  cd IAM
-  pip install -r requirements.txt
-  python3 cookies.py
-  python3 IAM.py
-```
-
-### MacOS 🍎
-
-```bash
-  git clone https://github.com/new92/IAM
-  cd IAM
-  python -m pip install requirements.txt
-  python cookies.py
-  python IAM.py
-```
-
-## Update 🔄️
-
-```bash
-   cd IAM
-   git pull
-```
 
     
 ## License 📄
