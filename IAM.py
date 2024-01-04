@@ -55,7 +55,7 @@ try:
     import os
     from colorama import init, Fore
     from tkinter import *
-except ImportError or ModuleNotFoundError:
+except (ImportError, ModuleNotFoundError):
     print("[!] WARNING: Not all packages used in IAM have been installed !")
     sleep(2)
     print("[+] Ignoring warning...")
@@ -90,7 +90,6 @@ except ImportError or ModuleNotFoundError:
                         for root, dirs, files in os.walk('/'):
                             if fname in files:
                                 return os.path.abspath(os.path.join(root, fname))
-                        return None
                     def rmdir(dire):
                         DIRS = []
                         for root, dirs, files in os.walk(dire):
@@ -133,7 +132,6 @@ def fpath(fname: str):
     for root, dirs, files in os.walk('/'):
         if fname in files:
             return os.path.abspath(os.path.join(root, fname))
-    return None
 
 def banner() -> str:
     return f"""{green}
@@ -316,7 +314,6 @@ def ScriptInfo():
     print(f"{yellow}[+] Open pull requests ==> {conf['prs']}")
     print(f"{yellow}[+] Closed pull requests ==> {conf['clprs']}")
     print(f"{yellow}[+] Discussions ==> {conf['discs']}")
-
 
 def checkUser(username: str) -> bool:
     return username in NULL or len(username) > 30
