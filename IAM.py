@@ -33,6 +33,7 @@ try:
         sleep(1)
         exit(0)
     import platform
+    from os import system
     from rich.align import Align
     from rich.table import Table
     from rich.live import Live
@@ -43,7 +44,6 @@ try:
         for mod in mods:
             sleep(0.8)
             console.log(f'[[bold red]{mod}[/]] => [bold dark_green]okay')
-    from os import system
     import instagrapi
     import instaloader
     import instagram_private_api
