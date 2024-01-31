@@ -1,8 +1,6 @@
 instagrapi == 1.16.30
 instaloader == 4.9.5
 requests == 2.31.0
-instagram_private_api == 1.6.0.0
-instapy == 0.6.16
 colorama == 0.4.6
 selenium == 4.9.0
 rich == 12.6.0

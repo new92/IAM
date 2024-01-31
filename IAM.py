@@ -31,12 +31,11 @@ try:
         sleep(2)
         print("[+] Exiting...")
         sleep(1)
-        exit(0)
+        quit()
     import platform
     from os import system
     from rich.align import Align
     from rich.table import Table
-    from rich.live import Live
     from rich.console import Console
     console = Console()
     mods = ['sys', 'time', 'os', 'platform', 'rich', 'instagrapi', 'requests', 'json', 'instaloader', 'tkinter', 'colorama']
@@ -46,11 +45,7 @@ try:
             console.log(f'[[bold red]{mod}[/]] => [bold dark_green]okay')
     import instagrapi
     import instaloader
-    import instagram_private_api
-    import instapy
     import json
-    import webbrowser
-    import datetime
     import requests as re
     import os
     from colorama import init, Fore
@@ -125,7 +120,7 @@ yellow = Fore.YELLOW
 sleep(0.8)
 console.clear()
 console.print(f"[bold dark_green][✓] Successfully loaded modules.")
-sleep(1.1)
+sleep(0.8)
 console.clear()
 
 def fpath(fname: str):
@@ -290,7 +285,7 @@ def AvActs() -> str:
     """
 
 def ScriptInfo():
-    with open('IAM/config.json') as config:
+    with open('./config.json') as config:
         conf = json.load(config)
     f = f"{conf['name']}.py"
     fp = fpath(f) is None
@@ -375,13 +370,12 @@ random = None
 sktp = None
 count = 0
 
-
 def main():
     print(banner())
     print(f"\n")
     print(f"{yellow}[+] IAM: Instagram Account Manager")
     print(f"\n")
-    print(f"{yellow}[+] Python script for Managing your Instagram Account Remotely")
+    print(f"{yellow}[+] Python script for managing your instagram account remotely.")
     print(f"\n")
     with Live(centered, console=console, screen=False):
         table.add_column('Socials', no_wrap=False)
@@ -465,7 +459,7 @@ def main():
     print(f"\n")
     print(f"{yellow}[0] Exit")
     print(f"\n")
-    option=int(input(f"{yellow}[::] Please enter a number (from the above ones): "))
+    option=int(input(f"{yellow}[::] Please enter a number (from the above ones) >>> "))
     while valOpt(option,1,57) and opt != 999:
         checkOpt(option, "other")
         sleep(2)
@@ -545,36 +539,35 @@ def main():
         print(f"\n")
         print(f"{yellow}[0] Exit") 
         print(f"\n")
-        option=int(input(f"{yellow}[::] Please enter again a number (from the above ones): "))
+        option=int(input(f"{yellow}[::] Please enter again a number (from the above ones) >>> "))
     if option != 0:
         clear()
         print(f"\n")
         print(f"|--------------------|LOGIN|--------------------|")
         print(f"\n")
-        username=input(f"{yellow}[::] Please enter your username: ")
+        username=input(f"{yellow}[::] Please enter your username >>> ")
         while checkUser(username):
             checkOpt(username, "username")
             sleep(1)
-            username=input(f"{yellow}[::] Please enter again your username: ")
+            username=input(f"{yellow}[::] Please enter again your username >>> ")
         while valUser(username):
-            if type(CheckVal()) == bool:
+            resp = CheckVal()
+            if type(resp) == bool:
                 CheckVal()
             else:
-                username = CheckVal()
+                username = resp
         username = username.lower().strip()
         global globalu
         globalu = username
-        password=input(f"{yellow}[::] Please enter your password: ")
+        password=input(f"{yellow}[::] Please enter your password >>> ")
         while password in NULL:
             print(f"{red}[✕] This field can't be blank !")
             sleep(1)
-            password=input(f"{yellow}[::] Please enter again your password: ")
+            password=input(f"{yellow}[::] Please enter again your password >>> ")
         password = password.strip()
         try:
             loader.login(username,password)
             client.login(username,password,True)
-            api = instagram_private_api.Client(username, password)
-            bot = instapy.InstaPy(username, password)
         except Exception as ex:
             Except(ex)
 
@@ -789,17 +782,17 @@ def main():
             sleep(2)
             print(f"{green}[*] Acceptable answers: {ANS}")
             sleep(2)
-            tags=input(f"{yellow}[?] Tag users >>> ")
-            while tags.lower() not in ANS or tags in NULL:
+            tags=input(f"{yellow}[?] Tag users >>> ").lower()
+            while tags not in ANS or tags in NULL:
                 if tags in NULL:
                     print(f"{red}[!] This field can't be empty !")
                 else:
                     print(f"{red}[!] Invalid answer !")
                     sleep(1)
-                    print(f"{green}[*] Acceptable answers: {ANS}")
+                    print(f"{green}[*] Acceptable answers >>> {ANS}")
                 sleep(1)
-                tags=input(f"{yellow}[?] Tag users >>> ")
-            if tags.lower() == ANS[0]:
+                tags=input(f"{yellow}[?] Tag users >>> ").lower()
+            if tags == ANS[0]:
                 print(f"{yellow}[+] Default: 1")
                 sleep(2)
                 print(f"{yellow}[*] Hit <Enter> to apply the default option")
@@ -831,14 +824,14 @@ def main():
                         TaggedUsers.append(utag)
             print(f"{yellow}>>>LOCATION<<<")
             sleep(2)
-            print(f"{yellow}[+] Default: {ANS[1]}")
+            print(f"{yellow}[+] Default >>> {ANS[1]}")
             sleep(1)
             print(f"{yellow}[*] Hit <Enter> to apply the default option")
             sleep(2)
-            print(f"{green}[*] Acceptable answers: {ANS}")
+            print(f"{green}[*] Acceptable answers >>> {ANS}")
             sleep(1)
-            loc=input(f"{yellow}[?] Include location(s) >>> ")
-            if loc.lower() == ANS[0]:
+            loc=input(f"{yellow}[?] Include location(s) >>> ").lower()
+            if loc == ANS[0]:
                 count=int(input(f"{yellow}[?] Number >>> "))
                 while checkCount(count):
                     checkOpt(count,"other")
@@ -854,12 +847,12 @@ def main():
                     print(f"{green}[✓] Location added !")
                 try:
                     client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
-                    sleep(2)
+                    sleep(1)
                     print(f"{green}[✓] Photo uploaded !")
                     Class()
                 except Exception as ex:
                     Except(ex)
-            if tags.lower() in ANS and loc.lower() in ANS:
+            if tags in ANS and loc in ANS:
                 try:
                     client.photo_upload(path=path,caption=caption,usertags=TaggedUsers,location=LOCATIONS)
                     sleep(2)
@@ -868,7 +861,7 @@ def main():
                 except Exception as ex:
                     Except(ex)
 
-            elif tags.lower() in ANS and loc.lower() in ANS:
+            elif tags in ANS and loc in ANS:
                 try:
                     client.photo_upload(path=path,caption=caption,tags=TaggedUsers)
                     sleep(2)
@@ -877,7 +870,7 @@ def main():
                 except Exception as ex:
                     Except(ex)
 
-            elif tags.lower() in ANS and loc.lower() in ANS:
+            elif tags in ANS and loc in ANS:
                 try:
                     client.photo_upload(path=path,caption=caption,location=LOCATIONS)
                     sleep(2)
@@ -886,7 +879,7 @@ def main():
                 except Exception as ex:
                     Except(ex)
 
-            elif tags.lower() in ANS and loc.lower() in ANS:
+            elif tags in ANS and loc in ANS:
                 try:
                     client.photo_upload(path=path,caption=caption)
                     sleep(2)
@@ -898,33 +891,27 @@ def main():
     elif option == 12:
         clear()
         EN = ["enable","disable"]
-        print(f"{green}[*] Acceptable answers: {EN}")
+        print(f"{green}[*] Acceptable answers >>> {EN}")
         sleep(1)
-        endis=input(f"{yellow}[?] ENTER >>> ")
-        while endis.lower() not in EN or endis in NULL:
-            if endis in NULL:
-                print(f"{red}[✕] This field can't be blank !")
-            else:
-                print(f"{red}[!] Invalid input !")
+        endis=input(f"{yellow}[?] ENTER >>> ").lower()
+        while endis not in EN or endis in NULL:
+            print(f"{red}[✕] This field can't be blank !") if endis in NULL else print(f"{red}[!] Invalid input !")
             sleep(1)
-            print(f"{green}[*] Acceptable answers: {EN}")
+            print(f"{green}[*] Acceptable answers >>> {EN}")
             sleep(1)
-            endis=input(f"{yellow}[?] Notifications to enable >>> ")
-        if endis.lower() == EN[0]:
+            endis=input(f"{yellow}[?] Notifications to enable >>> ").lower()
+        if endis == EN[0]:
             noti = ['posts', 'reels', 'stories', 'videos']
             print(f"{green}[*] Notifications available for: {noti}")
             sleep(2)
-            action=input(f"{yellow}[?] Notifications to enable >>> ")
-            while action.lower() not in noti or action in NULL:
-                if action in NULL:
-                    print(f"{red}[✕] This field can't be blank !")
-                else:
-                    print(f"{red}[!] Invalid input !")
+            action=input(f"{yellow}[?] Notifications to enable >>> ").lower()
+            while action not in noti or action in NULL:
+                print(f"{red}[✕] This field can't be blank !") if action in NULL else print(f"{red}[!] Invalid input !")
                 sleep(1)
                 print(f"{green}[*] Acceptable answers: {noti}")
                 sleep(1)
-                action=input(f"{yellow}[?] Please enter again the notifications to enable: ")
-            if action.lower() == "posts":
+                action=input(f"{yellow}[?] Please enter again the notifications to enable >>> ").lower()
+            if action == "posts":
                 print(GetID(globalu))
                 uid=int(input(f"{yellow}[::] ID (as shown above) >>> "))
                 while checkID(uid):
@@ -1000,19 +987,19 @@ def main():
         sleep(2)
         print(f"{green}[*] Acceptable answers: {ANS}")
         sleep(1)
-        AddCaption=input(f"{yellow}[?] Add caption >>> ")
-        while AddCaption.lower() not in ANS or AddCaption in NULL:
+        AddCaption=input(f"{yellow}[?] Add caption >>> ").lower()
+        while AddCaption not in ANS or AddCaption in NULL:
             if AddCaption in NULL:
                 print(f"{red}[✕] This field can't be blank !")
             else:
                 print(f"{red}[!] Invalid input !")
                 sleep(1)
-                print(f"{green}[*] Acceptable answers: {ANS}")
+                print(f"{green}[*] Acceptable answers >>> {ANS}")
             sleep(1)
-            AddCaption=input(f"{yellow}[?] Add caption >>> ")
-        if AddCaption.lower() == ANS[0]:
+            AddCaption=input(f"{yellow}[?] Add caption >>> ").lower()
+        if AddCaption == ANS[0]:
             default = 'Check out my new story !'
-            print(f"{yellow}[+] Default: {default}")
+            print(f"{yellow}[+] Default >>> {default}")
             sleep(1)
             print(f"{yellow}[*] Hit <Enter> to apply the default option")
             sleep(2)
@@ -1030,7 +1017,7 @@ def main():
                     sleep(1)
                     caption=input(f"{yellow}[::] Caption >>> ")
         sleep(1)
-        print(f"{green}[*] Acceptable answers: {ANS}")
+        print(f"{green}[*] Acceptable answers >>> {ANS}")
         sleep(1)
         AddMention=input(f"{yellow}[?] Tag other users >>> ")
         while AddMention.lower() not in ANS or AddMention in NULL:
@@ -1060,7 +1047,7 @@ def main():
         print(f"{green}[*] Acceptable answers: {ANS}")
         sleep(1)
         AddLoc=input(f"{yellow}[?] Add location >>> ")
-        while AddLoc.lower() not in ANS or AddLoc in NULL:
+        while Addloc not in ANS or AddLoc in NULL:
             if AddLoc in NULL:
                 print(f"{red}[✕] This field can't be blank !")
             else:
@@ -1069,7 +1056,7 @@ def main():
             print(f"{green}[*] Acceptable answers: {ANS}")
             sleep(1)
             AddLoc=input(f"{yellow}[?] Add location >>> ")
-        if AddLoc.lower() == ANS[0]:
+        if Addloc == ANS[0]:
             count=int(input(f"{yellow}[?] Number of locations >>> "))
             while checkCount(count):
                 checkOpt(count, "other")
@@ -1266,7 +1253,7 @@ def main():
                 print(f"{green}[✓] Hashtag added.")
         sleep(1)
         inloc=input(f"{yellow}[?] Include location(s) >>> ")
-        while inloc.lower() not in ANS or inloc in NULL:
+        while inloc not in ANS or inloc in NULL:
             if inloc in NULL:
                 print(f"{red}[✕] This field can't be blank !")
             else:
@@ -1708,7 +1695,7 @@ def main():
         print(f"{green}[+] Acceptable answers >>> {ANS}")
         sleep(0.9)
         rtags=input(f"{yellow}[::] Like random hashtags >>> ")
-        while rtags.lower() not in ANS or rtags in NULL:
+        while rtags not in ANS or rtags in NULL:
             if rtags in NULL:
                 print(f"{red}[✕] This field can't be blank !")
             else:
@@ -1717,7 +1704,7 @@ def main():
                 print(f"{green}[+] Acceptable answers >>> {ANS}")
             sleep(1)
             rtags=input(f"{yellow}[::] Like random hashtags >>> ")
-        random = rtags.lower() == ANS[0]
+        random = rtags == ANS[0]
         try:
             bot.like_by_tags(LTAGS, random, count)
             sleep(2)
@@ -2777,7 +2764,7 @@ def main():
                 print(f"{green}[+] Acceptable answers >>> {ANS}")
                 sleep(1)
                 tags=input(f"{yellow}[::] Tag user(s) >>> ")
-                while tags.lower() not in ANS or tags in NULL:
+                while tags not in ANS or tags in NULL:
                     if tags in NULL:
                         print(f"{red}[✕] This field can't be blank !")
                     else:
@@ -2833,7 +2820,7 @@ def main():
                 print(f"{green}[+] Acceptable answers >>> {ANS}")
                 sleep(1)
                 loc=input(f"{yellow}[::] Include location >>> ")
-                while loc.lower() not in ANS or loc in NULL:
+                while loc not in ANS or loc in NULL:
                     if loc in NULL:
                         print(f"{red}[✕] This field can't be blank !")
                     else:
@@ -3005,7 +2992,7 @@ def main():
             print(f"{green}[+] Acceptable answers >>> {ANS}")
             sleep(1)
             AddLoc=input(f"{yellow}[::] Add location >>> ")
-            while AddLoc.lower() not in ANS or AddLoc in NULL:
+            while Addloc not in ANS or AddLoc in NULL:
                 if AddLoc in NULL:
                     print(f"{red}[✕] This field can't be blank !")
                 else:
@@ -3168,7 +3155,7 @@ def main():
             print(f"{green}[+] Acceptable answers >>> {ANS}")
             sleep(1)
             inloc=input(f"{yellow}[::] Include location(s) >>> ")
-            while inloc.lower() not in ANS or inloc in NULL:
+            while inloc not in ANS or inloc in NULL:
                 print(f"{red}[✕] This field can't be blank !")
                 sleep(1)
                 inloc=input(f"{yellow}[::] Include location(s) >>> ")
