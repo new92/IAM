@@ -37,6 +37,7 @@ try:
     from rich.align import Align
     from rich.table import Table
     from rich.console import Console
+    from rich.live import Live
     console = Console()
     mods = ['sys', 'time', 'os', 'platform', 'rich', 'instagrapi', 'requests', 'json', 'instaloader', 'tkinter', 'colorama']
     with console.status('[bold dark_orange]Loading module...') as status:
