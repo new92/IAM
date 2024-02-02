@@ -546,28 +546,27 @@ def main():
         print(f"\n")
         print(f"|--------------------|LOGIN|--------------------|")
         print(f"\n")
-        username=input(f"{yellow}[::] Please enter your username >>> ")
+        username=input(f"{yellow}[::] Please enter your username >>> ").lower().strip()
         while checkUser(username):
             checkOpt(username, "username")
             sleep(1)
-            username=input(f"{yellow}[::] Please enter again your username >>> ")
+            username=input(f"{yellow}[::] Please enter again your username >>> ").lower().strip()
         while valUser(username):
             resp = CheckVal()
             if type(resp) == bool:
                 CheckVal()
             else:
                 username = resp
-        username = username.lower().strip()
         global globalu
         globalu = username
-        password=input(f"{yellow}[::] Please enter your password >>> ")
+        password=input(f"{yellow}[::] Please enter your password >>> ").strip()
         while password in NULL:
             print(f"{red}[✕] This field can't be blank !")
             sleep(1)
-            password=input(f"{yellow}[::] Please enter again your password >>> ")
-        password = password.strip()
+            password=input(f"{yellow}[::] Please enter again your password >>> ").strip()
+        path=input(f"{yellow}[::] Please enter the path to the session file >>> ").strip()
         try:
-            loader.login(username,password)
+            loader.load_session_from_file(username, path)
             client.login(username,password,True)
         except Exception as ex:
             Except(ex)
