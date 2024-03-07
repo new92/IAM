@@ -49,6 +49,7 @@ try:
     import json
     import requests as re
     import os
+    import webdriver
     from colorama import init, Fore
     from tkinter import *
 except (ImportError, ModuleNotFoundError):
