@@ -318,7 +318,7 @@ def GetID(username: str) -> int:
     return loader.check_profile_id(username)
 
 def checkID(id: int) -> bool:
-    return id == None or len(id) < 3
+    return not id or len(id) < 3
 
 TABLE = [
     [
@@ -339,39 +339,14 @@ TABLE = [
     ]
 ]
 
-console = Console()
-table = Table(show_footer=False)
-centered = Align.center(table)
-
-TaggedUsers=[]
-Location=[]
-Locations=[]
-REC=[]
-LOCATIONS=[]
-LINKS=[]
-IDS=[]
-HASHTAGS=[]
-FUFERS=[]
-FUFING=[]
-LTAGS=[]
-LBU=[]
-MSGIDS=[]
-FILEIDS=[]
-PHOTOIDS=[]
-VIDEOIDS=[]
-LBL=[]
-BLOCKU=[]
-REPLS=[]
-STIDS=[]
-STBTGS=[]
-GTST=[]
-HASHVID=[]
-LOCLIKE=[]
-random = None
-sktp = None
+TaggedUsers, Location, Locations, REC, LOCATIONS, LINKS, IDS, HASHTAGS, FUFERS, FUFING, LTAGS, LBU, MSGIDS, FILEIDS, PHOTOIDS, VIDEOIDS, LBL, BLOCKU, REPLS, STIDS, STBTGS, GTST, HASHVID, LOCLIKE = [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []
+random, sktp = None, None
 count = 0
 
 def main():
+    console = Console()
+    table = Table(show_footer=False)
+    centered = Align.center(table)
     print(banner())
     print(f"\n")
     print(f"{yellow}[+] IAM: Instagram Account Manager")
@@ -571,7 +546,7 @@ def main():
         except Exception as ex:
             Except(ex)
 
-    elif option == 999:
+    if option == 999:
         clear()
         ScriptInfo()
     
@@ -3361,4 +3336,6 @@ def main():
         exit(0)
 
 if __name__ == '__main__':
+    sleep(2)
+    clear()
     main()
