@@ -49,7 +49,6 @@ try:
     import json
     import requests as re
     import os
-    import webdriver
     from colorama import init, Fore
     from tkinter import *
 except (ImportError, ModuleNotFoundError):
@@ -422,9 +421,9 @@ def main():
     print(f"{yellow}[50] Reset password")
     print(f"\n")
     print(f"{yellow}[51] Edit profile")
-    print(f"{yellow}[52] Like/Unlike (post(s), reel(s), igtv(s) etc.)")
-    print(f"{yellow}[53] Delete (post(s), reel(s), igtv(s) etc.)")
-    print(f"{yellow}[54] Save/Unsave (post(s), reel(s), igtv(s) etc.)")
+    print(f"{yellow}[52] Like/Unlike (post(s), reel(s), igtv(s) etc.) {red}<== CURRENTLY UNAVAILABLE")
+    print(f"{yellow}[53] Delete (post(s), reel(s), igtv(s) etc.) {red}<== CURRENTLY UNAVAILABLE")
+    print(f"{yellow}[54] Save/Unsave (post(s), reel(s), igtv(s) etc.) {red}<== CURRENTLY UNAVAILABLE")
     print(f"\n")
     print(f"{yellow}[55] Set a specific time (from the current day) to execute an action")
     print(f"\n")
