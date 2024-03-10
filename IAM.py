@@ -139,8 +139,6 @@ def banner() -> str:
     ╚═╝╚═╝░░╚═╝╚═╝░░░░░╚═╝
     """
 
-webdriver = None
-
 def clear():
     system('cls' if platform.system() == 'Windows' else 'clear')
 
