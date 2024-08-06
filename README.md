@@ -2,7 +2,7 @@
 
 Instagram Account Manager.
 
-Use this script to manage your Instagram account remotely.
+Python script to manage your Instagram account remotely.
 
 
 ## Usage ⚙️
