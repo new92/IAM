@@ -210,8 +210,10 @@ Answers:
     ➡️ And finally the error while setting a specific time to execute an action can be resolved by 
 
 
-    
 ## License 📄
 
 [![License](https://img.shields.io/github/license/new92/IAM?style=for-the-badge)](https://img.shields.io/github/license/new92/IAM)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=new92/IAM&type=Date)](https://star-history.com/#new92/IAM&Date)
